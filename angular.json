@@ -104,8 +104,23 @@
           "options": {
             "buildTarget": "ch0pch0p-web:build"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "3b08a9c2-9a76-46f5-ba4c-63e8cf7c234b",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
