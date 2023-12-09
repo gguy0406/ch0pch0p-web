@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["Monotalic"]
+  "cSpell.words": ["Monotalic"],
+  "scss.lint.unknownAtRules": "ignore"
 }
