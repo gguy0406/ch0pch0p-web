@@ -1,0 +1,38 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+@use "@material/typography" as mdc-typography;
+
+// Converts an MDC typography level config to an Angular Material one.
+@function typography-config-level-from-mdc($mdc-level, $font-family) {
+  $mdc-level-config: map.get(mdc-typography.$styles, $mdc-level);
+
+  @return mat.define-typography-level(
+    $font-family: $font-family,
+    $font-size: map.get($mdc-level-config, font-size),
+    $line-height: map.get($mdc-level-config, line-height),
+    $font-weight: map.get($mdc-level-config, font-weight),
+    $letter-spacing: map.get($mdc-level-config, letter-spacing)
+  );
+}
+
+$headline-font: Fredoka, sans-serif;
+$body-font: Monotalic, sans-serif;
+
+$ch0pch0p-typography: mat.define-typography-config(
+  $font-family: $body-font,
+  $headline-1: typography-config-level-from-mdc(headline1, $headline-font),
+  $headline-2: typography-config-level-from-mdc(headline2, $headline-font),
+  $headline-3: typography-config-level-from-mdc(headline3, $headline-font),
+  $headline-4: typography-config-level-from-mdc(headline4, $headline-font),
+  $headline-5: typography-config-level-from-mdc(headline5, $headline-font),
+  $headline-6: typography-config-level-from-mdc(headline6, $headline-font),
+  $subtitle-1: typography-config-level-from-mdc(subtitle1, $headline-font),
+  $subtitle-2: typography-config-level-from-mdc(subtitle2, $headline-font),
+  $body-1: typography-config-level-from-mdc(body1, $body-font),
+  $body-2: typography-config-level-from-mdc(body2, $body-font),
+  $caption: typography-config-level-from-mdc(caption, $body-font),
+  $button: typography-config-level-from-mdc(button, $body-font),
+  $overline: typography-config-level-from-mdc(overline, $body-font),
+);
+
+@include mat.typography-hierarchy($ch0pch0p-typography);
