@@ -36,3 +36,11 @@ $ch0pch0p-typography: mat.define-typography-config(
 );
 
 @include mat.typography-hierarchy($ch0pch0p-typography);
+
+.headline-font {
+  font-family: $headline-font !important;
+}
+
+.body-font {
+  font-family: $body-font !important;
+}

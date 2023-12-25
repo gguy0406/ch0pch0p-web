@@ -1,0 +1,16 @@
+<img priority ngSrc="assets/logo.svg" width="267" height="84" alt="app logo" />
+<div class="flex items-center gap-x-14">
+  <button mat-button [matMenuTriggerFor]="menu" class="headline-font !text-2xl">
+    Our Collections <mat-icon iconPositionEnd inline>arrow_drop_down</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>"0" by ch0pch0p</button>
+    <button mat-menu-item>c1</button>
+  </mat-menu>
+  <a mat-button href="/leaderboard" class="headline-font text-2xl">Hall of Fame</a>
+  <a mat-button href="/roadmap" class="headline-font text-2xl">Roadmap</a>
+  <a mat-button href="/ch0p" class="headline-font text-2xl">ch0p it!</a>
+</div>
+<a mat-flat-button [href]="C1_URL" target="_blank" class="!rounded-none !bg-lunar !py-12 !px-10 text-2xl font-bold">
+  buy ch0pch0p
+</a>

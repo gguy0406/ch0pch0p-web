@@ -43,6 +43,10 @@ $ch0pch0p-theme: mat.define-dark-theme(
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --mdc-outlined-button-container-shape: 99px;
+}
+
 html,
 body {
   height: 100%;
