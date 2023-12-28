@@ -1,0 +1,173 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+
+<ng-template #heading let-class="class" let-text="text">
+  <div class="rounded-[20px] w-fit py-5 px-[60px] text-3xl" [ngClass]="class">
+    {{ text }}
+  </div>
+</ng-template>
+
+<!-- section 1 -->
+<ng-template #gridItem let-idx="idx">
+  <div
+    class="grid-item"
+    [ngClass]="getGridItemClass(idx)"
+    [style.--col]="(idx % 9) + 1"
+    [style.--row]="(idx - (idx % 9)) / 9 + 1"
+  ></div>
+</ng-template>
+<div class="absolute -top-36 right-0 bottom-0 left-0 h-[3240px]">
+  <div class="sticky top-0 h-[1080px] grid grid-cols-9 grid-rows-6 overflow-hidden">
+    @for (i of array(40); track i; let idx = $index) {
+      <ng-container *ngTemplateOutlet="gridItem; context: { idx }" />
+    }
+    @if (scroll > 0.33 || isUnveiled) {
+      <div class="relative grid-item bg-white border-solid border border-[#afafaf] flex items-center justify-center">
+        <div
+          [@unveil]="isUnveiled ? 'unveiled' : 'covered'"
+          (click)="isUnveiled = true"
+          class="absolute -inset-[1px] bg-lunar flex items-center justify-center origin-top-left"
+          [class.cursor-pointer]="!isUnveiled"
+        >
+          <span class="text-center text-[40px] font-bold leading-tight text-white">what's next!</span>
+        </div>
+        @if (isUnveiled) {
+          <span class="text-center text-[40px] font-bold leading-tight">coming soon!</span>
+        }
+      </div>
+    } @else {
+      <ng-container *ngTemplateOutlet="gridItem; context: { idx: 40 }" />
+    }
+    @for (i of array(13); track i; let idx = $index) {
+      <ng-container *ngTemplateOutlet="gridItem; context: { idx: idx + 41 }" />
+    }
+    <div class="absolute top-[200px] w-full flex flex-col items-center">
+      <ng-container
+        *ngTemplateOutlet="
+          heading;
+          context: { class: 'bg-[#ffc600]', text: 'Keep scrolling until you see the surprise!' }
+        "
+      />
+      <div
+        class="mt-10 bg-budd text-gradient text-[150px] leading-tight font-fredoka font-semibold drop-shadow-heading shadow-black"
+      >
+        Unleashing the
+      </div>
+      <div
+        class="bg-toxic text-gradient text-[150px] leading-none font-fredoka font-semibold drop-shadow-heading shadow-black"
+      >
+        best version
+      </div>
+    </div>
+    <img ngSrc="assets/c0-kv.svg" width="1200" height="600" alt="kv" class="fly-kv" />
+  </div>
+</div>
+
+<div class="mt-[2968px] bg-app text-white">
+  <div class="w-full pt-[120px] flex flex-col items-center">
+    <!-- section 2 -->
+    <ng-template #joinNow let-img="img">
+      <span class="text-[50px] font-bold">join now</span>
+      <img [ngSrc]="img" width="100" height="100" alt="join now decor" />
+    </ng-template>
+    <ng-container
+      *ngTemplateOutlet="heading; context: { class: 'bg-[#fb4932]', text: 'A must-join (NFT) community on Cosmos' }"
+    />
+    <div class="mt-[60px] w-full px-[50px] flex gap-x-[60px]">
+      <div class="relative basis-1/3 aspect-square">
+        <img fill ngSrc="assets/c1/1.png" alt="c1 asset" class="rounded-[50px]" />
+      </div>
+      <div class="relative basis-1/3 aspect-square">
+        <img fill ngSrc="assets/c1/2.png" alt="c1 asset" class="rounded-[50px]" />
+      </div>
+      <div class="relative basis-1/3 aspect-square">
+        <img fill ngSrc="assets/c1/3.png" alt="c1 asset" class="rounded-[50px]" />
+      </div>
+    </div>
+    <div class="w-full px-10">
+      <div class="mt-20 rounded-[50px] border-[3px] border-solid border-white w-full py-10 px-[50px] overflow-x-hidden">
+        <div class="join-now-slide">
+          <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/1.png' }" />
+          <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/2.png' }" />
+          <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/3.png' }" />
+          <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/4.png' }" />
+          <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/5.png' }" />
+          <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/1.png' }" />
+          <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/2.png' }" />
+          <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/3.png' }" />
+          <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/4.png' }" />
+          <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/5.png' }" />
+        </div>
+      </div>
+    </div>
+
+    <!-- section 3 -->
+    <ng-template #answer let-text="text">
+      <div
+        class="basis-1/4 rounded-[50px] border-[3px] border-solid border-white p-10 text-justify font-fredoka text-2xl"
+      >
+        {{ text }}
+      </div>
+    </ng-template>
+    <ng-container *ngTemplateOutlet="heading; context: { class: 'bg-[#11cca7] mt-40', text: 'gress what!' }" />
+    <div
+      class="mt-10 bg-lime text-gradient text-[100px] leading-tight font-fredoka font-semibold drop-shadow-heading shadow-[#3d3d3d]"
+    >
+      How to ch0pch0p
+    </div>
+    <div
+      class="bg-budd text-gradient text-[100px] leading-tight font-fredoka font-semibold drop-shadow-heading shadow-[#3d3d3d]"
+    >
+      appear on cosmos
+    </div>
+    <div class="mt-[60px] mx-10 flex items-end gap-x-10">
+      <ng-container
+        *ngTemplateOutlet="
+          answer;
+          context: {
+            text: 'We were so fed up & frustrated with our jobs & bosses, so we decided to do sth fun and authentic on the internet and pray that we would gather a community that was both witty and genuine - just like us (even everyone said that internet friends are not real, lol).'
+          }
+        "
+      />
+      <ng-container
+        *ngTemplateOutlet="
+          answer;
+          context: {
+            text: 'We discussed back and forth choosing the playground that contained a lot of naughty & (bad) kids. We are fun but poor. It can\'t be ETH or Solana - where the playground is too crowded & gas is expensive.'
+          }
+        "
+      />
+      <ng-container
+        *ngTemplateOutlet="
+          answer;
+          context: {
+            text: 'Then Thang appeared like a god and told us about Cosmos & its superior tech stack. The pitch was too long, but we remembered that the gas fee was nearly 0. We chose Stargaze to launch &quot;0&quot; by ch0pch0p.'
+          }
+        "
+      />
+      <ng-container
+        *ngTemplateOutlet="
+          answer;
+          context: {
+            text: 'We now have hundreds of ch0ppers in our community - who are super supportive & authentic. They all day engage with our &quot;nonsense&quot; ideas that my boss always rejects. Our dream comes true. Can\'t ask for more but launching a new baby to attract more friends. &#61;&#93;&#93;'
+          }
+        "
+      />
+    </div>
+
+    <!-- section 4 -->
+    <ng-template #member let-img="img" let-name="name" let-team="team" let-intro="intro">
+      <div class="rounded-30px"></div>
+    </ng-template>
+    <ng-container *ngTemplateOutlet="heading; context: { class: 'bg-[#d107ac] mt-44', text: 'not perfect but fun!' }" />
+    <div
+      class="mt-10 bg-budd text-gradient text-[100px] leading-tight font-fredoka font-semibold drop-shadow-heading shadow-black"
+    >
+      Meet the team
+    </div>
+    <div class="w-full px-11">
+      <div class="w-full flex gap-x-10"></div>
+      <div class="w-full flex gap-x-10"></div>
+    </div>
+  </div>
+</div>

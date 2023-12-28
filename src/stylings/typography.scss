@@ -1,6 +1,6 @@
-@use "sass:map";
-@use "@angular/material" as mat;
-@use "@material/typography" as mdc-typography;
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use '@material/typography' as mdc-typography;
 
 // Converts an MDC typography level config to an Angular Material one.
 @function typography-config-level-from-mdc($mdc-level, $font-family) {
@@ -11,13 +11,12 @@
     $font-size: map.get($mdc-level-config, font-size),
     $line-height: map.get($mdc-level-config, line-height),
     $font-weight: map.get($mdc-level-config, font-weight),
-    $letter-spacing: map.get($mdc-level-config, letter-spacing)
+    $letter-spacing: normal
   );
 }
 
-$headline-font: Fredoka, sans-serif;
-$body-font: Monotalic, sans-serif;
-
+$headline-font: fredoka, sans-serif;
+$body-font: monotalic, sans-serif;
 $ch0pch0p-typography: mat.define-typography-config(
   $font-family: $body-font,
   $headline-1: typography-config-level-from-mdc(headline1, $headline-font),

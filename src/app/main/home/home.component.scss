@@ -1,0 +1,52 @@
+:host {
+  display: block;
+
+  .grid-item {
+    --animation-delay: calc((var(--col) * (6 - var(--row) + 1) / (9 * 6) * 54s) + (var(--scroll) * -55s));
+    background-color: white;
+    border: solid 1px #afafaf;
+    animation: 1s linear var(--animation-delay) 1 normal forwards paused grow-progress;
+  }
+
+  .fly-kv {
+    position: absolute;
+    bottom: -19%;
+    left: -20%;
+    transform: rotate(7.66deg) scale(0.5);
+    animation: 1s linear calc((var(--scroll) * -1s)) 1 normal forwards paused fly-kv;
+  }
+
+  .join-now-slide {
+    display: flex;
+    align-items: center;
+    column-gap: 90px;
+    white-space: nowrap;
+    animation: 10s linear 0s infinite normal none running slidein;
+  }
+
+  @keyframes grow-progress {
+    to {
+      background-color: #1a1a1a;
+      border-color: #333;
+    }
+  }
+
+  @keyframes fly-kv {
+    50% {
+      bottom: -120px;
+      left: 50%;
+      transform: rotate(0) scale(1) translate(-50%, -50%);
+    }
+    100% {
+      bottom: 100%;
+      left: 100%;
+      transform: rotate(-7.66deg) scale(0.5);
+    }
+  }
+
+  @keyframes slidein {
+    to {
+      transform: translate(-149.95%);
+    }
+  }
+}
