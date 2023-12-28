@@ -156,8 +156,16 @@
     </div>
 
     <!-- section 4 -->
-    <ng-template #member let-img="img" let-name="name" let-team="team" let-intro="intro">
-      <div class="rounded-30px"></div>
+    <ng-template #member let-name="name" let-team="team" let-intro="intro">
+      <div class="basis-1/4 rounded-[30px] border-[3px] border-solid border-white p-5">
+        <div class="relative w-full aspect-square overflow-hidden">
+          <img fill [ngSrc]="'assets/team-intro/bg-' + name + '.png'" alt="team intro" class="rounded-[25px]" />
+          <img fill [ngSrc]="'assets/team-intro/member-' + name + '.png'" alt="team intro" class="member-intro" />
+        </div>
+        <div class="mt-[10px] text-[32px] font-bold leading-tight">{{ name }}</div>
+        <div class="mt-[10px] w-fit bg-[#311dcb] py-1 px-[10px] font-fredoka text-base">{{ team }}</div>
+        <div class="mt-[10px] font-fredoka text-lg">{{ intro }}</div>
+      </div>
     </ng-template>
     <ng-container *ngTemplateOutlet="heading; context: { class: 'bg-[#d107ac] mt-44', text: 'not perfect but fun!' }" />
     <div
@@ -165,9 +173,62 @@
     >
       Meet the team
     </div>
-    <div class="w-full px-11">
-      <div class="w-full flex gap-x-10"></div>
-      <div class="w-full flex gap-x-10"></div>
+    <div class="mt-[76px] w-full px-11">
+      <div class="w-full flex justify-center gap-x-10">
+        <ng-container
+          *ngTemplateOutlet="
+            member;
+            context: {
+              name: 'quatac',
+              team: 'make it happen',
+              intro: '#instigator'
+            }
+          "
+        />
+        <ng-container
+          *ngTemplateOutlet="member; context: { name: 'vy', team: 'make it happen', intro: '#unlimited' }"
+        />
+        <ng-container
+          *ngTemplateOutlet="
+            member;
+            context: {
+              name: 'theo',
+              team: 'make it happen',
+              intro: 'I am not gonna answer you'
+            }
+          "
+        />
+      </div>
+      <div class="mt-10 w-full flex justify-center gap-x-10">
+        <ng-container
+          *ngTemplateOutlet="
+            member;
+            context: {
+              name: 'lethang',
+              team: 'make it saleable',
+              intro: 'Headchef. He makes you proud (at least that\'s what he thought).'
+            }
+          "
+        /><ng-container
+          *ngTemplateOutlet="
+            member;
+            context: {
+              name: 'trungngo',
+              team: 'make it wow',
+              intro: 'Shadowy Super Coder. If he is not coding then he is playing video games or board games.'
+            }
+          "
+        /><ng-container
+          *ngTemplateOutlet="
+            member;
+            context: {
+              name: 'loancute',
+              team: 'make it clear',
+              intro: 'Thinking about quitting my full-time job to have a fun-time (all day) role with ch0pch0pNFT.'
+            }
+          "
+        /><ng-container *ngTemplateOutlet="member; context: { name: 'masu', team: 'make it saleable', intro: 'xu' }" />
+      </div>
     </div>
   </div>
 </div>

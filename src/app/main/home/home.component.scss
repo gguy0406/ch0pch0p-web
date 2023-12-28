@@ -24,6 +24,11 @@
     animation: 10s linear 0s infinite normal none running slidein;
   }
 
+  .member-intro {
+    border-radius: 25px;
+    animation: 0.75s linear 0s 1 normal none paused popup;
+  }
+
   @keyframes grow-progress {
     to {
       background-color: #1a1a1a;
@@ -47,6 +52,18 @@
   @keyframes slidein {
     to {
       transform: translate(-149.95%);
+    }
+  }
+
+  @keyframes popup {
+    0% {
+      transform: translate(0, 100%);
+    }
+    50% {
+      transform: translate(0, -3%);
+    }
+    100% {
+      transform: translate(0);
     }
   }
 }
