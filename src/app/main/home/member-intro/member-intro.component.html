@@ -1,0 +1,13 @@
+<div class="relative w-full aspect-square overflow-hidden">
+  <img fill [ngSrc]="'assets/team-intro/bg-' + name + '.png'" alt="team intro" class="rounded-[25px]" />
+  <img
+    fill
+    [ngSrc]="'assets/team-intro/member-' + name + '.png'"
+    alt="team intro"
+    class="member"
+    [class.member--active]="isIntersecting"
+  />
+</div>
+<div class="mt-[10px] text-[32px] font-bold leading-tight">{{ name }}</div>
+<div class="mt-[10px] w-fit bg-[#311dcb] py-1 px-[10px] font-fredoka text-base">{{ MemberTeam[team] }}</div>
+<div class="mt-[10px] font-fredoka text-lg">{{ intro }}</div>

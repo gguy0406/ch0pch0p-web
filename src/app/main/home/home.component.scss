@@ -1,6 +1,15 @@
 :host {
   display: block;
 
+  #section-1 {
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari and Opera */
+    }
+
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
   .grid-item {
     --animation-delay: calc((var(--col) * (6 - var(--row) + 1) / (9 * 6) * 54s) + (var(--scroll) * -55s));
     background-color: white;
@@ -22,11 +31,6 @@
     column-gap: 90px;
     white-space: nowrap;
     animation: 10s linear 0s infinite normal none running slidein;
-  }
-
-  .member-intro {
-    border-radius: 25px;
-    animation: 0.75s linear 0s 1 normal none paused popup;
   }
 
   @keyframes grow-progress {
@@ -52,18 +56,6 @@
   @keyframes slidein {
     to {
       transform: translate(-149.95%);
-    }
-  }
-
-  @keyframes popup {
-    0% {
-      transform: translate(0, 100%);
-    }
-    50% {
-      transform: translate(0, -3%);
-    }
-    100% {
-      transform: translate(0);
     }
   }
 }

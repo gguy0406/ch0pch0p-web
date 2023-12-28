@@ -1,11 +1,12 @@
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostBinding, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MemberIntroComponent } from './member-intro/member-intro.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage],
+  imports: [CommonModule, MemberIntroComponent, NgOptimizedImage],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,13 +30,15 @@ import { ChangeDetectionStrategy, Component, HostBinding, HostListener } from '@
   ],
 })
 export class HomeComponent {
-  @HostListener('window:scroll', []) onWindowScroll() {
-    this.scroll = Math.min(window.scrollY / (2968 - window.innerHeight), 1);
-  }
-  @HostBinding('style.--scroll') protected scroll: number = 0;
-
-  protected array = Array;
+  // section 1 animation
   protected isUnveiled!: boolean;
+  protected scroll: number = 0;
+  protected array = Array;
+
+  protected onSection1Scroll(event: Event) {
+    const section1: HTMLDivElement = event.target as HTMLDivElement;
+    this.scroll = section1.scrollTop / (section1.scrollHeight - section1.clientHeight);
+  }
 
   protected getGridItemClass(idx: number) {
     return {

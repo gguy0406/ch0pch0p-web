@@ -1,0 +1,27 @@
+:host {
+  display: block;
+  border-radius: 30px;
+  border: 3px solid white;
+  padding: 20px;
+
+  .member {
+    border-radius: 25px;
+    animation: 0.7s linear 0s 1 normal none paused popup;
+
+    &--active {
+      animation-play-state: running;
+    }
+  }
+
+  @keyframes popup {
+    0% {
+      transform: translate(0, 100%);
+    }
+    60% {
+      transform: translate(0, -10%);
+    }
+    100% {
+      transform: translate(0);
+    }
+  }
+}
