@@ -15,9 +15,6 @@ module.exports = {
         lunar: 'linear-gradient(111deg, #311dcb 17.98%, #fb4831 84.27%)',
         toxic: 'linear-gradient(111deg, #00d7ad 16.58%, #ff00ff 84.27%)',
       },
-      dropShadow: {
-        heading: '6px 6px var(--tw-shadow-color)',
-      },
       fontFamily: {
         fredoka: ['"Fredoka", sans-serif'],
         monotalic: ['"Monotalic", sans-serif'],
@@ -27,7 +24,14 @@ module.exports = {
   plugins: [
     plugin(function ({ addUtilities }) {
       addUtilities({
-        '.text-gradient': {
+        '.hide-scrollbar': {
+          '-ms-overflow-style': 'none' /* IE and Edge */,
+          'scrollbar-width': 'none' /* Firefox */,
+          '&::-webkit-scrollbar': {
+            display: 'none' /* Chrome, Safari and Opera */,
+          },
+        },
+        '.bg-clip-text': {
           'background-clip': 'text',
           '-webkit-background-clip': 'text',
           '-webkit-text-fill-color': 'transparent',

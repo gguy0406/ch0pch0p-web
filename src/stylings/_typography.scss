@@ -15,8 +15,8 @@
   );
 }
 
-$headline-font: fredoka, sans-serif;
-$body-font: monotalic, sans-serif;
+$headline-font: Fredoka, sans-serif;
+$body-font: Monotalic, sans-serif;
 $ch0pch0p-typography: mat.define-typography-config(
   $font-family: $body-font,
   $headline-1: typography-config-level-from-mdc(headline1, $headline-font),

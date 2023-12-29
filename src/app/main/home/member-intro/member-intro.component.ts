@@ -18,10 +18,10 @@ import { MemberTeam } from 'src/lib/types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MemberIntroComponent {
-  @Input({ required: true }) public name!: string;
-  @Input({ required: true }) public team!: keyof typeof MemberTeam;
-  @Input({ required: true }) public intro!: string;
-  @Input({ transform: numberAttribute }) public offsetAnimation?: number;
+  @Input({ required: true }) name!: string;
+  @Input({ required: true }) team!: keyof typeof MemberTeam;
+  @Input({ required: true }) intro!: string;
+  @Input({ transform: numberAttribute }) offsetAnimation?: number;
 
   protected MemberTeam = MemberTeam;
   protected isIntersecting?: boolean;
@@ -35,7 +35,7 @@ export class MemberIntroComponent {
 
       entry.isIntersecting && this.observer.disconnect();
     },
-    { threshold: 1.0 }
+    { threshold: 0.5 }
   );
 
   constructor(

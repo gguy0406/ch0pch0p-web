@@ -1,8 +1,8 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 import { C1_URL } from 'src/lib/constants';
 
@@ -14,5 +14,11 @@ import { C1_URL } from 'src/lib/constants';
   styleUrl: './nav.component.scss',
 })
 export class NavComponent {
+  @ViewChild('collectionMenuTrigger', { static: true }) protected collectionMenuTrigger!: MatMenuTrigger;
+
+  get isActive(): boolean {
+    return this.collectionMenuTrigger.menuOpen;
+  }
+
   protected readonly C1_URL = C1_URL;
 }

@@ -2,4 +2,20 @@
   min-height: 100%;
   background-color: #1a1a1a;
   display: block;
+
+  .app-nav-container {
+    padding-bottom: calc(var(--padding) * 1px);
+
+    &:hover,
+    &--active {
+      animation: 0.2s ease-in 0s 1 normal forwards running slide-down;
+
+      @keyframes slide-down {
+        to {
+          padding-top: calc(var(--padding) * 1px);
+          padding-bottom: 0;
+        }
+      }
+    }
+  }
 }

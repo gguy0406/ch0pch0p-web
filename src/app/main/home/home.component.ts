@@ -1,12 +1,13 @@
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, HostListener } from '@angular/core';
 import { MemberIntroComponent } from './member-intro/member-intro.component';
+import { NavComponent } from 'src/app/components/nav/nav.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MemberIntroComponent, NgOptimizedImage],
+  imports: [NavComponent, CommonModule, MemberIntroComponent, NgOptimizedImage],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,14 +31,19 @@ import { MemberIntroComponent } from './member-intro/member-intro.component';
   ],
 })
 export class HomeComponent {
+  @HostListener('window:scroll') onWindowScroll() {
+    this.navContainerPadding = Math.min(window.scrollY, 128);
+  }
+  @HostBinding('style.--nav-container-padding') protected navContainerPadding: number = 0;
+
   // section 1 animation
   protected isUnveiled!: boolean;
-  protected scroll: number = 0;
+  protected section1progress: number = 0;
   protected array = Array;
 
   protected onSection1Scroll(event: Event) {
     const section1: HTMLDivElement = event.target as HTMLDivElement;
-    this.scroll = section1.scrollTop / (section1.scrollHeight - section1.clientHeight);
+    this.section1progress = section1.scrollTop / (section1.scrollHeight - section1.clientHeight);
   }
 
   protected getGridItemClass(idx: number) {

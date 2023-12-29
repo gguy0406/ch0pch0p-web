@@ -2,10 +2,15 @@
   <img priority ngSrc="assets/logo.svg" width="268" height="85" alt="app logo" />
 </a>
 <div class="flex items-center gap-x-14">
-  <button mat-button [matMenuTriggerFor]="menu" class="headline-font !text-3xl">
+  <button
+    #collectionMenuTrigger="matMenuTrigger"
+    mat-button
+    [matMenuTriggerFor]="collectionMenu"
+    class="headline-font !text-3xl"
+  >
     Our Collections <mat-icon iconPositionEnd inline>arrow_drop_down</mat-icon>
   </button>
-  <mat-menu #menu="matMenu">
+  <mat-menu #collectionMenu="matMenu">
     <button mat-menu-item>"0" by ch0pch0p</button>
     <button mat-menu-item>c1</button>
   </mat-menu>
@@ -13,11 +18,6 @@
   <a mat-button href="/roadmap" class="headline-font text-3xl">Roadmap</a>
   <a mat-button href="/ch0p" class="headline-font text-3xl">ch0p it!</a>
 </div>
-<a
-  mat-flat-button
-  [href]="C1_URL"
-  target="_blank"
-  class="!rounded-s-none !rounded-e-full !bg-lunar !py-11 !px-10 text-2xl font-bold"
->
+<a mat-flat-button [href]="C1_URL" target="_blank" class="!rounded-none !bg-lunar !py-11 !px-10 text-2xl font-bold">
   buy ch0pch0p
 </a>

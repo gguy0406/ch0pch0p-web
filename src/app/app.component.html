@@ -1,2 +1,8 @@
-<app-nav class="sticky top-7 z-10 mx-10 rounded-full bg-app" />
+<div
+  class="app-nav-container sticky -top-32 z-10"
+  [class.app-nav-container--active]="appNav.isActive"
+  [style.--padding]="navContainerPadding"
+>
+  <app-nav #appNav class="bg-app py-5 px-10" />
+</div>
 <router-outlet />
