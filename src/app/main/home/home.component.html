@@ -11,8 +11,7 @@
   ></div>
 </ng-template>
 <div
-  id="app-nav-container"
-  class="absolute top-5 right-5 left-5 z-20 rounded-full bg-app py-5 pr-5 pl-10"
+  class="app-nav-container absolute top-5 right-5 left-5 z-20 rounded-full bg-app py-5 pr-5 pl-10"
   [style.--section-scroll]="section1progress"
 >
   <app-nav class="rounded-e-full overflow-hidden" />
@@ -29,17 +28,17 @@
       <ng-container *ngTemplateOutlet="gridItem; context: { idx }" />
     }
     @if (section1progress > 0.33 || isUnveiled) {
-      <div class="relative grid-item bg-white border-solid border border-[#afafaf] flex items-center justify-center">
+      <div class="relative grid-item bg-white border border-solid border-[#afafaf] flex items-center justify-center">
         <div
           [@unveil]="isUnveiled ? 'unveiled' : 'covered'"
           (click)="isUnveiled = true"
-          class="absolute -inset-[1px] bg-lunar flex items-center justify-center origin-top-left"
+          class="absolute -inset-px bg-lunar flex items-center justify-center origin-top-left"
           [class.cursor-pointer]="!isUnveiled"
         >
           <span class="text-center text-[40px] font-bold leading-tight text-white">what's next!</span>
         </div>
         @if (isUnveiled) {
-          <span class="text-center text-[40px] font-bold leading-tight">coming soon!</span>
+          <span class="text-center text-[40px] font-bold leading-tight text-black">coming soon!</span>
         }
       </div>
     } @else {
@@ -48,181 +47,165 @@
     @for (i of array(13); track i; let idx = $index) {
       <ng-container *ngTemplateOutlet="gridItem; context: { idx: idx + 41 }" />
     }
-    <div class="absolute top-[200px] w-full flex flex-col items-center">
+    <div class="absolute top-10 w-full flex flex-col items-center">
       <div class="section-heading bg-[#ffc600]">Keep scrolling until you see the surprise!</div>
-      <div class="mt-10 bg-budd text-[150px] section-label shadow-black">Unleashing the</div>
-      <div class="bg-toxic text-[150px] leading-none section-label shadow-black">best version</div>
+      <div class="section-label mt-10 bg-budd text-[150px]">Unleashing the</div>
+      <div class="section-label bg-toxic text-[150px]">best version</div>
     </div>
     <img ngSrc="assets/c0-kv.svg" width="1200" height="600" alt="kv" class="fly-kv" />
   </div>
-  <div class="h-[2160px]"></div>
+  @if (section1progress !== 1) {
+    <div class="h-[2160px]"></div>
+  }
 </div>
 
 @if (section1progress === 1) {
-  <div class="text-white">
-    <div class="w-full pt-[120px] flex flex-col items-center">
-      <!-- section 2 -->
-      <ng-template #joinNow let-img="img">
-        <span class="text-[50px] font-bold">join now</span>
-        <img [ngSrc]="img" width="100" height="100" alt="join now decor" />
-      </ng-template>
-      <div class="section-heading bg-[#fb4932]">A must-join (NFT) community on Cosmos</div>
-      <div class="mt-[60px] w-full px-[50px] flex gap-x-[60px]">
-        <div class="character-reveal">
-          <img fill ngSrc="assets/c1-390/1.png" alt="c1 asset" class="rounded-[50px]" />
-          <div class="rounded-[50px] border-[3px] border-solid border-white p-10 text-justify font-fredoka text-2xl">
-            Missing content
-          </div>
+  <!-- section 2 -->
+  <ng-template #joinNow let-img="img">
+    <span class="text-[50px] font-bold">join now</span>
+    <img [ngSrc]="img" width="100" height="100" alt="join now image" />
+  </ng-template>
+  <div class="section-heading bg-[#fb4932]">A must-join (NFT) community on Cosmos</div>
+  <div class="mt-15 w-full px-10 flex gap-x-[60px]">
+    <div class="character-reveal">
+      <div class="white-border paragraph-content">Missing content</div>
+      <img fill ngSrc="assets/c1-390/1.png" alt="c1 asset" class="rounded-10" />
+    </div>
+    <div class="character-reveal">
+      <div class="white-border paragraph-content">Missing content</div>
+      <img fill ngSrc="assets/c1-390/2.png" alt="c1 asset" class="rounded-10" />
+    </div>
+    <div class="character-reveal">
+      <div class="white-border paragraph-content">Missing content</div>
+      <img fill ngSrc="assets/c1-390/3.png" alt="c1 asset" class="rounded-10" />
+    </div>
+  </div>
+  <div class="mt-15 w-full px-10">
+    <div class="rounded-10 white-border w-full py-10 px-10 flex overflow-x-hidden">
+      @for (i of array(2); track i) {
+        <div class="join-now-slide">
+          <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/1.png' }" />
+          <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/2.png' }" />
+          <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/3.png' }" />
+          <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/4.png' }" />
+          <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/5.png' }" />
         </div>
-        <div class="character-reveal">
-          <img fill ngSrc="assets/c1-390/2.png" alt="c1 asset" class="rounded-[50px]" />
-          <div class="rounded-[50px] border-[3px] border-solid border-white p-10 text-justify font-fredoka text-2xl">
-            Missing content
-          </div>
-        </div>
-        <div class="character-reveal">
-          <img fill ngSrc="assets/c1-390/3.png" alt="c1 asset" class="rounded-[50px]" />
-          <div class="rounded-[50px] border-[3px] border-solid border-white p-10 text-justify font-fredoka text-2xl">
-            Missing content
-          </div>
-        </div>
-      </div>
-      <div class="w-full px-10">
-        <div
-          class="mt-20 rounded-[50px] border-[3px] border-solid border-white w-full py-10 px-[50px] overflow-x-hidden"
-        >
-          <div class="join-now-slide">
-            <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/1.png' }" />
-            <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/2.png' }" />
-            <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/3.png' }" />
-            <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/4.png' }" />
-            <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/5.png' }" />
-            <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/1.png' }" />
-            <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/2.png' }" />
-            <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/3.png' }" />
-            <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/4.png' }" />
-            <ng-container *ngTemplateOutlet="joinNow; context: { img: 'assets/join-now-slide/5.png' }" />
-          </div>
-        </div>
-      </div>
+      }
+    </div>
+  </div>
 
-      <!-- section 3 -->
-      <ng-template #answer let-text="text">
-        <div
-          class="basis-1/4 rounded-[50px] border-[3px] border-solid border-white p-10 text-justify font-fredoka text-2xl"
-        >
-          {{ text }}
-        </div>
-      </ng-template>
-      <div class="section-heading mt-40 bg-[#11cca7]">guess what!</div>
-      <div
-        class="mt-10 bg-lime text-gradient text-[100px] leading-tight font-fredoka font-semibold drop-shadow-heading shadow-[#3d3d3d]"
-      >
-        How to ch0pch0p
-      </div>
-      <div
-        class="bg-budd text-gradient text-[100px] leading-tight font-fredoka font-semibold drop-shadow-heading shadow-[#3d3d3d]"
-      >
-        appear on cosmos
-      </div>
-      <div class="mt-[60px] mx-10 flex items-end gap-x-10">
-        <ng-container
-          *ngTemplateOutlet="
-            answer;
-            context: {
-              text: 'We were so fed up & frustrated with our jobs & bosses, so we decided to do sth fun and authentic on the internet and pray that we would gather a community that was both witty and genuine - just like us (even everyone said that internet friends are not real, lol).'
-            }
-          "
-        />
-        <ng-container
-          *ngTemplateOutlet="
-            answer;
-            context: {
-              text: 'We discussed back and forth choosing the playground that contained a lot of naughty & (bad) kids. We are fun but poor. It can\'t be ETH or Solana - where the playground is too crowded & gas is expensive.'
-            }
-          "
-        />
-        <ng-container
-          *ngTemplateOutlet="
-            answer;
-            context: {
-              text: 'Then Thang appeared like a god and told us about Cosmos & its superior tech stack. The pitch was too long, but we remembered that the gas fee was nearly 0. We chose Stargaze to launch &quot;0&quot; by ch0pch0p.'
-            }
-          "
-        />
-        <ng-container
-          *ngTemplateOutlet="
-            answer;
-            context: {
-              text: 'We now have hundreds of ch0ppers in our community - who are super supportive & authentic. They all day engage with our &quot;nonsense&quot; ideas that my boss always rejects. Our dream comes true. Can\'t ask for more but launching a new baby to attract more friends. &#61;&#93;&#93;'
-            }
-          "
-        />
-      </div>
+  <!-- section 3 -->
+  <div class="section-heading bg-[#11cca7]">guess what!</div>
+  <div class="section-label mt-10 bg-lime text-[100px]">How to ch0pch0p</div>
+  <div class="section-label bg-budd text-[100px]">appear on cosmos</div>
+  <div class="mt-15 mx-10 flex items-end gap-x-10">
+    <div class="basis-1/4 white-border paragraph-content">
+      We were so fed up & frustrated with our jobs & bosses, so we decided to do sth fun and authentic on the internet
+      and pray that we would gather a community that was both witty and genuine - just like us (even everyone said that
+      internet friends are not real, lol).
+    </div>
+    <div class="basis-1/4 white-border paragraph-content">
+      We discussed back and forth choosing the playground that contained a lot of naughty & (bad) kids. We are fun but
+      poor. It can't be ETH or Solana - where the playground is too crowded & gas is expensive.
+    </div>
+    <div class="basis-1/4 white-border paragraph-content">
+      Then Thang appeared like a god and told us about Cosmos & its superior tech stack. The pitch was too long, but we
+      remembered that the gas fee was nearly 0. We chose Stargaze to launch &quot;0&quot; by ch0pch0p.
+    </div>
+    <div class="basis-1/4 white-border paragraph-content">
+      We now have hundreds of ch0ppers in our community - who are super supportive & authentic. They all day engage with
+      our &quot;nonsense&quot; ideas that my boss always rejects. Our dream comes true. Can't ask for more but launching
+      a new baby to attract more friends. &#61;&#93;&#93;
+    </div>
+  </div>
 
-      <!-- section 4 -->
-      <div class="section-heading mt-44 bg-[#d107ac]">not perfect but fun!</div>
-      <div
-        class="mt-10 bg-budd text-gradient text-[100px] leading-tight font-fredoka font-semibold drop-shadow-heading shadow-black"
-      >
-        Meet the team
-      </div>
-      <div class="mt-[76px] w-full px-11">
-        <div class="w-full flex justify-center gap-x-10">
-          <app-member-intro name="quatac" team="Happen" intro="#instigator" class="basis-1/4" />
-          <app-member-intro name="vy" team="Happen" intro="#unlimited" offsetAnimation="200" class="basis-1/4" />
-          <app-member-intro
-            name="theo"
-            team="Happen"
-            intro="I am not gonna answer you"
-            offsetAnimation="400"
-            class="basis-1/4"
-          />
-        </div>
-        <div class="mt-10 w-full flex justify-center gap-x-10">
-          <app-member-intro
-            name="lethang"
-            team="Saleable"
-            intro="Headchef. He makes you proud (at least that\'s what he thought)."
-            class="basis-1/4"
-          />
-          <app-member-intro
-            name="trungngo"
-            team="Wow"
-            intro="Shadowy Super Coder. If he is not coding then he is playing video games or board games."
-            offsetAnimation="200"
-            class="basis-1/4"
-          />
-          <app-member-intro
-            name="loancute"
-            team="Clear"
-            intro="Thinking about quitting my full-time job to have a fun-time (all day) role with ch0pch0pNFT."
-            offsetAnimation="400"
-            class="basis-1/4"
-          />
-          <app-member-intro name="masu" team="Saleable" intro="xu" offsetAnimation="600" class="basis-1/4" />
-        </div>
-      </div>
+  <!-- section 4 -->
+  <div class="section-heading bg-[#d107ac]">not perfect but fun!</div>
+  <div class="section-label mt-10 bg-budd text-[100px]">Meet the team</div>
+  <div class="meet-the-team">
+    <app-member-intro name="quatac" team="Happen" intro="#instigator" />
+    <app-member-intro name="vy" team="Happen" intro="#unlimited" offsetAnimation="200" />
+    <app-member-intro name="theo" team="Happen" intro="I am not gonna answer you" offsetAnimation="400" />
+    <div></div>
+    <app-member-intro
+      name="lethang"
+      team="Saleable"
+      intro="Headchef. He makes you proud (at least that\'s what he thought)."
+    />
+    <app-member-intro
+      name="trungngo"
+      team="Wow"
+      intro="Shadowy Super Coder. If he is not coding then he is playing video games or board games."
+      offsetAnimation="200"
+    />
+    <app-member-intro
+      name="loancute"
+      team="Clear"
+      intro="Thinking about quitting my full-time job to have a fun-time (all day) role with ch0pch0pNFT."
+      offsetAnimation="400"
+    />
+    <app-member-intro name="masu" team="Saleable" intro="xu" offsetAnimation="600" />
+  </div>
 
-      <!-- section 5 -->
-      <div class="mt-[234px] w-full overflow-hidden">
-        <!-- <div class="c1-slide">
-          @for (i of array(3); track i; let iIndex = $index) {
-            <div class="mt-10 flex gap-x-10">
-              @for (j of array(14); track j; let jIndex = $index) {
-                <div class="shrink-0 w-[274px] relative aspect-square">
-                  <img fill [ngSrc]="'assets/c1-247/' + (iIndex * 14 + jIndex + 1) + '.png'" alt="c1 showcase" />
-                </div>
-              }
-              @for (j of array(14); track j; let jIndex = $index) {
-                <div class="shrink-0 w-[274px] relative aspect-square">
-                  <img fill [ngSrc]="'assets/c1-247/' + (iIndex * 14 + jIndex + 1) + '.png'" alt="c1 showcase" />
-                </div>
-              }
-            </div>
-          }
-        </div> -->
-      </div>
+  <!-- section 5 -->
+
+  <!-- section 6 -->
+  <div class="mt-28 w-full pl-14 pr-48 flex justify-between">
+    <div>
+      <div class="section-heading !mt-0 bg-[#e32a11]">hi guys!</div>
+      <div class="section-label mt-10 bg-spicy text-[100px]">Frequently</div>
+      <div class="section-label bg-lime text-[100px]">asked</div>
+      <div class="section-label bg-lime text-[100px]">questions</div>
+    </div>
+    <div class="flex flex-col gap-y-10">
+      <a
+        href="/"
+        target="_blank"
+        class="white-border !rounded-[20px] py-6 px-9 text-[38px] flex justify-between items-center"
+      >
+        <span class="font-fredoka leading-normal">WHAT IS CH0PCH0P NFT?</span>
+        <mat-icon inline class="faq-icon ml-4">north_east</mat-icon>
+      </a>
+      <a
+        href="/"
+        target="_blank"
+        class="white-border !rounded-[20px] py-6 px-9 text-[38px] flex justify-between items-center"
+      >
+        <span class="font-fredoka leading-normal">I WANT TO BUY ch0pch0pNFT. HOW CAN I DO IT></span>
+        <mat-icon inline class="faq-icon ml-4">north_east</mat-icon>
+      </a>
+      <a
+        href="/"
+        target="_blank"
+        class="white-border !rounded-[20px] py-6 px-9 text-[38px] flex justify-between items-center"
+      >
+        <span class="font-fredoka leading-normal">WHAT IS STARGAZE AND WHY?</span>
+        <mat-icon inline class="faq-icon ml-4">north_east</mat-icon>
+      </a>
+      <a
+        href="/"
+        target="_blank"
+        class="white-border !rounded-[20px] py-6 px-9 text-[38px] flex justify-between items-center"
+      >
+        <span class="font-fredoka leading-normal">WHEN UTILITY?</span>
+        <mat-icon inline class="faq-icon ml-4">north_east</mat-icon>
+      </a>
+      <a
+        href="/"
+        target="_blank"
+        class="white-border !rounded-[20px] py-6 px-9 text-[38px] flex justify-between items-center"
+      >
+        <span class="font-fredoka leading-normal">WHAT DA HECK IS SWAPPABLE TRAIT?</span>
+        <mat-icon inline class="faq-icon ml-4">north_east</mat-icon>
+      </a>
+      <a
+        href="/"
+        target="_blank"
+        class="white-border !rounded-[20px] py-6 px-9 text-[38px] flex justify-between items-center"
+      >
+        <span class="font-fredoka leading-normal">DO YOU EVEN HAVE A ROADMAP BRO?</span>
+        <mat-icon inline class="faq-icon ml-4">north_east</mat-icon>
+      </a>
     </div>
   </div>
 }

@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavComponent } from './components/nav/nav.component';
@@ -11,11 +11,13 @@ import { NavComponent } from './components/nav/nav.component';
   imports: [CommonModule, RouterOutlet, NavComponent],
 })
 export class AppComponent {
-  @HostListener('window:scroll') onScroll() {
-    this.navContainerPadding = Math.min(window.scrollY, 128);
+  @HostListener('scroll') onScroll() {
+    this.navContainerPadding = Math.min(this._elementRef.nativeElement.scrollTop, 128);
   }
 
   title = 'ch0pch0p-web';
 
   protected navContainerPadding: number = 0;
+
+  constructor(private _elementRef: ElementRef<HTMLElement>) {}
 }

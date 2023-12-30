@@ -1,10 +1,12 @@
 import { NgOptimizedImage } from '@angular/common';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
+  ViewChild,
   numberAttribute,
 } from '@angular/core';
 import { MemberTeam } from 'src/lib/types';
@@ -17,7 +19,8 @@ import { MemberTeam } from 'src/lib/types';
   styleUrl: './member-intro.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MemberIntroComponent {
+export class MemberIntroComponent implements AfterViewInit {
+  @ViewChild('memberImg', { static: true }) private _memberImg!: ElementRef;
   @Input({ required: true }) name!: string;
   @Input({ required: true }) team!: keyof typeof MemberTeam;
   @Input({ required: true }) intro!: string;
@@ -35,13 +38,12 @@ export class MemberIntroComponent {
 
       entry.isIntersecting && this.observer.disconnect();
     },
-    { threshold: 0.5 }
+    { threshold: 1 }
   );
 
-  constructor(
-    elementRef: ElementRef,
-    private _cdRef: ChangeDetectorRef
-  ) {
-    this.observer.observe(elementRef.nativeElement);
+  constructor(private _cdRef: ChangeDetectorRef) {}
+
+  ngAfterViewInit(): void {
+    this.observer.observe(this._memberImg.nativeElement);
   }
 }

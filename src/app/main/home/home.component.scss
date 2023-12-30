@@ -1,10 +1,13 @@
 @use '/src/stylings/variables';
 
 :host {
-  display: block;
-  margin-top: calc(956px - var(--nav-container-padding) * 1px);
+  margin-top: 952px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   .section-heading {
+    margin-top: 160px;
     border-radius: 20px;
     width: fit-content;
     padding: 20px 60px;
@@ -13,26 +16,36 @@
   }
 
   .section-label {
-    line-height: normal;
     font-family: variables.$headline-font;
     font-weight: 700;
+    line-height: normal;
     background-clip: text;
-    -webkit-background-clip: text;
+    -webkit-background-clip: text; /* stylelint-disable-line property-no-vendor-prefix */
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(6px 6px var(--tw-shadow-color));
+    filter: drop-shadow(6px 6px #000);
   }
 
   .white-border {
+    border-radius: 40px;
     border: 3px solid white;
   }
 
-  #app-nav-container {
-    animation: 6s linear calc(49s + (var(--section-scroll) * -55s)) 1 normal forwards paused container-hiding;
+  .paragraph-content {
+    padding: 40px;
+    text-align: justify;
+    font-family: variables.$headline-font;
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .app-nav-container {
+    animation: 6s calc(49s + (var(--section-scroll) * -55s)) forwards paused container-hiding;
 
     @keyframes container-hiding {
       25% {
         border-radius: 60px;
       }
+
       100% {
         top: 0;
         right: 0;
@@ -44,15 +57,13 @@
     }
 
     > app-nav {
-      animation: 6s linear calc(49s + (var(--section-scroll) * -55s)) 1 normal forwards paused nav-hiding;
+      animation: 6s calc(49s + (var(--section-scroll) * -55s)) forwards paused nav-hiding;
 
       @keyframes nav-hiding {
         25% {
-          border-top-right-radius: 40px;
-          border-bottom-right-radius: 40px;
-          border-top-left-radius: 0;
-          border-bottom-left-radius: 0;
+          border-radius: 0 40px 40px 0;
         }
+
         100% {
           border-radius: 0;
         }
@@ -62,9 +73,10 @@
 
   .grid-item {
     --animation-delay: calc((var(--col) * (6 - var(--row) + 1) / (9 * 6) * 54s) + (var(--section-scroll) * -55s));
+
     background-color: white;
     border: solid 1px #afafaf;
-    animation: 1s linear var(--animation-delay) 1 normal forwards paused grid-item-grow;
+    animation: 1s var(--animation-delay) forwards paused grid-item-grow;
 
     @keyframes grid-item-grow {
       to {
@@ -79,7 +91,7 @@
     bottom: -19%;
     left: -20%;
     transform: rotate(7.66deg) scale(0.5);
-    animation: 1s linear calc((var(--section-scroll) * -1s)) 1 normal forwards paused flying;
+    animation: 1s calc((var(--section-scroll) * -1s)) forwards paused flying;
 
     @keyframes flying {
       50% {
@@ -87,6 +99,7 @@
         left: 50%;
         transform: rotate(0) scale(1) translate(-50%, -50%);
       }
+
       100% {
         bottom: 100%;
         left: 100%;
@@ -100,38 +113,65 @@
     flex-basis: 33.33%;
     aspect-ratio: 1 / 1;
 
+    > img {
+      backface-visibility: hidden;
+      transition: transform 0.5s;
+    }
+
+    > div {
+      position: absolute;
+      inset: 0;
+      transform: rotateY(180deg);
+      backface-visibility: hidden;
+      transition: transform 0.5s;
+    }
+
     &:hover {
-      animation: 0.5s linear 0s 1 normal forwards running flip-horizontal;
+      > img {
+        transform: rotateY(180deg);
+      }
+
+      > div {
+        transform: rotateY(360deg);
+      }
     }
   }
 
   .join-now-slide {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     column-gap: 90px;
     white-space: nowrap;
-    animation: 10s linear 0s infinite normal none running join-now-slide;
-  }
+    animation: 15s linear infinite join-now-slide;
 
-  .c1-slide {
-    animation: 10s linear 0s infinite normal none running c1-slide;
-  }
+    @keyframes join-now-slide {
+      to {
+        transform: translate(calc(-100% - 90px));
+      }
+    }
 
-  @keyframes join-now-slide {
-    to {
-      transform: translate(-149.95%);
+    &:last-child {
+      margin-left: 90px;
     }
   }
 
-  @keyframes c1-slide {
-    to {
-      transform: translate(-228.9%);
+  .meet-the-team {
+    $gap: 40px;
+    margin-top: 40px;
+    width: 100%;
+    padding: 0 40px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: $gap;
+
+    > app-member-intro {
+      flex-basis: calc(25% - $gap * 3 / 4);
     }
   }
 
-  @keyframes flip-horizontal {
-    to {
-      transform: rotateY(180deg);
-    }
+  .faq-icon {
+    color: #ffc600;
   }
 }

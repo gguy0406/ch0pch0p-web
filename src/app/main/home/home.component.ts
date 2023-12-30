@@ -1,13 +1,14 @@
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostBinding, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MemberIntroComponent } from './member-intro/member-intro.component';
 import { NavComponent } from 'src/app/components/nav/nav.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavComponent, CommonModule, MemberIntroComponent, NgOptimizedImage],
+  imports: [NavComponent, CommonModule, MatIconModule, MemberIntroComponent, NgOptimizedImage],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,13 +32,8 @@ import { NavComponent } from 'src/app/components/nav/nav.component';
   ],
 })
 export class HomeComponent {
-  @HostListener('window:scroll') onWindowScroll() {
-    this.navContainerPadding = Math.min(window.scrollY, 128);
-  }
-  @HostBinding('style.--nav-container-padding') protected navContainerPadding: number = 0;
-
   // section 1 animation
-  protected isUnveiled!: boolean;
+  protected isUnveiled?: boolean;
   protected section1progress: number = 0;
   protected array = Array;
 
