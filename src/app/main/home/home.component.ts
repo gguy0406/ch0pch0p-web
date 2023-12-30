@@ -1,14 +1,24 @@
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MemberIntroComponent } from './member-intro/member-intro.component';
-import { NavComponent } from 'src/app/components/nav/nav.component';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { NavComponent } from 'src/app/components/nav/nav.component';
+import { ThreeDSlideShowComponent } from 'src/app/components/thee-d-slide-show/three-d-slide-show.component';
+import { MemberIntroComponent } from './member-intro/member-intro.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavComponent, CommonModule, MatIconModule, MemberIntroComponent, NgOptimizedImage],
+  imports: [
+    MatButtonModule,
+    CommonModule,
+    MatIconModule,
+    MemberIntroComponent,
+    NavComponent,
+    NgOptimizedImage,
+    ThreeDSlideShowComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -38,7 +38,7 @@ export class MemberIntroComponent implements AfterViewInit {
 
       entry.isIntersecting && this.observer.disconnect();
     },
-    { threshold: 1 }
+    { threshold: 0.5 }
   );
 
   constructor(private _cdRef: ChangeDetectorRef) {}
