@@ -1,31 +1,21 @@
+@use '/src//stylings/variables';
+
 :host {
   height: 100%;
-  background-color: #1a1a1a;
+  background-color: variables.$bg-app;
   color: white;
   position: relative;
   display: block;
   overflow: auto;
 
   .app-nav-container {
+    position: sticky;
+    top: -100%;
+    z-index: 10;
     transition: top 0.2s;
 
-    &::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      right: 0;
-      left: 0;
-      height: calc(var(--padding) * 1px);
-      transition: height 0.2s;
-    }
-
-    &--active,
-    &:hover {
+    &--active {
       top: 0;
-
-      &::after {
-        height: 0;
-      }
     }
   }
 }

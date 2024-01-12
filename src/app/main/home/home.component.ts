@@ -1,6 +1,5 @@
-import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, WritableSignal, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NavComponent } from 'src/app/components/nav/nav.component';
@@ -9,6 +8,9 @@ import { MemberIntroComponent } from './member-intro/member-intro.component';
 
 @Component({
   selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     MatButtonModule,
@@ -19,44 +21,14 @@ import { MemberIntroComponent } from './member-intro/member-intro.component';
     NgOptimizedImage,
     ThreeDSlideShowComponent,
   ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('unveil', [
-      state('unveiled', style({ display: 'none' })),
-      transition(
-        'covered => unveiled',
-        animate(
-          '1s',
-          keyframes([
-            style({ offset: 0 }),
-            style({ transform: 'rotate(-2deg)', offset: 0.1 }),
-            style({ transform: 'rotate(50deg)', offset: 0.4 }),
-            style({ transform: 'rotate(28deg)', offset: 0.6 }),
-            style({ transform: 'rotate(36deg) translate(300px, 300px)', offset: 1 }),
-          ])
-        )
-      ),
-    ]),
-  ],
 })
 export class HomeComponent {
-  // section 1 animation
   protected isUnveiled?: boolean;
-  protected section1progress: number = 0;
+  protected section1progress: WritableSignal<number> = signal(1);
   protected array = Array;
 
   protected onSection1Scroll(event: Event) {
     const section1: HTMLDivElement = event.target as HTMLDivElement;
-    this.section1progress = section1.scrollTop / (section1.scrollHeight - section1.clientHeight);
-  }
-
-  protected getGridItemClass(idx: number) {
-    return {
-      '!border-t-0': idx < 9,
-      '!border-r-0': (idx + 1) % 9 === 0,
-      '!border-l-0': idx % 9 === 0,
-    };
+    this.section1progress.set(Math.min(section1.scrollTop / section1.clientHeight, 1));
   }
 }

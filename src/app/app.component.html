@@ -1,8 +1,4 @@
-<div
-  class="app-nav-container sticky -top-32 z-10"
-  [class.app-nav-container--active]="appNav.isActive"
-  [style.--padding]="navContainerPadding"
->
-  <app-nav #appNav class="bg-app py-5 px-10" />
+<div class="app-nav-container" [class.app-nav-container--active]="isScrollingUp()">
+  <app-nav #appNav class="bg-app py-5 px-4 tablet:py-11 tablet:px-16 laptop:py-5 laptop:px-10" />
 </div>
 <router-outlet />

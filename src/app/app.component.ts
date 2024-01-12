@@ -1,23 +1,23 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, WritableSignal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavComponent } from './components/nav/nav.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
   imports: [CommonModule, RouterOutlet, NavComponent],
 })
 export class AppComponent {
-  @HostListener('scroll') onScroll() {
-    this.navContainerPadding = Math.min(this._elementRef.nativeElement.scrollTop, 128);
+  @HostListener('scroll', ['$event']) onScroll(event: Event) {
+    const scrollTop = (event.target as HTMLDivElement).scrollTop;
+    this.isScrollingUp.set(!!this._lastScrollTopValue && scrollTop < this._lastScrollTopValue());
+    this._lastScrollTopValue.set(scrollTop);
   }
 
-  title = 'ch0pch0p-web';
-
-  protected navContainerPadding: number = 0;
-
-  constructor(private _elementRef: ElementRef<HTMLElement>) {}
+  protected isScrollingUp: WritableSignal<boolean> = signal(false);
+  private _lastScrollTopValue: WritableSignal<number> = signal(0);
 }

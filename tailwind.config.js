@@ -29,6 +29,14 @@ module.exports = {
       margin: {
         15: '60px',
       },
+      gap: {
+        15: '60px',
+      },
+    },
+    screens: {
+      tablet: '1024px',
+      laptop: '1366px',
+      desktop: '1600px',
     },
   },
   plugins: [
