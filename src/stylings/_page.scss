@@ -10,12 +10,12 @@
   }
 
   @media (width >= #{variables.$laptop}) {
-    padding-right: 92px;
-    padding-left: 92px;
+    margin: 0 auto;
+    max-width: 1310px;
   }
 
   @media (width >= #{variables.$desktop}) {
-    padding-right: 220px;
-    padding-left: 220px;
+    margin: 0 auto;
+    max-width: 1598px;
   }
 }

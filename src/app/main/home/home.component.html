@@ -14,21 +14,20 @@
       </div>
     }
 
-    <div
-      class="relative flex flex-col items-center pb-14 tablet:pb-5 laptop:pb-2"
-      [class.page-margin]="section1progress() !== 1"
-    >
-      <div
-        class="section-heading section-heading--soar-left bg-[#ffc600]"
-        [class]="section1progress() === 1 ? 'mt-15' : 'mt-[140px] tablet:mt-[220px] laptop:mt-[188px]'"
-      >
-        Keep scrolling until you see the surprise!
-      </div>
-      <div class="section-label mt-10 bg-budd text-6xl tablet:text-[100px] laptop:text-[150px]">
-        Unleashing<span>&nbsp;The</span>
-      </div>
-      <div class="section-label bg-toxic text-6xl tablet:text-[100px] laptop:text-[150px]">
-        <span>The&nbsp;</span>Best Version
+    <div class="relative pb-14 tablet:pb-5 laptop:pb-2">
+      <div class="page-margin flex flex-col items-center">
+        <div
+          class="section-heading section-heading--soar-left section-heading--first-heading bg-[#ffc600]"
+          [class]="section1progress() === 1 ? 'mt-15' : 'mt-[140px] tablet:mt-[220px] laptop:mt-[188px]'"
+        >
+          Keep scrolling until you see the surprise!
+        </div>
+        <div class="section-label mt-6 bg-budd text-6xl tablet:mt-8 tablet:text-[100px] laptop:text-[150px]">
+          Unleashing<span>&nbsp;The</span>
+        </div>
+        <div class="section-label bg-toxic text-6xl tablet:text-[100px] laptop:text-[150px]">
+          <span>The&nbsp;</span>Best Version
+        </div>
       </div>
       <div
         class="grid-container grid-container--first-half"
@@ -493,179 +492,213 @@
 </div>
 
 @if (section1progress() === 1) {
-  <!-- section 2 -->
-  <ng-template #character let-character="character" let-content="content">
-    <div class="character-reveal">
-      <div class="white-border paragraph-content">{{ content }}</div>
-      <img fill [ngSrc]="'assets/character/' + character + '.png'" [alt]="character" class="rounded-10" />
-    </div>
-  </ng-template>
-  <ng-template #joinTheGang let-img="img">
-    <span class="text-[50px] font-bold">join the gang</span>
-    <img [ngSrc]="img" width="100" height="100" alt="join the gang image" />
-  </ng-template>
+  <div class="page-margin flex flex-col items-center">
+    <!-- section 2 -->
+    <ng-template #character let-character="character" let-content="content">
+      <div class="character-reveal">
+        <div class="white-border paragraph-content">{{ content }}</div>
+        <img fill [ngSrc]="'assets/character/' + character + '.png'" [alt]="character" class="rounded-10" />
+      </div>
+    </ng-template>
+    <ng-template #joinTheGang let-img="img">
+      <span class="text-[50px] font-bold">join the gang</span>
+      <img [ngSrc]="img" width="100" height="100" alt="join the gang image" />
+    </ng-template>
 
-  <div class="section-heading section-heading--soar-right mt-[72px] tablet:mt-[120px] bg-[#fb4932]">
-    A must-join (NFT) community on Cosmos
-  </div>
-  <div class="mt-15 w-full flex gap-x-[60px]">
-    <ng-container *ngTemplateOutlet="character; context: { character: 'fun', content: 'Why so serious?' }" />
-    <ng-container
-      *ngTemplateOutlet="
-        character;
-        context: { character: 'authentic', content: 'How many sub-personalities do you have? - Let’s ch0p it down.' }
-      "
-    />
-    <ng-container *ngTemplateOutlet="character; context: { character: 'naughty', content: 'Stir it up!' }" />
-  </div>
-  <div class="mt-15 w-full px-10">
-    <div class="rounded-10 white-border w-full py-10 px-10 flex overflow-x-hidden">
-      @for (i of array(2); track i) {
-        <div class="join-the-gang-slide">
-          <ng-container *ngTemplateOutlet="joinTheGang; context: { img: 'assets/join-the-gang-slide/1.png' }" />
-          <ng-container *ngTemplateOutlet="joinTheGang; context: { img: 'assets/join-the-gang-slide/2.png' }" />
-          <ng-container *ngTemplateOutlet="joinTheGang; context: { img: 'assets/join-the-gang-slide/3.png' }" />
-          <ng-container *ngTemplateOutlet="joinTheGang; context: { img: 'assets/join-the-gang-slide/4.png' }" />
-          <ng-container *ngTemplateOutlet="joinTheGang; context: { img: 'assets/join-the-gang-slide/5.png' }" />
-        </div>
-      }
-    </div>
-  </div>
-
-  <!-- section 3 -->
-  <div class="section-heading bg-[#11cca7]">guess what!</div>
-  <div class="section-label mt-10 bg-lime text-[100px]">How ch0pch0p</div>
-  <div class="section-label bg-budd text-[100px]">appear on cosmos</div>
-  <div class="mt-15 mx-10 flex items-end gap-x-10">
-    <div class="basis-1/4 white-border paragraph-content">
-      We were so fed up & frustrated with our jobs & bosses, so we decided to do sth fun and authentic on the internet
-      and pray that we would gather a community that was both witty and genuine - just like us (even everyone said that
-      internet friends are not real, lol).
-    </div>
-    <div class="basis-1/4 white-border paragraph-content">
-      We discussed back and forth choosing the playground that contained a lot of naughty & (bad) kids. We are fun but
-      poor. It can't be ETH or Solana - where the playground is too crowded & gas is expensive.
-    </div>
-    <div class="basis-1/4 white-border paragraph-content">
-      Then Thang appeared like a god and told us about Cosmos & its superior tech stack. The pitch was too long, but we
-      remembered that the gas fee was nearly 0. We chose Stargaze to launch &quot;0&quot; by ch0pch0p.
-    </div>
-    <div class="basis-1/4 white-border paragraph-content">
-      We now have hundreds of ch0ppers in our community - who are super supportive & authentic. They all day engage with
-      our &quot;nonsense&quot; ideas that my boss always rejects. Our dream comes true. Can't ask for more but launching
-      a new baby to attract more friends. &#61;&#93;&#93;
-    </div>
-  </div>
-
-  <!-- section 4 -->
-  <div class="section-heading bg-[#d107ac]">not perfect but fun!</div>
-  <div class="section-label mt-10 bg-budd text-[100px]">Meet the team</div>
-  <div class="meet-the-team">
-    <app-member-intro name="quatac" team="Happen" intro="#instigator" />
-    <app-member-intro name="vy" team="Happen" intro="#unlimited" offsetAnimation="200" />
-    <app-member-intro name="theo" team="Happen" intro="I am not gonna answer you" offsetAnimation="400" />
-    <div></div>
-    <app-member-intro
-      name="lethang"
-      team="Saleable"
-      intro="Headchef. He makes you proud (at least that's what he thought)."
-    />
-    <app-member-intro
-      name="trungngo"
-      team="Wow"
-      intro="Shadowy Super Coder. If he is not coding then he is playing video games or board games."
-      offsetAnimation="200"
-    />
-    <app-member-intro
-      name="loancute"
-      team="Clear"
-      intro="Thinking about quitting my full-time job to have a fun-time (all day) role with ch0pch0pNFT."
-      offsetAnimation="400"
-    />
-    <app-member-intro name="masu" team="Saleable" intro="xu" offsetAnimation="600" />
-  </div>
-
-  <!-- section 5 -->
-  <app-three-d-slide-show class="mt-60 w-full" />
-
-  <!-- section 6 -->
-  <ng-template #faq let-question="question" let-href="href">
-    <a
-      [href]="href"
-      target="_blank"
-      class="white-border !rounded-[20px] py-6 px-9 text-[38px] flex justify-between items-center"
+    <div class="section-heading section-heading--soar-right bg-[#fb4932]">A must-join (NFT) community on Cosmos</div>
+    <div
+      class="mt-10 w-full flex flex-col gap-y-5 tablet:mt-15 tablet:flex-row tablet:gap-x-6 laptop:gap-x-8 desktop:gap-x-10"
     >
-      <span class="font-fredoka leading-normal">{{ question }}</span>
-      <mat-icon inline class="text-[#ffc600] ml-4">north_east</mat-icon>
-    </a>
-  </ng-template>
-  <div class="mt-60 w-full px-10 flex justify-between gap-x-10">
-    <div>
-      <div class="section-heading !mt-0 bg-[#e32a11]">hi guys!</div>
-      <div class="section-label mt-10 bg-spicy text-[100px]">Frequently</div>
-      <div class="section-label bg-lime text-[100px]">asked</div>
-      <div class="section-label bg-lime text-[100px]">questions</div>
-    </div>
-    <div class="flex flex-col gap-y-10">
-      <ng-container *ngTemplateOutlet="faq; context: { question: 'WHAT IS CH0PCH0P NFT?', href: '/' }" />
+      <ng-container *ngTemplateOutlet="character; context: { character: 'fun', content: 'Why so serious?' }" />
       <ng-container
-        *ngTemplateOutlet="faq; context: { question: 'I WANT TO BUY CH0PCH0PNFT. HOW CAN I DO IT?', href: '/' }"
+        *ngTemplateOutlet="
+          character;
+          context: { character: 'authentic', content: 'How many sub-personalities do you have? - Let’s ch0p it down.' }
+        "
       />
-      <ng-container *ngTemplateOutlet="faq; context: { question: 'WHAT IS STARGAZE AND WHY?', href: '/' }" />
-      <ng-container *ngTemplateOutlet="faq; context: { question: 'WHEN UTILITY?', href: '/' }" />
-      <ng-container *ngTemplateOutlet="faq; context: { question: 'WHAT DA HECK IS SWAPPABLE TRAIT?', href: '/' }" />
-      <ng-container *ngTemplateOutlet="faq; context: { question: 'DO YOU EVEN HAVE A ROADMAP BRO?', href: '/' }" />
+      <ng-container *ngTemplateOutlet="character; context: { character: 'naughty', content: 'Stir it up!' }" />
+    </div>
+    <div class="mt-10 w-full tablet:mt-15">
+      <div class="rounded-10 white-border w-full py-10 px-5 flex overflow-x-hidden tablet:px-15">
+        @for (i of array(2); track i) {
+          <div class="join-the-gang-slide">
+            <ng-container *ngTemplateOutlet="joinTheGang; context: { img: 'assets/self/angel-teeth.png' }" />
+            <ng-container *ngTemplateOutlet="joinTheGang; context: { img: 'assets/self/bye-bye-money.png' }" />
+            <ng-container *ngTemplateOutlet="joinTheGang; context: { img: 'assets/self/fishantern.png' }" />
+            <ng-container *ngTemplateOutlet="joinTheGang; context: { img: 'assets/self/frienergy.png' }" />
+            <ng-container *ngTemplateOutlet="joinTheGang; context: { img: 'assets/self/naughty-banana.png' }" />
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- section 3 -->
+    <div class="section-heading section-heading--soar-left bg-[#11cca7]">guess what!</div>
+    <div class="section-label mt-6 bg-lime text-6xl tablet:mt-8 tablet:text-[80px] laptop:text-[100px]">
+      How ch0pch0p
+    </div>
+    <div class="section-label bg-budd text-6xl tablet:text-[80px] laptop:text-[100px]">Appear On Cosmos</div>
+    <div
+      class="mt-10 flex flex-col gap-y-10 tablet:mt-15 tablet:flex-row tablet:items-end tablet:gap-x-10 tablet:max-laptop:min-w-0 tablet:max-laptop:w-full tablet:max-laptop:overflow-auto"
+    >
+      <div class="basis-1/4 white-border paragraph-content tablet:max-laptop:min-w-80">
+        We were so fed up & frustrated with our jobs & bosses, so we decided to do sth fun and authentic on the internet
+        and pray that we would gather a community that was both witty and genuine - just like us (even everyone said
+        that internet friends are not real, lol).
+      </div>
+      <div class="basis-1/4 white-border paragraph-content tablet:max-laptop:min-w-80">
+        We discussed back and forth choosing the playground that contained a lot of naughty & (bad) kids. We are fun but
+        poor. It can't be ETH or Solana - where the playground is too crowded & gas is expensive.
+      </div>
+      <div class="basis-1/4 white-border paragraph-content tablet:max-laptop:min-w-80">
+        Then Thang appeared like a god and told us about Cosmos & its superior tech stack. The pitch was too long, but
+        we remembered that the gas fee was nearly 0. We chose Stargaze to launch &quot;0&quot; by ch0pch0p.
+      </div>
+      <div class="basis-1/4 white-border paragraph-content tablet:max-laptop:min-w-80">
+        We now have hundreds of ch0ppers in our community - who are super supportive & authentic. They all day engage
+        with our &quot;nonsense&quot; ideas that my boss always rejects. Our dream comes true. Can't ask for more but
+        launching a new baby to attract more friends. &#61;&#93;&#93;
+      </div>
+    </div>
+
+    <!-- section 4 -->
+    <div class="section-heading section-heading--soar-right bg-[#d107ac]">not perfect but fun!</div>
+    <div class="section-label mt-6 bg-budd text-6xl tablet:mt-8 tablet:text-[100px]">Meet The Team</div>
+    <div class="meet-the-team">
+      <app-member-intro name="quatac" team="Happen" intro="#instigator" />
+      <app-member-intro name="vy" team="Happen" intro="#unlimited" />
+      <app-member-intro name="theo" team="Happen" intro="I am not gonna answer you" />
+      <app-member-intro
+        name="lethang"
+        team="Saleable"
+        intro="Headchef. He makes you proud (at least that's what he thought)."
+      />
+      <app-member-intro
+        name="trungngo"
+        team="Wow"
+        intro="Shadowy Super Coder. If he is not coding then he is playing video games or board games."
+      />
+      <app-member-intro
+        name="loancute"
+        team="Clear"
+        intro="Thinking about quitting my full-time job to have a fun-time (all day) role with ch0pch0pNFT."
+      />
+      <app-member-intro name="masu" team="Saleable" intro="xu" />
+    </div>
+
+    <!-- section 5 -->
+    <app-three-d-slide-show class="mt-40 w-full" />
+
+    <!-- section 6 -->
+    <ng-template #faq let-question="question" let-href="href">
+      <a
+        [href]="href"
+        target="_blank"
+        class="white-border !rounded-[20px] p-5 text-xl flex justify-between items-center tablet:text-2xl laptop:text-3xl"
+      >
+        <span class="font-fredoka leading-normal">{{ question }}</span>
+        <mat-icon inline class="text-[#ffc600] ml-4">north_east</mat-icon>
+      </a>
+    </ng-template>
+    <!-- w-full flex justify-between gap-x-10 -->
+    <div class="contents desktop:mt-[120px] desktop:w-full desktop:flex desktop:justify-between">
+      <div class="flex flex-col items-center desktop:items-start">
+        <div class="section-heading section-heading--soar-left bg-[#e32a11] desktop:!mt-0">hi guys!</div>
+        <div class="section-label mt-6 bg-spicy text-6xl tablet:mt-8 tablet:text-[80px] laptop:text-[100px]">
+          Frequently
+        </div>
+        <div
+          class="section-label bg-lime text-6xl tablet:text-[80px] laptop:text-[100px] desktop:w-min desktop:!text-start"
+        >
+          Asked Questions
+        </div>
+      </div>
+      <div class="mt-10 flex flex-col gap-y-8 tablet:mt-15 desktop:mt-0 max-desktop:w-full">
+        <ng-container *ngTemplateOutlet="faq; context: { question: 'WHAT IS CH0PCH0P NFT?', href: '/' }" />
+        <ng-container
+          *ngTemplateOutlet="faq; context: { question: 'I WANT TO BUY CH0PCH0PNFT. HOW CAN I DO IT?', href: '/' }"
+        />
+        <ng-container *ngTemplateOutlet="faq; context: { question: 'WHAT IS STARGAZE AND WHY?', href: '/' }" />
+        <ng-container *ngTemplateOutlet="faq; context: { question: 'WHEN UTILITY?', href: '/' }" />
+        <ng-container *ngTemplateOutlet="faq; context: { question: 'WHAT DA HECK IS SWAPPABLE TRAIT?', href: '/' }" />
+        <ng-container *ngTemplateOutlet="faq; context: { question: 'DO YOU EVEN HAVE A ROADMAP BRO?', href: '/' }" />
+      </div>
     </div>
   </div>
 
   <!-- footer -->
-  <div
-    class="mt-40 w-full bg-[url('assets/background-image/bg-net.png')] pt-[100px] pb-20 px-56 flex flex-col items-center"
-  >
-    <div class="section-heading !mt-0 bg-[#ffc600]">come in</div>
-    <div class="mt-10 font-fredoka text-9xl font-bold">FOLLOW US</div>
-    <div class="mt-10 font-fredoka text-9xl font-bold">ON SOCIAL MEDIA</div>
-    <div class="mt-15 flex gap-x-10">
-      <a mat-flat-button href="https://twitter.com/ch0pch0pNFT" target="_blank" class="!rounded-[20px] !bg-lunar !p-6">
-        <svg xmlns="http://www.w3.org/2000/svg" width="46" height="40" viewBox="0 0 46 40" fill="none">
-          <g clip-path="url(#clip0_197_2810)">
-            <path
-              d="M40.9489 10.3178C40.9673 10.74 40.9673 11.1431 40.9673 11.5653C40.9856 24.3672 31.6675 39.1458 14.627 39.1458C9.6011 39.1458 4.66688 37.6295 0.429688 34.789C1.1634 34.8849 1.89712 34.9233 2.63082 34.9233C6.79464 34.9233 10.8484 33.4646 14.1318 30.7584C10.1697 30.6817 6.68458 27.9754 5.47396 24.0217C6.86801 24.3096 8.29875 24.252 9.65612 23.8489C5.34556 22.9661 2.24563 18.993 2.22728 14.3675C2.22728 14.3291 2.22728 14.2907 2.22728 14.2523C3.51128 15.0009 4.96036 15.4231 6.42778 15.4615C2.37403 12.6209 1.10837 6.959 3.56631 2.52541C8.28041 8.59041 15.2139 12.2563 22.6612 12.6593C21.9091 9.30056 22.9363 5.76903 25.3393 3.38909C29.0628 -0.276783 34.9325 -0.0848523 38.4543 3.81134C40.527 3.38909 42.5265 2.58299 44.3424 1.45059C43.6453 3.69618 42.1962 5.59629 40.2703 6.80546C42.1046 6.57514 43.9022 6.05693 45.5897 5.2892C44.3424 7.2469 42.7649 8.93588 40.9489 10.3178Z"
-              fill="white"
-            />
-          </g>
-          <defs>
-            <clipPath id="clip0_197_2810">
-              <rect width="45.16" height="38.386" fill="white" transform="translate(0.429688 0.759766)" />
-            </clipPath>
-          </defs>
-        </svg>
-      </a>
-      <a
-        mat-flat-button
-        href="https://discord.com/invite/tH3bnHEFGY"
-        target="_blank"
-        class="!rounded-[20px] !bg-lunar !p-6"
+  <div class="relative mt-15 w-full bg-[url('assets/background-image/bg-net.png')] tablet:mt-[120px] laptop:mt-40">
+    <div class="page-margin pb-4 flex flex-col items-center tablet:pb-16 laptop:pb-20">
+      <div
+        class="section-heading section-heading--soar-right section-heading--last-heading mt-20 bg-[#ffc600] laptop:mt-[100px]"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="51" height="40" viewBox="0 0 51 40" fill="none">
-          <g clip-path="url(#clip0_197_2815)">
-            <path
-              d="M42.4072 3.94332C39.2413 2.47069 35.8464 1.38573 32.297 0.764325C32.2324 0.752333 32.1678 0.782303 32.1345 0.842247C31.6979 1.62949 31.2143 2.65652 30.8756 3.46374C27.0578 2.88431 23.2597 2.88431 19.5203 3.46374C19.1815 2.63857 18.6804 1.62949 18.2418 0.842247C18.2085 0.784303 18.1439 0.754333 18.0793 0.764325C14.5317 1.38375 11.1369 2.46871 7.9691 3.94332C7.94167 3.95531 7.91817 3.97531 7.90257 4.00126C1.46327 13.754 -0.300719 23.2671 0.564636 32.6623C0.568552 32.7082 0.594004 32.7521 0.629245 32.7801C4.87771 35.9431 8.99307 37.8633 13.032 39.1361C13.0967 39.1561 13.1651 39.1321 13.2063 39.0782C14.1617 37.7555 15.0134 36.3608 15.7435 34.894C15.7867 34.8082 15.7456 34.7063 15.6575 34.6723C14.3066 34.1528 13.0203 33.5194 11.7829 32.8001C11.685 32.7422 11.6772 32.6003 11.7672 32.5323C12.0276 32.3346 12.2881 32.1287 12.5368 31.9208C12.5817 31.8829 12.6443 31.8749 12.6973 31.8989C20.8261 35.6614 29.6265 35.6614 37.6594 31.8989C37.7122 31.873 37.775 31.881 37.8218 31.9189C38.0705 32.1267 38.331 32.3346 38.5933 32.5323C38.6834 32.6003 38.6775 32.7422 38.5797 32.8001C37.3423 33.5334 36.056 34.1528 34.7031 34.6703C34.615 34.7043 34.5758 34.8082 34.6189 34.894C35.3649 36.3587 36.2165 37.7533 37.1542 39.0761C37.1934 39.1321 37.264 39.1561 37.3285 39.1361C41.387 37.8633 45.5024 35.9431 49.7509 32.7801C49.7881 32.7521 49.8116 32.7101 49.8156 32.6642C50.8512 21.8024 48.0808 12.3673 42.4717 4.00325C42.458 3.97531 42.4346 3.95531 42.4072 3.94332ZM16.9575 26.9416C14.5101 26.9416 12.4936 24.6638 12.4936 21.8664C12.4936 19.0691 14.4711 16.7912 16.9575 16.7912C19.4635 16.7912 21.4604 19.089 21.4213 21.8664C21.4213 24.6638 19.4438 26.9416 16.9575 26.9416ZM33.4618 26.9416C31.0146 26.9416 28.9981 24.6638 28.9981 21.8664C28.9981 19.0691 30.9754 16.7912 33.4618 16.7912C35.9679 16.7912 37.9648 19.089 37.9257 21.8664C37.9257 24.6638 35.9679 26.9416 33.4618 26.9416Z"
-              fill="white"
-            />
-          </g>
-          <defs>
-            <clipPath id="clip0_197_2815">
-              <rect width="49.67" height="38.3814" fill="white" transform="translate(0.359375 0.761719)" />
-            </clipPath>
-          </defs>
-        </svg>
-      </a>
-    </div>
-    <div class="mt-[90px] w-full font-fredoka text-lg flex justify-between">
-      <div>ALL RIGHTS RESERVED</div>
-      <div>© 2023</div>
-      <div>TERMS & PRIVACY POLICY</div>
+        come in
+      </div>
+      <div
+        class="section-label section-label--last-label mt-6 bg-budd text-6xl tablet:mt-8 tablet:text-[100px] laptop:text-[150px]"
+      >
+        Follow Us<span>&nbsp;On</span>
+      </div>
+      <div class="section-label section-label--last-label bg-budd text-6xl tablet:text-[100px] laptop:text-[150px]">
+        <span>On&nbsp;</span>Social Media
+      </div>
+      <div class="mt-10 flex gap-x-6 tablet:gap-x-8 laptop:mt-15 laptop:gap-x-10">
+        <a
+          mat-flat-button
+          href="https://twitter.com/ch0pch0pNFT"
+          target="_blank"
+          class="!rounded-[14px] !bg-lunar !py-10 !px-6 tablet:!rounded-2xl laptop:!rounded-[20px]"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 31 27"
+            fill="none"
+            class="w-[31px] h-[27px] tablet:w-[38px] tablet:h-[33px] laptop:w-[46px] laptop:h-[39px]"
+          >
+            <g clip-path="url(#clip0_395_24927)">
+              <path
+                d="M27.5128 7.23872C27.5251 7.52021 27.5251 7.78891 27.5251 8.07041C27.5373 16.605 21.3252 26.4574 9.96486 26.4574C6.61427 26.4574 3.3248 25.4465 0.5 23.5528C0.989142 23.6168 1.47829 23.6424 1.96742 23.6424C4.7433 23.6424 7.44581 22.6699 9.63474 20.8658C6.99335 20.8146 4.66993 19.0105 3.86285 16.3746C4.79222 16.5666 5.74604 16.5282 6.65096 16.2595C3.77725 15.6709 1.71063 13.0222 1.6984 9.93852C1.6984 9.91293 1.6984 9.88733 1.6984 9.86174C2.5544 10.3608 3.52045 10.6423 4.49873 10.6678C1.79623 8.77414 0.952456 4.99952 2.59108 2.04379C5.73382 6.08713 10.3562 8.53103 15.321 8.79973C14.8196 6.56056 15.5044 4.20621 17.1064 2.61958C19.5888 0.175667 23.5019 0.303621 25.8497 2.90108C27.2316 2.61958 28.5645 2.08218 29.7751 1.32725C29.3104 2.82431 28.3444 4.09105 27.0604 4.89716C28.2833 4.74362 29.4817 4.39814 30.6067 3.88632C29.7751 5.19145 28.7235 6.31744 27.5128 7.23872Z"
+                fill="white"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_395_24927">
+                <rect width="30.1067" height="25.5907" fill="white" transform="translate(0.5 0.866699)" />
+              </clipPath>
+            </defs>
+          </svg>
+        </a>
+        <a
+          mat-flat-button
+          href="https://discord.com/invite/tH3bnHEFGY"
+          target="_blank"
+          class="!rounded-[14px] !bg-lunar !py-10 !px-6 tablet:!rounded-2xl laptop:!rounded-[20px]"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 34 27"
+            fill="none"
+            class="w-[34px] h-[27px] tablet:w-[43px] tablet:h-[33px] laptop:w-[51px] laptop:h-[39px]"
+          >
+            <g clip-path="url(#clip0_395_24932)">
+              <path
+                d="M28.3131 2.98923C26.2025 2.00748 23.9393 1.28417 21.573 0.869902C21.5299 0.861907 21.4869 0.881887 21.4647 0.92185C21.1736 1.44668 20.8512 2.13136 20.6254 2.66951C18.0802 2.28322 15.5482 2.28322 13.0552 2.66951C12.8293 2.1194 12.4953 1.44668 12.2029 0.92185C12.1807 0.883221 12.1376 0.86324 12.0945 0.869902C9.72946 1.28285 7.46623 2.00616 5.3544 2.98923C5.33611 2.99722 5.32044 3.01056 5.31004 3.02786C1.01718 9.52971 -0.158813 15.8717 0.418091 22.1352C0.420702 22.1658 0.437669 22.1951 0.461163 22.2138C3.29347 24.3224 6.03705 25.6025 8.72967 26.4511C8.77279 26.4644 8.81839 26.4484 8.84586 26.4125C9.48277 25.5307 10.0506 24.6009 10.5374 23.623C10.5661 23.5659 10.5387 23.4979 10.48 23.4752C9.5794 23.1289 8.72184 22.7066 7.89694 22.2271C7.83169 22.1885 7.8265 22.0939 7.88648 22.0486C8.0601 21.9167 8.23372 21.7795 8.39951 21.6409C8.42946 21.6156 8.47123 21.6103 8.50653 21.6263C13.9257 24.1346 19.7927 24.1346 25.1479 21.6263C25.1832 21.609 25.225 21.6143 25.2562 21.6396C25.422 21.7782 25.5956 21.9167 25.7705 22.0486C25.8306 22.0939 25.8267 22.1885 25.7614 22.2271C24.9365 22.716 24.079 23.1289 23.1771 23.4739C23.1183 23.4965 23.0922 23.5659 23.1209 23.623C23.6182 24.5995 24.186 25.5292 24.8112 26.4111C24.8373 26.4484 24.8843 26.4644 24.9274 26.4511C27.633 25.6025 30.3766 24.3224 33.2089 22.2138C33.2338 22.1951 33.2494 22.1671 33.252 22.1365C33.9425 14.8953 32.0956 8.60525 28.3562 3.02919C28.347 3.01056 28.3314 2.99722 28.3131 2.98923ZM11.3467 18.3215C9.71509 18.3215 8.37076 16.8029 8.37076 14.9379C8.37076 13.0731 9.68905 11.5545 11.3467 11.5545C13.0173 11.5545 14.3486 13.0864 14.3225 14.9379C14.3225 16.8029 13.0042 18.3215 11.3467 18.3215ZM22.3496 18.3215C20.718 18.3215 19.3737 16.8029 19.3737 14.9379C19.3737 13.0731 20.6919 11.5545 22.3496 11.5545C24.0203 11.5545 25.3515 13.0864 25.3255 14.9379C25.3255 16.8029 24.0203 18.3215 22.3496 18.3215Z"
+                fill="white"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_395_24932">
+                <rect width="33.1133" height="25.5876" fill="white" transform="translate(0.28125 0.868164)" />
+              </clipPath>
+            </defs>
+          </svg>
+        </a>
+      </div>
+      <div class="mt-10 w-full font-fredoka text-xs flex justify-between tablet:text-lg laptop:mt-15">
+        <div>ALL RIGHTS RESERVED</div>
+        <div>© 2023</div>
+        <div>TERMS & PRIVACY POLICY</div>
+      </div>
     </div>
   </div>
 }

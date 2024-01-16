@@ -9,5 +9,7 @@
   />
 </div>
 <div class="mt-[10px] text-[32px] font-bold leading-tight">{{ name }}</div>
-<div class="mt-[10px] w-fit bg-[#311dcb] py-1 px-[10px] font-fredoka text-base">{{ MemberTeam[team] }}</div>
+<div class="mt-[10px] w-fit py-1 px-[10px] font-fredoka text-base" [style.backgroundColor]="TeamColor[team]">
+  {{ MemberTeam[team] }}
+</div>
 <div class="mt-[10px] font-fredoka text-lg">{{ intro }}</div>

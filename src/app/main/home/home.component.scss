@@ -1,13 +1,8 @@
-@use '/src/stylings/page';
 @use '/src/stylings/variables';
 @use 'section-1';
 
 :host {
-  @extend .page-margin;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: block;
 
   .section-heading {
     padding: 10px 20px;
@@ -22,6 +17,14 @@
 
     &--soar-right {
       transform: rotate(3deg);
+    }
+
+    &:not(&--first-heading, &--last-heading) {
+      margin-top: 60px;
+
+      @media (width >= #{variables.$tablet}) {
+        margin-top: 120px;
+      }
     }
 
     @media (min-width: variables.$tablet) {
@@ -54,7 +57,19 @@
       }
     }
 
-    @media (min-width: variables.$tablet) {
+    &--last-label {
+      > span {
+        display: inline;
+      }
+
+      &:nth-child(3) {
+        > span {
+          display: none;
+        }
+      }
+    }
+
+    @media (width >= #{variables.$tablet}) {
       &:nth-child(2) {
         > span {
           display: inline;
@@ -64,6 +79,20 @@
       &:nth-child(3) {
         > span {
           display: none;
+        }
+      }
+
+      &--last-label {
+        &:nth-child(2) {
+          > span {
+            display: none;
+          }
+        }
+
+        &:nth-child(3) {
+          > span {
+            display: inline;
+          }
         }
       }
     }
@@ -76,7 +105,7 @@
 
   .paragraph-content {
     padding: 40px;
-    text-align: justify;
+    text-wrap: pretty;
     font-family: variables.$headline-font;
     font-size: 24px;
     line-height: 30px;
@@ -115,9 +144,13 @@
     flex-shrink: 0;
     display: flex;
     align-items: center;
-    column-gap: 90px;
+    column-gap: 20px;
     white-space: nowrap;
     animation: 15s linear infinite join-the-gang-slide;
+
+    @media (width >= #{variables.$tablet}) {
+      column-gap: 60px;
+    }
 
     @keyframes join-the-gang-slide {
       to {
@@ -135,15 +168,59 @@
 
     margin-top: 40px;
     width: 100%;
-    padding: 0 40px;
     display: flex;
-    justify-content: center;
-    align-items: start;
-    flex-wrap: wrap;
-    gap: $gap;
+    flex-direction: column;
+    row-gap: $gap;
 
-    > app-member-intro {
-      flex-basis: calc(25% - $gap * 3 / 4);
+    @media (width >= #{variables.$tablet}) {
+      margin-top: 60px;
+      flex-direction: row;
+      align-items: start;
+      column-gap: $gap;
+
+      > app-member-intro {
+        flex-basis: calc(25% - $gap * 3 / 4);
+      }
+    }
+
+    @media (#{variables.$tablet} <= width < #{variables.$desktop}) {
+      min-width: 0;
+      overflow-x: auto;
+
+      > app-member-intro {
+        min-width: 372px;
+
+        &:nth-child(2) {
+          --offset-animation: 100;
+        }
+
+        &:nth-child(3) {
+          --offset-animation: 200;
+        }
+      }
+    }
+
+    @media (width >= #{variables.$desktop}) {
+      flex-wrap: wrap-reverse;
+      justify-content: center;
+
+      > app-member-intro {
+        &:nth-child(-n + 3) {
+          order: 1;
+        }
+
+        &:nth-child(3n + 2) {
+          --offset-animation: 1;
+        }
+
+        &:nth-child(3n + 3) {
+          --offset-animation: 2;
+        }
+
+        &:nth-child(7) {
+          --offset-animation: 3;
+        }
+      }
     }
   }
 }

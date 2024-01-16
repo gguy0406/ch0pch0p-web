@@ -29,6 +29,9 @@ module.exports = {
       margin: {
         15: '60px',
       },
+      padding: {
+        15: '60px',
+      },
       gap: {
         15: '60px',
       },
