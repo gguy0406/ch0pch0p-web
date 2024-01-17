@@ -45,7 +45,7 @@
       }
       @if (section1progress() > 0.33 || isUnveiled) {
         <div
-          class="relative grid-item !bg-white border border-solid border-[#afafaf] px-5 !flex items-center justify-center text-center text-[40px] font-bold leading-tight"
+          class="relative grid-item !bg-white border border-solid border-[#afafaf] px-5 !flex items-center justify-center text-center text-2xl font-bold tablet:text-3xl laptop:text-[40px]"
         >
           <div
             role="presentation"
@@ -501,7 +501,7 @@
       </div>
     </ng-template>
     <ng-template #joinTheGang let-img="img">
-      <span class="text-[50px] font-bold">join the gang</span>
+      <span class="text-[32px] font-bold tablet:text-[40px] laptop:text-[50px]">join the gang</span>
       <img [ngSrc]="img" width="100" height="100" alt="join the gang image" />
     </ng-template>
 
@@ -587,7 +587,7 @@
     </div>
 
     <!-- section 5 -->
-    <app-three-d-slide-show class="mt-40 w-full" />
+    <app-three-d-slide-show srcFolder="assets/c1-274-webp" />
 
     <!-- section 6 -->
     <ng-template #faq let-question="question" let-href="href">

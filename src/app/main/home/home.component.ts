@@ -24,7 +24,7 @@ import { MemberIntroComponent } from './member-intro/member-intro.component';
 })
 export class HomeComponent {
   protected isUnveiled?: boolean;
-  protected section1progress: WritableSignal<number> = signal(1);
+  protected section1progress: WritableSignal<number> = signal(0);
   protected array = Array;
 
   protected onSection1Scroll(event: Event) {

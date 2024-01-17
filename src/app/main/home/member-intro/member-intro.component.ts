@@ -24,11 +24,11 @@ export class MemberIntroComponent implements AfterViewInit {
   @Input({ required: true }) team!: keyof typeof MemberTeam;
   @Input({ required: true }) intro!: string;
 
-  offsetAnimation?: number;
-
   protected MemberTeam = MemberTeam;
   protected TeamColor = TeamColor;
   protected isIntersecting?: boolean;
+
+  private _offsetAnimation?: number;
 
   private observer: IntersectionObserver = new IntersectionObserver(
     ([entry]) => {
@@ -37,7 +37,7 @@ export class MemberIntroComponent implements AfterViewInit {
           this.isIntersecting = entry.isIntersecting;
           this._cdRef.detectChanges();
         },
-        (this.offsetAnimation || 0) * 125
+        (this._offsetAnimation || 0) * 125
       );
 
       entry.isIntersecting && this.observer.disconnect();
@@ -52,7 +52,7 @@ export class MemberIntroComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.observer.observe(this._memberImg.nativeElement);
-    this.offsetAnimation = +window
+    this._offsetAnimation = +window
       .getComputedStyle(this._elementRef.nativeElement)
       .getPropertyValue('--offset-animation');
   }

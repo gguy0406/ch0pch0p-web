@@ -51,48 +51,34 @@
       display: none;
     }
 
-    &:nth-child(3) {
-      > span {
-        display: inline;
-      }
+    &--last-label > span {
+      display: inline;
     }
 
-    &--last-label {
-      > span {
-        display: inline;
-      }
+    &:nth-child(3) > span {
+      display: inline;
+    }
 
-      &:nth-child(3) {
-        > span {
-          display: none;
-        }
-      }
+    &--last-label:nth-child(3) > span {
+      display: none;
     }
 
     @media (width >= #{variables.$tablet}) {
-      &:nth-child(2) {
-        > span {
-          display: inline;
-        }
+      &:nth-child(2) > span {
+        display: inline;
       }
 
-      &:nth-child(3) {
-        > span {
-          display: none;
-        }
+      &:nth-child(3) > span {
+        display: none;
       }
 
       &--last-label {
-        &:nth-child(2) {
-          > span {
-            display: none;
-          }
+        &:nth-child(2) > span {
+          display: none;
         }
 
-        &:nth-child(3) {
-          > span {
-            display: inline;
-          }
+        &:nth-child(3) > span {
+          display: inline;
         }
       }
     }
@@ -116,7 +102,7 @@
     flex-basis: 33.33%;
     aspect-ratio: 1 / 1;
 
-    > img {
+    > * {
       backface-visibility: hidden;
       transition: transform 0.5s;
     }
@@ -125,8 +111,6 @@
       position: absolute;
       inset: 0;
       transform: rotateY(180deg);
-      backface-visibility: hidden;
-      transition: transform 0.5s;
     }
 
     &:hover {
@@ -141,25 +125,27 @@
   }
 
   .join-the-gang-slide {
+    --sibling-gap: 20px;
+
     flex-shrink: 0;
     display: flex;
     align-items: center;
-    column-gap: 20px;
+    column-gap: var(--sibling-gap);
     white-space: nowrap;
     animation: 15s linear infinite join-the-gang-slide;
 
+    &:last-child {
+      margin-left: var(--sibling-gap);
+    }
+
     @media (width >= #{variables.$tablet}) {
-      column-gap: 60px;
+      --sibling-gap: 60px;
     }
 
     @keyframes join-the-gang-slide {
       to {
-        transform: translate(calc(-100% - 90px));
+        transform: translate(calc(-100% - var(--sibling-gap)));
       }
-    }
-
-    &:last-child {
-      margin-left: 90px;
     }
   }
 
@@ -221,6 +207,15 @@
           --offset-animation: 3;
         }
       }
+    }
+  }
+
+  app-three-d-slide-show {
+    margin: 80px -64px 0;
+    width: calc(100% + 128px);
+
+    @media (width < #{variables.$tablet}) {
+      display: none;
     }
   }
 }

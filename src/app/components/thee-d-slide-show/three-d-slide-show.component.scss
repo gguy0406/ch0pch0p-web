@@ -1,3 +1,70 @@
+@use '/src/stylings/variables';
+
 :host {
+  $quantity: 28;
+
+  --size: 150;
+  --gap: 20;
+
+  position: relative;
+  height: calc((var(--size) * 3 + var(--gap) * 2) * 1px);
+  overflow: hidden;
   display: block;
+
+  .slide-container {
+    --cir: calc(var(--size) * #{$quantity} + var(--gap) * (#{$quantity} - 1));
+    --radius: calc(var(--cir) / 3.1416 / 2);
+
+    position: absolute;
+    left: 50%;
+    height: calc(var(--size) * 1px);
+    transform: var(--container-transform);
+    transform-style: preserve-3d;
+    animation: calc(var(--cir) / 65 * 1s) linear infinite running rotate;
+
+    &:nth-child(1) {
+      --container-transform: translate3d(-50%, 0, calc(var(--radius) * 1px)) perspective(3000px);
+
+      top: 0;
+      transform-origin: 50% calc(150% + var(--gap) * 1px);
+    }
+
+    &:nth-child(2) {
+      --container-transform: translate3d(-50%, -50%, calc(var(--radius) * 1px)) perspective(3000px);
+
+      top: 50%;
+    }
+
+    &:nth-child(3) {
+      --container-transform: translate3d(-50%, -100%, calc(var(--radius) * 1px)) perspective(3000px);
+
+      top: 100%;
+      transform-origin: 50% calc(-50% - var(--gap) * 1px);
+    }
+
+    @keyframes rotate {
+      to {
+        transform: var(--container-transform) rotateY(360deg);
+      }
+    }
+
+    > * {
+      position: absolute;
+      inset: 0;
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      backface-visibility: hidden;
+
+      @for $i from 1 to $quantity + 1 {
+        &:nth-child(#{$quantity}n + #{$i}) {
+          transform: rotateY(#{360 / $quantity * $i}deg) translateZ(calc(var(--radius) * -1px));
+        }
+      }
+    }
+  }
+
+  @media (width >= #{variables.$laptop}) {
+    --size: 274;
+    --gap: 40;
+  }
 }

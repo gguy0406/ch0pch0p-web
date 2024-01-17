@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-three-d-slide-show',
@@ -6,6 +7,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './three-d-slide-show.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [],
+  imports: [NgOptimizedImage],
 })
-export class ThreeDSlideShowComponent {}
+export class ThreeDSlideShowComponent {
+  @Input({ required: true }) srcFolder!: string;
+
+  protected array = Array;
+}
