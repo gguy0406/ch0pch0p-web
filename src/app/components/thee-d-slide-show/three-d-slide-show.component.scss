@@ -1,3 +1,4 @@
+@use 'sass:math';
 @use '/src/stylings/variables';
 
 :host {
@@ -57,7 +58,7 @@
 
       @for $i from 1 to $quantity + 1 {
         &:nth-child(#{$quantity}n + #{$i}) {
-          transform: rotateY(#{360 / $quantity * $i}deg) translateZ(calc(var(--radius) * -1px));
+          transform: rotateY(#{math.div(360, $quantity) * $i}deg) translateZ(calc(var(--radius) * -1px));
         }
       }
     }
