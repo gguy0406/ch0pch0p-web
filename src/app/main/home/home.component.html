@@ -17,17 +17,12 @@
     <div class="relative pb-14 tablet:pb-5 laptop:pb-2">
       <div class="page-margin flex flex-col items-center">
         <div
-          class="section-heading section-heading--soar-left section-heading--first-heading bg-[#ffc600]"
+          class="section-heading section-heading--soar-left section-heading--first-heading bg-[#ffc600] text-black"
           [class]="section1progress() === 1 ? 'mt-15' : 'mt-[140px] tablet:mt-[220px] laptop:mt-[188px]'"
         >
           Keep scrolling until you see the surprise!
         </div>
-        <div class="section-label mt-6 bg-budd text-6xl tablet:mt-8 tablet:text-[100px] laptop:text-[150px]">
-          Unleashing<span>&nbsp;The</span>
-        </div>
-        <div class="section-label bg-toxic text-6xl tablet:text-[100px] laptop:text-[150px]">
-          <span>The&nbsp;</span>Best Version
-        </div>
+        <div class="bg-logo mt-6 tablet:mt-8"></div>
       </div>
       <div
         class="grid-container grid-container--first-half"
@@ -43,19 +38,19 @@
       @for (i of array(4); track i) {
         <div class="grid-item"></div>
       }
-      @if (section1progress() > 0.33 || isUnveiled) {
+      @if (section1progress() > 0.33 || isUnveiled()) {
         <div
           class="relative grid-item !bg-white border border-solid border-[#afafaf] px-5 !flex items-center justify-center text-center text-2xl font-bold tablet:text-3xl laptop:text-[40px]"
         >
           <div
             role="presentation"
-            (click)="isUnveiled = true"
-            class="absolute -inset-px bg-lunar px-5 flex items-center justify-center origin-top-left"
-            [class]="isUnveiled ? 'grid-item--unveiled' : 'cursor-pointer'"
+            (click)="isUnveiled.set(true)"
+            class="absolute -inset-px bg-orange px-5 flex items-center justify-center origin-top-left"
+            [class]="isUnveiled() ? 'grid-item--unveiled' : 'cursor-pointer'"
           >
             <span class="text-white">what's next!</span>
           </div>
-          @if (isUnveiled) {
+          @if (isUnveiled()) {
             <span class="text-black">coming soon!</span>
           }
         </div>
@@ -494,31 +489,33 @@
 @if (section1progress() === 1) {
   <div class="page-margin flex flex-col items-center">
     <!-- section 2 -->
-    <ng-template #character let-character="character" let-content="content">
-      <div class="character-reveal">
-        <div class="white-border paragraph-content">{{ content }}</div>
-        <img fill [ngSrc]="'assets/character/' + character + '.png'" [alt]="character" class="rounded-10" />
-      </div>
-    </ng-template>
     <ng-template #joinTheGang let-img="img">
       <span class="text-[32px] font-bold tablet:text-[40px] laptop:text-[50px]">join the gang</span>
       <img [ngSrc]="img" width="100" height="100" alt="join the gang image" />
     </ng-template>
 
-    <div class="section-heading section-heading--soar-right bg-[#fb4932]">A must-join (NFT) community on Cosmos</div>
+    <div class="section-heading section-heading--soar-right bg-[#fb4932] text-white">
+      A must-join (NFT) community on Cosmos
+    </div>
     <div
       class="mt-10 w-full flex flex-col gap-y-5 tablet:mt-15 tablet:flex-row tablet:gap-x-6 laptop:gap-x-8 desktop:gap-x-10"
     >
-      <ng-container *ngTemplateOutlet="character; context: { character: 'fun', content: 'Why so serious?' }" />
-      <ng-container
-        *ngTemplateOutlet="
-          character;
-          context: { character: 'authentic', content: 'How many sub-personalities do you have? - Let’s ch0p it down.' }
-        "
-      />
-      <ng-container *ngTemplateOutlet="character; context: { character: 'naughty', content: 'Stir it up!' }" />
+      <div class="relative basis-1/3 aspect-square rounded-10 p-10 overflow-hidden">
+        <img fill ngSrc="assets/character/fun.png" alt="fun character" />
+        <span class="absolute inset-0 paragraph-content bg-neutral-600 bg-opacity-60">Why so serious?</span>
+      </div>
+      <div class="relative basis-1/3 aspect-square rounded-10 p-10 overflow-hidden">
+        <img fill ngSrc="assets/character/authentic.png" alt="authentic character" />
+        <span class="absolute inset-0 paragraph-content bg-neutral-600 bg-opacity-60"
+          >How many sub-personalities do you have? - Let's ch0p it down.</span
+        >
+      </div>
+      <div class="relative basis-1/3 aspect-square rounded-10 p-10 overflow-hidden">
+        <img fill ngSrc="assets/character/naughty.png" alt="naughty character" />
+        <span class="absolute inset-0 paragraph-content bg-neutral-600 bg-opacity-60">Stir it up!</span>
+      </div>
     </div>
-    <div class="mt-10 w-full tablet:mt-15">
+    <div class="mt-10 w-full max-tablet:hidden tablet:mt-15">
       <div class="rounded-10 white-border w-full py-10 px-5 flex overflow-x-hidden tablet:px-15">
         @for (i of array(2); track i) {
           <div class="join-the-gang-slide">
@@ -533,11 +530,10 @@
     </div>
 
     <!-- section 3 -->
-    <div class="section-heading section-heading--soar-left bg-[#11cca7]">guess what!</div>
-    <div class="section-label mt-6 bg-lime text-6xl tablet:mt-8 tablet:text-[80px] laptop:text-[100px]">
-      How ch0pch0p
+    <div class="section-heading section-heading--soar-left bg-[#11cca7] text-black">guess what!</div>
+    <div class="section-label mt-6 bg-toxic text-6xl tablet:mt-8 tablet:text-[80px] laptop:text-[100px]">
+      How ch0pch0p<br />Appear On Cosmos
     </div>
-    <div class="section-label bg-budd text-6xl tablet:text-[80px] laptop:text-[100px]">Appear On Cosmos</div>
     <div
       class="mt-10 flex flex-col gap-y-10 tablet:mt-15 tablet:flex-row tablet:items-end tablet:gap-x-10 tablet:max-laptop:min-w-0 tablet:max-laptop:w-full tablet:max-laptop:overflow-auto"
     >
@@ -563,8 +559,8 @@
 
     <!-- section 4 -->
     <div class="section-heading section-heading--soar-right bg-[#d107ac]">not perfect but fun!</div>
-    <div class="section-label mt-6 bg-budd text-6xl tablet:mt-8 tablet:text-[100px]">Meet The Team</div>
-    <div class="meet-the-team">
+    <div class="section-label mt-6 bg-budd-reverse text-6xl tablet:mt-8 tablet:text-[100px]">Meet The Team</div>
+    <div class="meet-the-team hide-scrollbar">
       <app-member-intro name="quatac" team="Happen" intro="#instigator" />
       <app-member-intro name="vy" team="Happen" intro="#unlimited" />
       <app-member-intro name="theo" team="Happen" intro="I am not gonna answer you" />
@@ -603,12 +599,12 @@
     <!-- w-full flex justify-between gap-x-10 -->
     <div class="contents desktop:mt-[120px] desktop:w-full desktop:flex desktop:justify-between">
       <div class="flex flex-col items-center desktop:items-start">
-        <div class="section-heading section-heading--soar-left bg-[#e32a11] desktop:!mt-0">hi guys!</div>
-        <div class="section-label mt-6 bg-spicy text-6xl tablet:mt-8 tablet:text-[80px] laptop:text-[100px]">
+        <div class="section-heading section-heading--soar-left bg-[#ffc600] desktop:!mt-0">hi guys!</div>
+        <div class="section-label mt-6 bg-moon-reverse text-6xl tablet:mt-8 tablet:text-[80px] laptop:text-[100px]">
           Frequently
         </div>
         <div
-          class="section-label bg-lime text-6xl tablet:text-[80px] laptop:text-[100px] desktop:w-min desktop:!text-start"
+          class="section-label bg-moon-reverse text-6xl tablet:text-[80px] laptop:text-[100px] desktop:w-min desktop:!text-start"
         >
           Asked Questions
         </div>
@@ -630,24 +626,24 @@
   <div class="relative mt-15 w-full bg-[url('assets/background-image/bg-net.png')] tablet:mt-[120px] laptop:mt-40">
     <div class="page-margin pb-4 flex flex-col items-center tablet:pb-16 laptop:pb-20">
       <div
-        class="section-heading section-heading--soar-right section-heading--last-heading mt-20 bg-[#ffc600] laptop:mt-[100px]"
+        class="section-heading section-heading--soar-right section-heading--last-heading mt-20 bg-[#4336ee] laptop:mt-[100px]"
       >
         come in
       </div>
       <div
-        class="section-label section-label--last-label mt-6 bg-budd text-6xl tablet:mt-8 tablet:text-[100px] laptop:text-[150px]"
+        class="section-label section-label--last-label mt-6 bg-white text-6xl tablet:mt-8 tablet:text-[100px] laptop:text-[150px]"
       >
-        Follow Us<span>&nbsp;On</span>
+        Follow Us
       </div>
-      <div class="section-label section-label--last-label bg-budd text-6xl tablet:text-[100px] laptop:text-[150px]">
-        <span>On&nbsp;</span>Social Media
+      <div class="section-label section-label--last-label bg-white text-6xl tablet:text-[100px] laptop:text-[150px]">
+        On Social Media
       </div>
       <div class="mt-10 flex gap-x-6 tablet:gap-x-8 laptop:mt-15 laptop:gap-x-10">
         <a
           mat-flat-button
           href="https://twitter.com/ch0pch0pNFT"
           target="_blank"
-          class="!rounded-[14px] !bg-lunar !py-10 !px-6 tablet:!rounded-2xl laptop:!rounded-[20px]"
+          class="!rounded-[14px] !bg-[#ed5a28] !py-10 !px-6 tablet:!rounded-2xl laptop:!rounded-[20px]"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -672,7 +668,7 @@
           mat-flat-button
           href="https://discord.com/invite/tH3bnHEFGY"
           target="_blank"
-          class="!rounded-[14px] !bg-lunar !py-10 !px-6 tablet:!rounded-2xl laptop:!rounded-[20px]"
+          class="!rounded-[14px] !bg-[#ed5a28] !py-10 !px-6 tablet:!rounded-2xl laptop:!rounded-[20px]"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

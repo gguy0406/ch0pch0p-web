@@ -30,6 +30,22 @@
     }
   }
 
+  .bg-logo {
+    height: 144px;
+    max-width: 100%;
+    aspect-ratio: 268 / 85;
+    background-image: linear-gradient(111deg, #fff calc(var(--section-scroll) * 100%), #ffc600 17.98%, #10cca7 84.27%);
+    mask: url('/assets/logo.svg') no-repeat center;
+
+    @media (width >= #{variables.$tablet}) {
+      height: 242px;
+    }
+
+    @media (width >= #{variables.$laptop}) {
+      height: 362px;
+    }
+  }
+
   .grid-container {
     @mixin select-nth-child($cols, $offset: 0) {
       @for $i from 0 to 4 {
@@ -83,7 +99,7 @@
       }
 
       &--unveiled {
-        animation: 1s forwards running airdrop;
+        animation: 1s forwards airdrop;
 
         @keyframes airdrop {
           10% {

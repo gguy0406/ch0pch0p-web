@@ -7,10 +7,6 @@ import { ThreeDSlideShowComponent } from 'src/app/components/thee-d-slide-show/t
 import { MemberIntroComponent } from './member-intro/member-intro.component';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     MatButtonModule,
@@ -21,9 +17,12 @@ import { MemberIntroComponent } from './member-intro/member-intro.component';
     NgOptimizedImage,
     ThreeDSlideShowComponent,
   ],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
-  protected isUnveiled?: boolean;
+  protected isUnveiled: WritableSignal<boolean> = signal(false);
   protected section1progress: WritableSignal<number> = signal(0);
   protected array = Array;
 

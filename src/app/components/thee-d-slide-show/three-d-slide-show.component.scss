@@ -21,7 +21,7 @@
     height: calc(var(--size) * 1px);
     transform: var(--container-transform);
     transform-style: preserve-3d;
-    animation: calc(var(--cir) / 65 * 1s) linear infinite running rotate;
+    animation: calc(var(--cir) / 65 * 1s) linear infinite rotate;
 
     &:nth-child(1) {
       --container-transform: translate3d(-50%, 0, calc(var(--radius) * 1px)) perspective(3000px);
