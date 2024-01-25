@@ -1,11 +1,19 @@
 <div class="relative w-full aspect-square overflow-hidden">
-  <img #memberImg fill [ngSrc]="'assets/team-intro/bg-' + name + '.png'" alt="team intro" class="rounded-[25px]" />
   <img
+    #memberImg
+    priority
+    fill
+    [ngSrc]="'assets/team-intro/bg-' + name + '.png'"
+    alt="team intro"
+    class="rounded-3xl"
+  />
+  <img
+    priority
     fill
     [ngSrc]="'assets/team-intro/member-' + name + '.png'"
     alt="team intro"
     class="member"
-    [class.member--active]="isIntersecting"
+    [class.member--active]="isIntersecting()"
   />
 </div>
 <div class="mt-[10px] text-[32px] font-bold leading-tight">{{ name }}</div>

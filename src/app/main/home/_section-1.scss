@@ -1,3 +1,4 @@
+@use '/src/stylings/function';
 @use '/src/stylings/variables';
 
 :host {
@@ -31,19 +32,18 @@
   }
 
   .bg-logo {
-    height: 144px;
-    max-width: 100%;
+    position: absolute;
+    top: 47%;
+    left: 50%;
+    z-index: 1;
+    height: 130%;
     aspect-ratio: 268 / 85;
-    background-image: linear-gradient(111deg, #fff calc(var(--section-scroll) * 100%), #ffc600 17.98%, #10cca7 84.27%);
+    transform: translate(-50%, -50%);
+    background-image: function.linearGradient(
+      '#fff calc(var(--section-scroll) * 100%), #{variables.$tangerineYellow}',
+      variables.$caribbeanGreen
+    );
     mask: url('/assets/logo.svg') no-repeat center;
-
-    @media (width >= #{variables.$tablet}) {
-      height: 242px;
-    }
-
-    @media (width >= #{variables.$laptop}) {
-      height: 362px;
-    }
   }
 
   .grid-container {
@@ -93,7 +93,7 @@
 
       @keyframes grid-item-grow {
         to {
-          background-color: #1a1a1a;
+          background-color: variables.$bg-app;
           border-color: #333;
         }
       }
@@ -221,6 +221,7 @@
         position: absolute;
         bottom: -72px;
         left: -100px;
+        z-index: 2;
         transform: rotate(7.66deg) scale(0.5);
         animation: 1s calc((var(--section-scroll) * -1s)) forwards paused flying;
 

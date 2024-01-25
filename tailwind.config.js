@@ -1,27 +1,64 @@
 /** @type {import('tailwindcss').Config} */
 /* eslint-env es6 */
-const { reverse } = require('dns');
 const plugin = require('tailwindcss/plugin');
+
+const purple = '#ae00a8';
+const ultramarineBlue = '#2d1fc3';
+const darkViolet = '#3c1482';
+const fawn = '#9f503d';
+const darkKhaki = '#977937';
+const richElectricPink = '#d70088';
+const red = '#ff0036';
+const rosePink = '#ff0085';
+const redOrange = '#ff2c10';
+const amber = '#ffb000';
+const tangerineYellow = '#ffc800';
+const schoolBusYellow = '#ffd13d';
+const electricPurple = '#f269ff';
+const lightApricot = '#f9cdb9';
+const vividCerulean = '#00c1e9';
+const caribbeanGreen = '#00ceb4';
+const paleRobinEggBlue = '#a3e8cf';
+const lavenderBlush = '#ffeef2';
+
+function linearGradientFactory(from, to) {
+  return `linear-gradient(111deg, ${from} 17.98%, ${to} 84.27%)`;
+}
 
 module.exports = {
   content: ['./src/**/*.{html,ts}'],
   theme: {
     extend: {
       backgroundColor: {
-        app: '#1a1a1a',
+        app: '#000',
+        purple: purple,
+        'ultramarine-blue': ultramarineBlue,
+        'dark-violet': darkViolet,
+        fawn: fawn,
+        'dark-khaki': darkKhaki,
+        'rich-electric-pink': richElectricPink,
+        red: red,
+        'rose-pink': rosePink,
+        'red-orange': redOrange,
+        amber: amber,
+        'tangerine-yellow': tangerineYellow,
+        'school-bus-yellow': schoolBusYellow,
+        'electric-purple': electricPurple,
+        'light-apricot': lightApricot,
+        'vivid-cerulean': vividCerulean,
+        'caribbean-green': caribbeanGreen,
+        'pale-robin-egg-blue': paleRobinEggBlue,
+        'lavender-blush': lavenderBlush,
       },
       backgroundImage: {
-        budd: 'linear-gradient(111deg, #ffc000 17.98%, #d106ae 84.27%)',
-        'budd-reverse': 'linear-gradient(111deg, #d106ae 17.98%, #ffc000 84.27%)',
-        'moon-reverse': 'linear-gradient(111deg, #ffc600 17.98%, #4336ee 84.27%)',
-        lime: 'linear-gradient(111deg, #10cca7 17.98%, #ffc600 84.27%)',
-        'lime-reverse': 'linear-gradient(111deg, #ffc600 17.98%, #10cca7 84.27%)',
-        lunar: 'linear-gradient(111deg, #311dcb 17.98%, #fb4831 84.27%)',
-        orange: 'linear-gradient(111deg, #ffc000 17.98%, #ff482e 84.27%)',
-        spicy: 'linear-gradient(111deg, #ff2c10 17.98%, #00d7ad 84.27%)',
-        toxic: 'linear-gradient(111deg, #00d7ad 16.58%, #f0f 84.27%)',
+        'budd-reverse': linearGradientFactory(richElectricPink, tangerineYellow),
+        'moon-reverse': linearGradientFactory(amber, ultramarineBlue),
+        lime: linearGradientFactory(caribbeanGreen, amber),
+        orange: linearGradientFactory(amber, redOrange),
+        toxic: linearGradientFactory(caribbeanGreen, rosePink),
       },
       borderRadius: {
+        5: '20px',
         10: '40px',
       },
       fontFamily: {

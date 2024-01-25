@@ -1,0 +1,3 @@
+@function linearGradient($from, $to) {
+  @return linear-gradient(111deg, #{$from} 17.98%, #{$to} 84.27%);
+}

@@ -17,12 +17,14 @@
     <div class="relative pb-14 tablet:pb-5 laptop:pb-2">
       <div class="page-margin flex flex-col items-center">
         <div
-          class="section-heading section-heading--soar-left section-heading--first-heading bg-[#ffc600] text-black"
+          class="section-heading section-heading--soar-left section-heading--first-heading bg-tangerine-yellow"
           [class]="section1progress() === 1 ? 'mt-15' : 'mt-[140px] tablet:mt-[220px] laptop:mt-[188px]'"
         >
           Keep scrolling until you see the surprise!
         </div>
-        <div class="bg-logo mt-6 tablet:mt-8"></div>
+        <div class="relative max-w-full h-[144px] mt-6 tablet:mt-8 tablet:h-[242px] laptop:h-[362px]">
+          <div class="bg-logo"></div>
+        </div>
       </div>
       <div
         class="grid-container grid-container--first-half"
@@ -48,7 +50,7 @@
             class="absolute -inset-px bg-orange px-5 flex items-center justify-center origin-top-left"
             [class]="isUnveiled() ? 'grid-item--unveiled' : 'cursor-pointer'"
           >
-            <span class="text-white">what's next!</span>
+            <span class="text-black">what's next!</span>
           </div>
           @if (isUnveiled()) {
             <span class="text-black">coming soon!</span>
@@ -487,32 +489,25 @@
 </div>
 
 @if (section1progress() === 1) {
-  <div class="page-margin flex flex-col items-center">
+  <div class="page-margin pb-15 flex flex-col items-center tablet:pb-[120px] laptop:pb-40">
     <!-- section 2 -->
     <ng-template #joinTheGang let-img="img">
       <span class="text-[32px] font-bold tablet:text-[40px] laptop:text-[50px]">join the gang</span>
       <img [ngSrc]="img" width="100" height="100" alt="join the gang image" />
     </ng-template>
 
-    <div class="section-heading section-heading--soar-right bg-[#fb4932] text-white">
-      A must-join (NFT) community on Cosmos
-    </div>
+    <div class="section-heading section-heading--soar-right bg-red-orange">A must-join (NFT) community on Cosmos</div>
     <div
       class="mt-10 w-full flex flex-col gap-y-5 tablet:mt-15 tablet:flex-row tablet:gap-x-6 laptop:gap-x-8 desktop:gap-x-10"
     >
-      <div class="relative basis-1/3 aspect-square rounded-10 p-10 overflow-hidden">
-        <img fill ngSrc="assets/character/fun.png" alt="fun character" />
-        <span class="absolute inset-0 paragraph-content bg-neutral-600 bg-opacity-60">Why so serious?</span>
+      <div class="relative basis-1/3 aspect-square">
+        <img fill ngSrc="assets/character/fun.png" alt="fun character" class="rounded-10" />
       </div>
-      <div class="relative basis-1/3 aspect-square rounded-10 p-10 overflow-hidden">
-        <img fill ngSrc="assets/character/authentic.png" alt="authentic character" />
-        <span class="absolute inset-0 paragraph-content bg-neutral-600 bg-opacity-60"
-          >How many sub-personalities do you have? - Let's ch0p it down.</span
-        >
+      <div class="relative basis-1/3 aspect-square">
+        <img fill ngSrc="assets/character/authentic.png" alt="authentic character" class="rounded-10" />
       </div>
-      <div class="relative basis-1/3 aspect-square rounded-10 p-10 overflow-hidden">
-        <img fill ngSrc="assets/character/naughty.png" alt="naughty character" />
-        <span class="absolute inset-0 paragraph-content bg-neutral-600 bg-opacity-60">Stir it up!</span>
+      <div class="relative basis-1/3 aspect-square">
+        <img fill ngSrc="assets/character/naughty.png" alt="naughty character" class="rounded-10" />
       </div>
     </div>
     <div class="mt-10 w-full max-tablet:hidden tablet:mt-15">
@@ -530,7 +525,7 @@
     </div>
 
     <!-- section 3 -->
-    <div class="section-heading section-heading--soar-left bg-[#11cca7] text-black">guess what!</div>
+    <div class="section-heading section-heading--soar-left bg-caribbean-green">guess what!</div>
     <div class="section-label mt-6 bg-toxic text-6xl tablet:mt-8 tablet:text-[80px] laptop:text-[100px]">
       How ch0pch0p<br />Appear On Cosmos
     </div>
@@ -558,7 +553,7 @@
     </div>
 
     <!-- section 4 -->
-    <div class="section-heading section-heading--soar-right bg-[#d107ac]">not perfect but fun!</div>
+    <div class="section-heading section-heading--soar-right bg-rich-electric-pink">not perfect but fun!</div>
     <div class="section-label mt-6 bg-budd-reverse text-6xl tablet:mt-8 tablet:text-[100px]">Meet The Team</div>
     <div class="meet-the-team hide-scrollbar">
       <app-member-intro name="quatac" team="Happen" intro="#instigator" />
@@ -580,26 +575,24 @@
         intro="Thinking about quitting my full-time job to have a fun-time (all day) role with ch0pch0pNFT."
       />
       <app-member-intro name="masu" team="Saleable" intro="xu" />
+      <app-member-intro name="chenny" team="Saleable" intro="cham" />
+      <app-member-intro name="blue" team="Saleable" intro="lu" />
     </div>
 
     <!-- section 5 -->
     <app-three-d-slide-show srcFolder="assets/c1-274-webp" />
+    <a
+      mat-button
+      [href]="BUY_CH0PCH0P_URL"
+      target="_blank"
+      class="!rounded-full !bg-lime !py-9 !px-8 !text-lg font-bold !text-black !hidden tablet:!flex laptop:!py-11 laptop:!px-11 laptop:!text-2xl"
+      >marketplace</a
+    >
 
     <!-- section 6 -->
-    <ng-template #faq let-question="question" let-href="href">
-      <a
-        [href]="href"
-        target="_blank"
-        class="white-border !rounded-[20px] p-5 text-xl flex justify-between items-center tablet:text-2xl laptop:text-3xl"
-      >
-        <span class="font-fredoka leading-normal">{{ question }}</span>
-        <mat-icon inline class="text-[#ffc600] ml-4">north_east</mat-icon>
-      </a>
-    </ng-template>
-    <!-- w-full flex justify-between gap-x-10 -->
-    <div class="contents desktop:mt-[120px] desktop:w-full desktop:flex desktop:justify-between">
+    <div class="contents desktop:mt-40 desktop:w-full desktop:flex desktop:gap-x-24 desktop:justify-between">
       <div class="flex flex-col items-center desktop:items-start">
-        <div class="section-heading section-heading--soar-left bg-[#ffc600] desktop:!mt-0">hi guys!</div>
+        <div class="section-heading section-heading--soar-left bg-tangerine-yellow desktop:!mt-0">hi guys!</div>
         <div class="section-label mt-6 bg-moon-reverse text-6xl tablet:mt-8 tablet:text-[80px] laptop:text-[100px]">
           Frequently
         </div>
@@ -609,92 +602,85 @@
           Asked Questions
         </div>
       </div>
-      <div class="mt-10 flex flex-col gap-y-8 tablet:mt-15 desktop:mt-0 max-desktop:w-full">
-        <ng-container *ngTemplateOutlet="faq; context: { question: 'WHAT IS CH0PCH0P NFT?', href: '/' }" />
-        <ng-container
-          *ngTemplateOutlet="faq; context: { question: 'I WANT TO BUY CH0PCH0PNFT. HOW CAN I DO IT?', href: '/' }"
-        />
-        <ng-container *ngTemplateOutlet="faq; context: { question: 'WHAT IS STARGAZE AND WHY?', href: '/' }" />
-        <ng-container *ngTemplateOutlet="faq; context: { question: 'WHEN UTILITY?', href: '/' }" />
-        <ng-container *ngTemplateOutlet="faq; context: { question: 'WHAT DA HECK IS SWAPPABLE TRAIT?', href: '/' }" />
-        <ng-container *ngTemplateOutlet="faq; context: { question: 'DO YOU EVEN HAVE A ROADMAP BRO?', href: '/' }" />
-      </div>
+      <mat-accordion
+        hideToggle
+        displayMode="flat"
+        class="mt-10 flex flex-col gap-y-8 tablet:mt-15 desktop:mt-0 max-desktop:w-full"
+      >
+        <mat-expansion-panel #faq_1 class="white-border !rounded-5 !bg-app">
+          <mat-expansion-panel-header
+            class="!h-min !py-5 !text-xl flex justify-between items-center tablet:!text-2xl laptop:!text-3xl"
+          >
+            <span class="font-fredoka leading-normal uppercase">What is ch0pch0p NFT?</span>
+            <div class="flex-1"></div>
+            <mat-icon inline class="text-[#ffc600] ml-4">{{ faq_1.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+          </mat-expansion-panel-header>
+          ch0pch0p is a fun, naughty, and authentic community where ch0ppers can freely express their inner self. We
+          believe everyone has two sides: the outer self is what we show to the world, and the inner self is who we
+          really are. ch0pch0p refers to what is left inside you, whether it is a very high-level notion like your
+          favorite foods, your favorite activities such as skateboarding, a belief that you believe but the majority
+          don't, or something deep inside. Let's ch0p it down. Your inner is a miracle.
+        </mat-expansion-panel>
+        <mat-expansion-panel #faq_2 class="white-border !rounded-5 !bg-app">
+          <mat-expansion-panel-header
+            class="!h-min !py-5 !text-xl flex justify-between items-center tablet:!text-2xl laptop:!text-3xl"
+          >
+            <span class="font-fredoka leading-normal uppercase">I want to buy ch0pch0p NFT. How can I do it?</span>
+            <div class="flex-1"></div>
+            <mat-icon inline class="text-[#ffc600] ml-4">{{ faq_2.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+          </mat-expansion-panel-header>
+          You can buy ch0pch0p on
+          <a href="https://www.stargaze.zone/marketplace" target="_blank">Stargaze NFT Marketplace</a>. If you don't
+          have STARS, please install <a href="https://www.keplr.app/" target="_blank">Keplr wallet</a> or
+          <a href="https://www.leapwallet.io/" target="_blank">Leap wallet</a> and then swap for STARS directly from
+          Stargaze website. Please reach out to us if you need help!
+        </mat-expansion-panel>
+        <mat-expansion-panel #faq_3 class="white-border !rounded-5 !bg-app">
+          <mat-expansion-panel-header
+            class="!h-min !py-5 !text-xl flex justify-between items-center tablet:!text-2xl laptop:!text-3xl"
+          >
+            <span class="font-fredoka leading-normal uppercase">What is Stargaze and why?</span>
+            <div class="flex-1"></div>
+            <mat-icon inline class="text-[#ffc600] ml-4">{{ faq_3.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+          </mat-expansion-panel-header>
+          Stargaze is a community-owned NFT marketplace, secured and governed by STARS. Why Stargaze then???  Ethereum
+          is way too expensive for us, while Solana is flooded with thousands of projects. As a Cosmos bull, choosing
+          Stargaze is a no-brainer for us since it is the best Cosmos NFT marketplace with ZERO gas fees, great UX, the
+          community is organic and the Stargaze team is super supportive. 
+        </mat-expansion-panel>
+        <mat-expansion-panel #faq_4 class="white-border !rounded-5 !bg-app">
+          <mat-expansion-panel-header
+            class="!h-min !py-5 !text-xl flex justify-between items-center tablet:!text-2xl laptop:!text-3xl"
+          >
+            <span class="font-fredoka leading-normal uppercase">Wen utility?</span>
+            <div class="flex-1"></div>
+            <mat-icon inline class="text-[#ffc600] ml-4">{{ faq_4.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+          </mat-expansion-panel-header>
+          wen wen wen?
+        </mat-expansion-panel>
+        <mat-expansion-panel #faq_5 class="white-border !rounded-5 !bg-app">
+          <mat-expansion-panel-header
+            class="!h-min !py-5 !text-xl flex justify-between items-center tablet:!text-2xl laptop:!text-3xl"
+          >
+            <span class="font-fredoka leading-normal uppercase">What da heck is swappable trait?</span>
+            <div class="flex-1"></div>
+            <mat-icon inline class="text-[#ffc600] ml-4">{{ faq_5.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+          </mat-expansion-panel-header>
+          ch0pch0p NFT holders can level up their NFT by 
+        </mat-expansion-panel>
+        <mat-expansion-panel #faq_6 class="white-border !rounded-5 !bg-app">
+          <mat-expansion-panel-header
+            class="!h-min !py-5 !text-xl flex justify-between items-center tablet:!text-2xl laptop:!text-3xl"
+          >
+            <span class="font-fredoka leading-normal uppercase">Do you even have a roadmap bro?</span>
+            <div class="flex-1"></div>
+            <mat-icon inline class="text-[#ffc600] ml-4">{{ faq_6.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+          </mat-expansion-panel-header>
+          Maybe yes? Maybe no? Is that even matter bro?
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
   </div>
 
-  <!-- footer -->
-  <div class="relative mt-15 w-full bg-[url('assets/background-image/bg-net.png')] tablet:mt-[120px] laptop:mt-40">
-    <div class="page-margin pb-4 flex flex-col items-center tablet:pb-16 laptop:pb-20">
-      <div
-        class="section-heading section-heading--soar-right section-heading--last-heading mt-20 bg-[#4336ee] laptop:mt-[100px]"
-      >
-        come in
-      </div>
-      <div
-        class="section-label section-label--last-label mt-6 bg-white text-6xl tablet:mt-8 tablet:text-[100px] laptop:text-[150px]"
-      >
-        Follow Us
-      </div>
-      <div class="section-label section-label--last-label bg-white text-6xl tablet:text-[100px] laptop:text-[150px]">
-        On Social Media
-      </div>
-      <div class="mt-10 flex gap-x-6 tablet:gap-x-8 laptop:mt-15 laptop:gap-x-10">
-        <a
-          mat-flat-button
-          href="https://twitter.com/ch0pch0pNFT"
-          target="_blank"
-          class="!rounded-[14px] !bg-[#ed5a28] !py-10 !px-6 tablet:!rounded-2xl laptop:!rounded-[20px]"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 31 27"
-            fill="none"
-            class="w-[31px] h-[27px] tablet:w-[38px] tablet:h-[33px] laptop:w-[46px] laptop:h-[39px]"
-          >
-            <g clip-path="url(#clip0_395_24927)">
-              <path
-                d="M27.5128 7.23872C27.5251 7.52021 27.5251 7.78891 27.5251 8.07041C27.5373 16.605 21.3252 26.4574 9.96486 26.4574C6.61427 26.4574 3.3248 25.4465 0.5 23.5528C0.989142 23.6168 1.47829 23.6424 1.96742 23.6424C4.7433 23.6424 7.44581 22.6699 9.63474 20.8658C6.99335 20.8146 4.66993 19.0105 3.86285 16.3746C4.79222 16.5666 5.74604 16.5282 6.65096 16.2595C3.77725 15.6709 1.71063 13.0222 1.6984 9.93852C1.6984 9.91293 1.6984 9.88733 1.6984 9.86174C2.5544 10.3608 3.52045 10.6423 4.49873 10.6678C1.79623 8.77414 0.952456 4.99952 2.59108 2.04379C5.73382 6.08713 10.3562 8.53103 15.321 8.79973C14.8196 6.56056 15.5044 4.20621 17.1064 2.61958C19.5888 0.175667 23.5019 0.303621 25.8497 2.90108C27.2316 2.61958 28.5645 2.08218 29.7751 1.32725C29.3104 2.82431 28.3444 4.09105 27.0604 4.89716C28.2833 4.74362 29.4817 4.39814 30.6067 3.88632C29.7751 5.19145 28.7235 6.31744 27.5128 7.23872Z"
-                fill="white"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_395_24927">
-                <rect width="30.1067" height="25.5907" fill="white" transform="translate(0.5 0.866699)" />
-              </clipPath>
-            </defs>
-          </svg>
-        </a>
-        <a
-          mat-flat-button
-          href="https://discord.com/invite/tH3bnHEFGY"
-          target="_blank"
-          class="!rounded-[14px] !bg-[#ed5a28] !py-10 !px-6 tablet:!rounded-2xl laptop:!rounded-[20px]"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 34 27"
-            fill="none"
-            class="w-[34px] h-[27px] tablet:w-[43px] tablet:h-[33px] laptop:w-[51px] laptop:h-[39px]"
-          >
-            <g clip-path="url(#clip0_395_24932)">
-              <path
-                d="M28.3131 2.98923C26.2025 2.00748 23.9393 1.28417 21.573 0.869902C21.5299 0.861907 21.4869 0.881887 21.4647 0.92185C21.1736 1.44668 20.8512 2.13136 20.6254 2.66951C18.0802 2.28322 15.5482 2.28322 13.0552 2.66951C12.8293 2.1194 12.4953 1.44668 12.2029 0.92185C12.1807 0.883221 12.1376 0.86324 12.0945 0.869902C9.72946 1.28285 7.46623 2.00616 5.3544 2.98923C5.33611 2.99722 5.32044 3.01056 5.31004 3.02786C1.01718 9.52971 -0.158813 15.8717 0.418091 22.1352C0.420702 22.1658 0.437669 22.1951 0.461163 22.2138C3.29347 24.3224 6.03705 25.6025 8.72967 26.4511C8.77279 26.4644 8.81839 26.4484 8.84586 26.4125C9.48277 25.5307 10.0506 24.6009 10.5374 23.623C10.5661 23.5659 10.5387 23.4979 10.48 23.4752C9.5794 23.1289 8.72184 22.7066 7.89694 22.2271C7.83169 22.1885 7.8265 22.0939 7.88648 22.0486C8.0601 21.9167 8.23372 21.7795 8.39951 21.6409C8.42946 21.6156 8.47123 21.6103 8.50653 21.6263C13.9257 24.1346 19.7927 24.1346 25.1479 21.6263C25.1832 21.609 25.225 21.6143 25.2562 21.6396C25.422 21.7782 25.5956 21.9167 25.7705 22.0486C25.8306 22.0939 25.8267 22.1885 25.7614 22.2271C24.9365 22.716 24.079 23.1289 23.1771 23.4739C23.1183 23.4965 23.0922 23.5659 23.1209 23.623C23.6182 24.5995 24.186 25.5292 24.8112 26.4111C24.8373 26.4484 24.8843 26.4644 24.9274 26.4511C27.633 25.6025 30.3766 24.3224 33.2089 22.2138C33.2338 22.1951 33.2494 22.1671 33.252 22.1365C33.9425 14.8953 32.0956 8.60525 28.3562 3.02919C28.347 3.01056 28.3314 2.99722 28.3131 2.98923ZM11.3467 18.3215C9.71509 18.3215 8.37076 16.8029 8.37076 14.9379C8.37076 13.0731 9.68905 11.5545 11.3467 11.5545C13.0173 11.5545 14.3486 13.0864 14.3225 14.9379C14.3225 16.8029 13.0042 18.3215 11.3467 18.3215ZM22.3496 18.3215C20.718 18.3215 19.3737 16.8029 19.3737 14.9379C19.3737 13.0731 20.6919 11.5545 22.3496 11.5545C24.0203 11.5545 25.3515 13.0864 25.3255 14.9379C25.3255 16.8029 24.0203 18.3215 22.3496 18.3215Z"
-                fill="white"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_395_24932">
-                <rect width="33.1133" height="25.5876" fill="white" transform="translate(0.28125 0.868164)" />
-              </clipPath>
-            </defs>
-          </svg>
-        </a>
-      </div>
-      <div class="mt-10 w-full font-fredoka text-xs flex justify-between tablet:text-lg laptop:mt-15">
-        <div>ALL RIGHTS RESERVED</div>
-        <div>© 2023</div>
-        <div>TERMS & PRIVACY POLICY</div>
-      </div>
-    </div>
-  </div>
+  <app-footer />
 }
