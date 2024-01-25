@@ -1,13 +1,17 @@
+@if (section1progress() === 1) {
+  <app-sticky-nav [isActive]="isScrollingUp()" />
+}
+
 <!-- section 1 -->
 <div
   (scroll)="onSection1Scroll($event)"
-  [class]="section1progress() === 1 ? 'w-full' : 'absolute top-0 inset-x-0 z-10 h-dvh overflow-auto'"
+  [class]="section1progress() === 1 ? '' : 'absolute top-0 inset-x-0 h-dvh overflow-auto'"
   [style.--section-scroll]="section1progress()"
 >
   <div class="sticky top-0 overflow-hidden" [class.h-dvh]="section1progress() !== 1">
     @if (section1progress() !== 1) {
       <div
-        class="app-nav-container absolute top-5 right-5 left-5 z-20 rounded-full bg-app py-5 px-5 laptop:pl-10"
+        class="nav-container absolute top-5 right-5 left-5 z-20 rounded-full bg-app p-5 laptop:pl-10"
         [style.--section-scroll]="section1progress()"
       >
         <app-nav />
@@ -22,9 +26,7 @@
         >
           Keep scrolling until you see the surprise!
         </div>
-        <div class="relative max-w-full h-[144px] mt-6 tablet:mt-8 tablet:h-[242px] laptop:h-[362px]">
-          <div class="bg-logo"></div>
-        </div>
+        <div class="bg-logo mt-6 tablet:mt-8"></div>
       </div>
       <div
         class="grid-container grid-container--first-half"
@@ -525,30 +527,32 @@
     </div>
 
     <!-- section 3 -->
-    <div class="section-heading section-heading--soar-left bg-caribbean-green">guess what!</div>
-    <div class="section-label mt-6 bg-toxic text-6xl tablet:mt-8 tablet:text-[80px] laptop:text-[100px]">
-      How ch0pch0p<br />Appear On Cosmos
-    </div>
-    <div
-      class="mt-10 flex flex-col gap-y-10 tablet:mt-15 tablet:flex-row tablet:items-end tablet:gap-x-10 tablet:max-laptop:min-w-0 tablet:max-laptop:w-full tablet:max-laptop:overflow-auto"
-    >
-      <div class="basis-1/4 white-border paragraph-content tablet:max-laptop:min-w-80">
-        We were so fed up & frustrated with our jobs & bosses, so we decided to do sth fun and authentic on the internet
-        and pray that we would gather a community that was both witty and genuine - just like us (even everyone said
-        that internet friends are not real, lol).
+    <div class="contents tablet:flex tablet:justify-between tablet:items-center tablet:gap-x-24">
+      <div class="flex flex-col items-center">
+        <div class="section-heading section-heading--soar-left bg-caribbean-green">guess what!</div>
+        <div class="section-label mt-6 bg-toxic text-6xl tablet:mt-8 tablet:text-[80px] laptop:text-[100px]">
+          How ch0pch0p<br />Appear On Cosmos
+        </div>
       </div>
-      <div class="basis-1/4 white-border paragraph-content tablet:max-laptop:min-w-80">
-        We discussed back and forth choosing the playground that contained a lot of naughty & (bad) kids. We are fun but
-        poor. It can't be ETH or Solana - where the playground is too crowded & gas is expensive.
-      </div>
-      <div class="basis-1/4 white-border paragraph-content tablet:max-laptop:min-w-80">
-        Then Thang appeared like a god and told us about Cosmos & its superior tech stack. The pitch was too long, but
-        we remembered that the gas fee was nearly 0. We chose Stargaze to launch &quot;0&quot; by ch0pch0p.
-      </div>
-      <div class="basis-1/4 white-border paragraph-content tablet:max-laptop:min-w-80">
-        We now have hundreds of ch0ppers in our community - who are super supportive & authentic. They all day engage
-        with our &quot;nonsense&quot; ideas that my boss always rejects. Our dream comes true. Can't ask for more but
-        launching a new baby to attract more friends. &#61;&#93;&#93;
+      <div class="white-border paragraph-content mt-10 tablet:mt-15">
+        <p>
+          We were so fed up & frustrated with our jobs & bosses, so we decided to do sth fun and authentic on the
+          internet and pray that we would gather a community that was both witty and genuine - just like us (even
+          everyone said that internet friends are not real, lol).
+        </p>
+        <p>
+          We discussed back and forth choosing the playground that contained a lot of naughty & (bad) kids. We are fun
+          but poor. It can't be ETH or Solana - where the playground is too crowded & gas is expensive.
+        </p>
+        <p>
+          Then Thang appeared like a god and told us about Cosmos & its superior tech stack. The pitch was too long, but
+          we remembered that the gas fee was nearly 0. We chose Stargaze to launch &quot;0&quot; by ch0pch0p.
+        </p>
+        <p>
+          We now have hundreds of ch0ppers in our community - who are super supportive & authentic. They all day engage
+          with our &quot;nonsense&quot; ideas that my boss always rejects. Our dream comes true. Can't ask for more but
+          launching a new baby to attract more friends. &#61;&#93;&#93;
+        </p>
       </div>
     </div>
 
@@ -613,7 +617,7 @@
           >
             <span class="font-fredoka leading-normal uppercase">What is ch0pch0p NFT?</span>
             <div class="flex-1"></div>
-            <mat-icon inline class="text-[#ffc600] ml-4">{{ faq_1.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+            <mat-icon inline class="text-amber ml-4">{{ faq_1.expanded ? 'south_east' : 'north_east' }}</mat-icon>
           </mat-expansion-panel-header>
           ch0pch0p is a fun, naughty, and authentic community where ch0ppers can freely express their inner self. We
           believe everyone has two sides: the outer self is what we show to the world, and the inner self is who we
@@ -627,7 +631,7 @@
           >
             <span class="font-fredoka leading-normal uppercase">I want to buy ch0pch0p NFT. How can I do it?</span>
             <div class="flex-1"></div>
-            <mat-icon inline class="text-[#ffc600] ml-4">{{ faq_2.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+            <mat-icon inline class="text-amber ml-4">{{ faq_2.expanded ? 'south_east' : 'north_east' }}</mat-icon>
           </mat-expansion-panel-header>
           You can buy ch0pch0p on
           <a href="https://www.stargaze.zone/marketplace" target="_blank">Stargaze NFT Marketplace</a>. If you don't
@@ -641,7 +645,7 @@
           >
             <span class="font-fredoka leading-normal uppercase">What is Stargaze and why?</span>
             <div class="flex-1"></div>
-            <mat-icon inline class="text-[#ffc600] ml-4">{{ faq_3.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+            <mat-icon inline class="text-amber ml-4">{{ faq_3.expanded ? 'south_east' : 'north_east' }}</mat-icon>
           </mat-expansion-panel-header>
           Stargaze is a community-owned NFT marketplace, secured and governed by STARS. Why Stargaze then???  Ethereum
           is way too expensive for us, while Solana is flooded with thousands of projects. As a Cosmos bull, choosing
@@ -654,7 +658,7 @@
           >
             <span class="font-fredoka leading-normal uppercase">Wen utility?</span>
             <div class="flex-1"></div>
-            <mat-icon inline class="text-[#ffc600] ml-4">{{ faq_4.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+            <mat-icon inline class="text-amber ml-4">{{ faq_4.expanded ? 'south_east' : 'north_east' }}</mat-icon>
           </mat-expansion-panel-header>
           wen wen wen?
         </mat-expansion-panel>
@@ -664,7 +668,7 @@
           >
             <span class="font-fredoka leading-normal uppercase">What da heck is swappable trait?</span>
             <div class="flex-1"></div>
-            <mat-icon inline class="text-[#ffc600] ml-4">{{ faq_5.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+            <mat-icon inline class="text-amber ml-4">{{ faq_5.expanded ? 'south_east' : 'north_east' }}</mat-icon>
           </mat-expansion-panel-header>
           ch0pch0p NFT holders can level up their NFT by 
         </mat-expansion-panel>
@@ -674,7 +678,7 @@
           >
             <span class="font-fredoka leading-normal uppercase">Do you even have a roadmap bro?</span>
             <div class="flex-1"></div>
-            <mat-icon inline class="text-[#ffc600] ml-4">{{ faq_6.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+            <mat-icon inline class="text-amber ml-4">{{ faq_6.expanded ? 'south_east' : 'north_east' }}</mat-icon>
           </mat-expansion-panel-header>
           Maybe yes? Maybe no? Is that even matter bro?
         </mat-expansion-panel>

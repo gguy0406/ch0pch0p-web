@@ -1,4 +1,24 @@
-@use '/src/stylings/variables';
+@use './variables';
+
+.page-margin {
+  padding-right: 16px;
+  padding-left: 16px;
+
+  @media (width >= #{variables.$tablet}) {
+    padding-right: 64px;
+    padding-left: 64px;
+  }
+
+  @media (width >= #{variables.$laptop}) {
+    margin: 0 auto;
+    max-width: 1310px;
+  }
+
+  @media (width >= #{variables.$desktop}) {
+    margin: 0 auto;
+    max-width: 1598px;
+  }
+}
 
 .section-heading {
   padding: 10px 20px;
@@ -22,12 +42,12 @@
     }
   }
 
-  @media (min-width: variables.$tablet) {
+  @media (width >= #{variables.$tablet}) {
     padding: 20px 40px;
     font-size: 24px;
   }
 
-  @media (min-width: variables.$laptop) {
+  @media (width >= #{variables.$laptop}) {
     font-size: 30px;
   }
 }

@@ -1,8 +1,16 @@
 @use '/src/stylings/variables';
 @use 'section-1';
 
+@keyframes join-the-gang-slide {
+  to {
+    transform: translate(calc(-100% - var(--sibling-gap)));
+  }
+}
+
 :host {
+  height: 100%;
   display: block;
+  overflow: auto;
 
   .white-border {
     border-radius: 40px;
@@ -34,12 +42,6 @@
     @media (width >= #{variables.$tablet}) {
       --sibling-gap: 60px;
     }
-
-    @keyframes join-the-gang-slide {
-      to {
-        transform: translate(calc(-100% - var(--sibling-gap)));
-      }
-    }
   }
 
   .meet-the-team {
@@ -48,10 +50,10 @@
     margin-top: 40px;
     width: 100%;
     min-width: 0;
+    overflow-x: auto;
     display: flex;
     align-items: start;
     column-gap: $gap;
-    overflow-x: auto;
 
     > app-member-intro {
       flex-basis: calc(25% - $gap * 3 / 4);

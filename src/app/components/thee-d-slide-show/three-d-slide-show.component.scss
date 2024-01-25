@@ -1,6 +1,12 @@
 @use 'sass:math';
 @use '/src/stylings/variables';
 
+@keyframes rotate {
+  to {
+    transform: var(--container-transform) rotateY(360deg);
+  }
+}
+
 :host {
   $quantity: 28;
 
@@ -41,12 +47,6 @@
 
       top: 100%;
       transform-origin: 50% calc(-50% - var(--gap) * 1px);
-    }
-
-    @keyframes rotate {
-      to {
-        transform: var(--container-transform) rotateY(360deg);
-      }
     }
 
     > * {

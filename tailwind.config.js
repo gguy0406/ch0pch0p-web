@@ -30,7 +30,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundColor: {
-        app: '#000',
+        app: '#09090b',
         purple: purple,
         'ultramarine-blue': ultramarineBlue,
         'dark-violet': darkViolet,
@@ -60,6 +60,10 @@ module.exports = {
       borderRadius: {
         5: '20px',
         10: '40px',
+      },
+      colors: {
+        amber: amber,
+        'school-bus-yellow': schoolBusYellow,
       },
       fontFamily: {
         fredoka: ['"Fredoka", sans-serif'],

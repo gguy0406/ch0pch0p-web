@@ -1,21 +1,8 @@
-@use '/src//stylings/variables';
+@use '/src/stylings/variables';
 
 :host {
   height: 100%;
   background-color: variables.$bg-app;
   color: white;
-  position: relative;
   display: block;
-  overflow: auto;
-
-  .app-nav-container {
-    position: sticky;
-    top: -100%;
-    z-index: 10;
-    transition: top 0.2s;
-
-    &--active {
-      top: 0;
-    }
-  }
 }

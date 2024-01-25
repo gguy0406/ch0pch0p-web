@@ -1,0 +1,23 @@
+@use '/src/stylings/variables';
+
+:host {
+  position: sticky;
+  top: -100%;
+  z-index: 10;
+  background-color: variables.$bg-app;
+  padding: 20px 16px;
+  display: block;
+  transition: top 0.2s;
+
+  &--active {
+    top: 0;
+  }
+
+  @media (width >= #{variables.$tablet}) {
+    padding: 44px 64px;
+  }
+
+  @media (width >= #{variables.$laptop}) {
+    padding: 20px 40px;
+  }
+}

@@ -6,10 +6,10 @@
   align-items: center;
 
   .menu-trigger-button {
-    background-image: linear-gradient(111deg, #311dcb 17.98%, #fb4831 84.27%);
     order: 1;
     width: 40px;
     height: 40px;
+    background-image: linear-gradient(111deg, #311dcb 17.98%, #fb4831 84.27%);
     padding: 8px;
 
     > ::ng-deep .mat-mdc-button-touch-target {

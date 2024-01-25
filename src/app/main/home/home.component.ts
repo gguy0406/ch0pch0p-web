@@ -1,15 +1,20 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, WritableSignal, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, WritableSignal, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
+
+import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { NavComponent } from 'src/app/components/nav/nav.component';
+import { StickyNavComponent } from 'src/app/components/sticky-nav/sticky-nav.component';
 import { ThreeDSlideShowComponent } from 'src/app/components/thee-d-slide-show/three-d-slide-show.component';
 import { BUY_CH0PCH0P_URL } from 'src/lib/constants';
 import { MemberIntroComponent } from './member-intro/member-intro.component';
-import { FooterComponent } from 'src/app/components/footer/footer.component';
 
 @Component({
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     CommonModule,
@@ -19,18 +24,25 @@ import { FooterComponent } from 'src/app/components/footer/footer.component';
     FooterComponent,
     MemberIntroComponent,
     NavComponent,
+    StickyNavComponent,
     ThreeDSlideShowComponent,
     NgOptimizedImage,
   ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
+  @HostListener('scroll', ['$event']) onScroll(event: Event) {
+    const scrollTop = (event.target as HTMLDivElement).scrollTop;
+    this.isScrollingUp.set(!!this._lastScrollTopValue && scrollTop < this._lastScrollTopValue);
+    this._lastScrollTopValue = scrollTop;
+  }
+
   protected readonly BUY_CH0PCH0P_URL = BUY_CH0PCH0P_URL;
+  protected isScrollingUp: WritableSignal<boolean> = signal(false);
   protected isUnveiled: WritableSignal<boolean> = signal(false);
   protected section1progress: WritableSignal<number> = signal(0);
   protected array = Array;
+
+  private _lastScrollTopValue: number = 0;
 
   protected onSection1Scroll(event: Event) {
     const section1: HTMLDivElement = event.target as HTMLDivElement;

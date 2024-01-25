@@ -9,15 +9,16 @@ import {
   WritableSignal,
   signal,
 } from '@angular/core';
+
 import { MemberTeam, TeamColor } from 'src/lib/types';
 
 @Component({
-  standalone: true,
-  imports: [NgOptimizedImage],
   selector: 'app-member-intro',
   templateUrl: './member-intro.component.html',
   styleUrl: './member-intro.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgOptimizedImage],
 })
 export class MemberIntroComponent implements AfterViewInit {
   @ViewChild('memberImg', { static: true }) private _memberImg!: ElementRef;

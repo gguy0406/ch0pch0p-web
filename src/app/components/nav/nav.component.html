@@ -1,14 +1,22 @@
 <mat-menu #navMenu="matMenu">
-  <button mat-menu-item [matMenuTriggerFor]="collectionMenu">Our Collections</button>
-  <a mat-menu-item [href]="ROUTE.LEADERBOARD">Hall of Fame</a>
-  <a mat-menu-item [href]="ROUTE.STAKING">Stake with us</a>
-  <a mat-menu-item [href]="ROUTE.GAME">ch0p it!</a>
+  <button
+    mat-menu-item
+    [matMenuTriggerFor]="collectionMenu"
+    [class.!text-amber]="matchRouteSignals[ROUTE.C0]() || matchRouteSignals[ROUTE.C1]()"
+  >
+    Our Collections
+  </button>
+  <a mat-menu-item [href]="ROUTE.LEADERBOARD" [class.!text-amber]="matchRouteSignals[ROUTE.LEADERBOARD]()"
+    >Hall of Fame</a
+  >
+  <a mat-menu-item [href]="ROUTE.STAKING" [class.!text-amber]="matchRouteSignals[ROUTE.STAKING]()">Stake with us</a>
+  <a mat-menu-item [href]="ROUTE.GAME" [class.!text-amber]="matchRouteSignals[ROUTE.GAME]()">ch0p it!</a>
   <a mat-menu-item [href]="BUY_CH0PCH0P_URL" class="tablet:!hidden">buy ch0pch0p</a>
 </mat-menu>
 
 <mat-menu #collectionMenu="matMenu">
-  <a mat-menu-item [href]="ROUTE.C0">"0" by ch0pch0p</a>
-  <a mat-menu-item [href]="ROUTE.C1">c1</a>
+  <a mat-menu-item [href]="ROUTE.C0" [class.!text-amber]="matchRouteSignals[ROUTE.C0]()">"0" by ch0pch0p</a>
+  <a mat-menu-item [href]="ROUTE.C1" [class.!text-amber]="matchRouteSignals[ROUTE.C1]()">c1</a>
 </mat-menu>
 
 <button mat-icon-button [matMenuTriggerFor]="navMenu" class="menu-trigger-button">
@@ -24,12 +32,35 @@
   </svg>
 </a>
 <div class="items-center gap-x-10 hidden laptop:flex desktop:gap-x-15">
-  <button mat-button [matMenuTriggerFor]="collectionMenu" class="headline-font !text-2xl desktop:!text-3xl">
+  <button
+    mat-button
+    [matMenuTriggerFor]="collectionMenu"
+    class="headline-font !text-2xl desktop:!text-3xl"
+    [class.!text-amber]="matchRouteSignals[ROUTE.C0]() || matchRouteSignals[ROUTE.C1]()"
+  >
     Our Collections <mat-icon iconPositionEnd inline class="inline-icon">arrow_drop_down</mat-icon>
   </button>
-  <a mat-button [href]="ROUTE.LEADERBOARD" class="headline-font !text-2xl desktop:!text-3xl">Hall of Fame</a>
-  <a mat-button [href]="ROUTE.STAKING" class="headline-font !text-2xl desktop:!text-3xl">Stake with us</a>
-  <a mat-button [href]="ROUTE.GAME" class="headline-font !text-2xl desktop:!text-3xl">ch0p it!</a>
+  <a
+    mat-button
+    [href]="ROUTE.LEADERBOARD"
+    class="headline-font !text-2xl desktop:!text-3xl"
+    [class.!text-amber]="matchRouteSignals[ROUTE.LEADERBOARD]()"
+    >Hall of Fame</a
+  >
+  <a
+    mat-button
+    [href]="ROUTE.STAKING"
+    class="headline-font !text-2xl desktop:!text-3xl"
+    [class.!text-amber]="matchRouteSignals[ROUTE.STAKING]()"
+    >Stake with us</a
+  >
+  <a
+    mat-button
+    [href]="ROUTE.GAME"
+    class="headline-font !text-2xl desktop:!text-3xl"
+    [class.!text-amber]="matchRouteSignals[ROUTE.GAME]()"
+    >ch0p it!</a
+  >
 </div>
 <a
   mat-button
