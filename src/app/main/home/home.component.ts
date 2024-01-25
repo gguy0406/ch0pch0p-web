@@ -1,5 +1,5 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostListener, WritableSignal, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, WritableSignal, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
@@ -30,19 +30,10 @@ import { MemberIntroComponent } from './member-intro/member-intro.component';
   ],
 })
 export class HomeComponent {
-  @HostListener('scroll', ['$event']) onScroll(event: Event) {
-    const scrollTop = (event.target as HTMLDivElement).scrollTop;
-    this.isScrollingUp.set(!!this._lastScrollTopValue && scrollTop < this._lastScrollTopValue);
-    this._lastScrollTopValue = scrollTop;
-  }
-
   protected readonly BUY_CH0PCH0P_URL = BUY_CH0PCH0P_URL;
-  protected isScrollingUp: WritableSignal<boolean> = signal(false);
   protected isUnveiled: WritableSignal<boolean> = signal(false);
   protected section1progress: WritableSignal<number> = signal(0);
   protected array = Array;
-
-  private _lastScrollTopValue: number = 0;
 
   protected onSection1Scroll(event: Event) {
     const section1: HTMLDivElement = event.target as HTMLDivElement;
