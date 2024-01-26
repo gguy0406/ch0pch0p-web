@@ -1,12 +1,17 @@
 @use './variables';
 
 .page-margin {
-  padding-right: 16px;
-  padding-left: 16px;
+  --padding: 16px;
+
+  padding-inline: var(--padding);
+
+  .anti-padding {
+    margin: 0 calc(var(--padding) * -1);
+    width: calc(100% + calc(var(--padding) * 2));
+  }
 
   @media (width >= #{variables.$tablet}) {
-    padding-right: 64px;
-    padding-left: 64px;
+    --padding: 64px;
   }
 
   @media (width >= #{variables.$laptop}) {

@@ -61,11 +61,8 @@
     }
   }
 
-  app-three-d-slide-show {
-    margin: 0 -64px;
-    width: calc(100% + 128px);
-
-    @media (width < #{variables.$tablet}) {
+  @media (width < #{variables.$tablet}) {
+    app-three-d-slide-show {
       display: none;
     }
   }

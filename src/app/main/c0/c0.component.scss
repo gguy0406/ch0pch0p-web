@@ -1,3 +1,16 @@
+@use '/src/stylings/functions';
+@use '/src/stylings/mixins';
+@use '/src/stylings/variables';
+
 :host {
-  display: block;
+  padding-bottom: 156px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include mixins.bg-logo(
+    functions.app-linear-gradient(variables.$tangerine-yellow, variables.$rich-electric-pink),
+    'url("/assets/app/logo.svg") bottom no-repeat, url("/assets/app/0-by.svg") top no-repeat',
+    100%
+  );
 }

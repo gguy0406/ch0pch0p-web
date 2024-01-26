@@ -52,3 +52,23 @@ body {
 body {
   margin: 0;
 }
+
+* {
+  --scroll-bar-thumb-color: #1a1a1a;
+
+  scrollbar-width: thin;
+  scrollbar-color: white var(--scroll-bar-thumb-color);
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: var(--scroll-bar-thumb-color);
+    padding: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    border: 2px solid var(--scroll-bar-thumb-color);
+    background: white;
+  }
+}

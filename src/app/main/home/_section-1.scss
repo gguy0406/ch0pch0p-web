@@ -1,4 +1,5 @@
 @use '/src/stylings/functions';
+@use '/src/stylings/mixins';
 @use '/src/stylings/variables';
 
 @mixin select-nth-child($cols, $offset: 0) {
@@ -89,6 +90,13 @@
 }
 
 :host {
+  $linear-gradient: functions.app-linear-gradient(
+    '#fff calc(var(--section-scroll) * 100%), #{variables.$tangerine-yellow}',
+    variables.$caribbean-green
+  );
+
+  @include mixins.bg-logo($linear-gradient, 'url("/assets/app/logo.svg") center no-repeat', 130%);
+
   .nav-container {
     --padding: 20px 16px;
 
@@ -100,37 +108,6 @@
 
     @media (width >= #{variables.$laptop}) {
       --padding: 20px 40px;
-    }
-  }
-
-  .bg-logo {
-    position: relative;
-    max-width: 76%;
-    height: 144px;
-    aspect-ratio: 268 / 85;
-
-    @media (width >= #{variables.$tablet}) {
-      height: 242px;
-    }
-
-    @media (width >= #{variables.$laptop}) {
-      height: 362px;
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 47%;
-      left: 50%;
-      z-index: 1;
-      width: 130%;
-      height: 130%;
-      background-image: functions.app-linear-gradient(
-        '#fff calc(var(--section-scroll) * 100%), #{variables.$tangerine-yellow}',
-        variables.$caribbean-green
-      );
-      mask: url('/assets/app/logo.svg') no-repeat center;
-      transform: translate(-50%, -50%);
     }
   }
 

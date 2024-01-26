@@ -1,0 +1,31 @@
+@use '/src/stylings/variables';
+
+@mixin bg-logo($background-image, $mask, $size) {
+  .bg-logo {
+    position: relative;
+    max-width: 76%;
+    height: 144px;
+    aspect-ratio: 268 / 85;
+
+    @media (width >= #{variables.$tablet}) {
+      height: 242px;
+    }
+
+    @media (width >= #{variables.$laptop}) {
+      height: 362px;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 47%;
+      left: 50%;
+      z-index: 1;
+      width: #{$size};
+      height: #{$size};
+      background-image: #{$background-image};
+      mask: #{$mask};
+      transform: translate(-50%, -50%);
+    }
+  }
+}
