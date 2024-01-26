@@ -1,4 +1,5 @@
 :host {
-  background: url('/assets/app/bg-net.png') center;
+  background: center url('/assets/app/bg-net.png');
+  background-size: cover;
   display: block;
 }

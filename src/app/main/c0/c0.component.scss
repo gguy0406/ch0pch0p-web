@@ -10,7 +10,7 @@
 
   @include mixins.bg-logo(
     functions.app-linear-gradient(variables.$tangerine-yellow, variables.$rich-electric-pink),
-    'url("/assets/app/logo.svg") bottom no-repeat, url("/assets/app/0-by.svg") top no-repeat',
+    'url("/assets/app/0-by-ch0pch0p.svg") center',
     100%
   );
 }

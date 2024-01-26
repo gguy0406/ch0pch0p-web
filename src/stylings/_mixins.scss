@@ -25,6 +25,8 @@
       height: #{$size};
       background-image: #{$background-image};
       mask: #{$mask};
+      mask-repeat: no-repeat;
+      mask-size: contain;
       transform: translate(-50%, -50%);
     }
   }

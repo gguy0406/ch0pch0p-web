@@ -95,7 +95,7 @@
     variables.$caribbean-green
   );
 
-  @include mixins.bg-logo($linear-gradient, 'url("/assets/app/logo.svg") center no-repeat', 130%);
+  @include mixins.bg-logo($linear-gradient, 'url("/assets/app/logo.svg") center', 130%);
 
   .nav-container {
     --padding: 20px 16px;
