@@ -60,10 +60,4 @@
       margin-top: 60px;
     }
   }
-
-  @media (width < #{variables.$tablet}) {
-    app-three-d-slide-show {
-      display: none;
-    }
-  }
 }

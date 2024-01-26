@@ -23,7 +23,7 @@
   <mat-icon>menu</mat-icon>
 </button>
 
-<a [routerLink]="['/']" class="h-10 tablet:h-[70px] laptop:h-[85px]">
+<a [routerLink]="['/']" class="h-10 tablet:h-[70px] laptop:h-[85px] aspect-[268/85]">
   <svg viewBox="0 0 268 85" width="90%" height="90%" fill="none">
     <path
       fill="#fff"
@@ -31,6 +31,7 @@
     />
   </svg>
 </a>
+
 <div class="items-center gap-x-10 hidden laptop:flex desktop:gap-x-15">
   <button
     mat-button
@@ -62,6 +63,7 @@
     >ch0p it!</a
   >
 </div>
+
 <a
   mat-button
   [href]="BUY_CH0PCH0P_URL"

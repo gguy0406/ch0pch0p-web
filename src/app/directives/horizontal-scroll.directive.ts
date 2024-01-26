@@ -15,7 +15,7 @@ export class HorizontalScrollDirective {
 
     event.preventDefault();
 
-    this._nativeElement.scrollBy({ left: event.deltaY * 1.35, behavior: 'smooth' });
+    this._nativeElement.scrollBy({ left: event.deltaY });
   }
 
   private _nativeElement: HTMLElement;
