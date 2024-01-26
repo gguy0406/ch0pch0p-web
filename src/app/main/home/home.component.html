@@ -534,7 +534,7 @@
           How ch0pch0p<br />Appear On Cosmos
         </div>
       </div>
-      <div class="white-border paragraph-content mt-10 tablet:mt-15">
+      <div class="white-border mt-10 p-10 text-pretty font-fredoka text-2xl tablet:mt-15">
         <p>
           We were so fed up & frustrated with our jobs & bosses, so we decided to do sth fun and authentic on the
           internet and pray that we would gather a community that was both witty and genuine - just like us (even
@@ -559,7 +559,7 @@
     <!-- section 4 -->
     <div class="section-heading section-heading--soar-right bg-rich-electric-pink">not perfect but fun!</div>
     <div class="section-label mt-6 bg-budd-reverse text-6xl tablet:mt-8 tablet:text-[100px]">Meet The Team</div>
-    <div class="meet-the-team hide-scrollbar">
+    <div appHorizontalScroll class="meet-the-team hide-scrollbar">
       <app-member-intro name="quatac" team="Happen" intro="#instigator" />
       <app-member-intro name="vy" team="Happen" intro="#unlimited" />
       <app-member-intro name="theo" team="Happen" intro="I am not gonna answer you" />
@@ -617,13 +617,17 @@
           >
             <span class="font-fredoka leading-normal uppercase">What is ch0pch0p NFT?</span>
             <div class="flex-1"></div>
-            <mat-icon inline class="text-amber ml-4">{{ faq_1.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+            <mat-icon inline class="shrink-0 ml-4 text-amber">{{
+              faq_1.expanded ? 'south_east' : 'north_east'
+            }}</mat-icon>
           </mat-expansion-panel-header>
-          ch0pch0p is a fun, naughty, and authentic community where ch0ppers can freely express their inner self. We
-          believe everyone has two sides: the outer self is what we show to the world, and the inner self is who we
-          really are. ch0pch0p refers to what is left inside you, whether it is a very high-level notion like your
-          favorite foods, your favorite activities such as skateboarding, a belief that you believe but the majority
-          don't, or something deep inside. Let's ch0p it down. Your inner is a miracle.
+          <div class="text-pretty font-fredoka text-lg">
+            ch0pch0p is a fun, naughty, and authentic community where ch0ppers can freely express their inner self. We
+            believe everyone has two sides: the outer self is what we show to the world, and the inner self is who we
+            really are. ch0pch0p refers to what is left inside you, whether it is a very high-level notion like your
+            favorite foods, your favorite activities such as skateboarding, a belief that you believe but the majority
+            don't, or something deep inside. Let's ch0p it down. Your inner is a miracle.
+          </div>
         </mat-expansion-panel>
         <mat-expansion-panel #faq_2 class="white-border !rounded-5 !bg-app">
           <mat-expansion-panel-header
@@ -631,13 +635,19 @@
           >
             <span class="font-fredoka leading-normal uppercase">I want to buy ch0pch0p NFT. How can I do it?</span>
             <div class="flex-1"></div>
-            <mat-icon inline class="text-amber ml-4">{{ faq_2.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+            <mat-icon inline class="shrink-0 ml-4 text-amber">{{
+              faq_2.expanded ? 'south_east' : 'north_east'
+            }}</mat-icon>
           </mat-expansion-panel-header>
-          You can buy ch0pch0p on
-          <a href="https://www.stargaze.zone/marketplace" target="_blank">Stargaze NFT Marketplace</a>. If you don't
-          have STARS, please install <a href="https://www.keplr.app/" target="_blank">Keplr wallet</a> or
-          <a href="https://www.leapwallet.io/" target="_blank">Leap wallet</a> and then swap for STARS directly from
-          Stargaze website. Please reach out to us if you need help!
+          <div class="text-pretty font-fredoka text-lg">
+            You can buy ch0pch0p on
+            <a href="https://www.stargaze.zone/marketplace" target="_blank" class="underline"
+              >Stargaze NFT Marketplace</a
+            >. If you don't have STARS, please install
+            <a href="https://www.keplr.app/" target="_blank" class="underline">Keplr wallet</a> or
+            <a href="https://www.leapwallet.io/" target="_blank" class="underline">Leap wallet</a> and then swap for
+            STARS directly from Stargaze website. Please reach out to us if you need help!
+          </div>
         </mat-expansion-panel>
         <mat-expansion-panel #faq_3 class="white-border !rounded-5 !bg-app">
           <mat-expansion-panel-header
@@ -645,12 +655,16 @@
           >
             <span class="font-fredoka leading-normal uppercase">What is Stargaze and why?</span>
             <div class="flex-1"></div>
-            <mat-icon inline class="text-amber ml-4">{{ faq_3.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+            <mat-icon inline class="shrink-0 ml-4 text-amber">{{
+              faq_3.expanded ? 'south_east' : 'north_east'
+            }}</mat-icon>
           </mat-expansion-panel-header>
-          Stargaze is a community-owned NFT marketplace, secured and governed by STARS. Why Stargaze then???  Ethereum
-          is way too expensive for us, while Solana is flooded with thousands of projects. As a Cosmos bull, choosing
-          Stargaze is a no-brainer for us since it is the best Cosmos NFT marketplace with ZERO gas fees, great UX, the
-          community is organic and the Stargaze team is super supportive. 
+          <div class="text-pretty font-fredoka text-lg">
+            Stargaze is a community-owned NFT marketplace, secured and governed by STARS. Why Stargaze then??? Ethereum
+            is way too expensive for us, while Solana is flooded with thousands of projects. As a Cosmos bull, choosing
+            Stargaze is a no-brainer for us since it is the best Cosmos NFT marketplace with ZERO gas fees, great UX,
+            the community is organic and the Stargaze team is super supportive.
+          </div>
         </mat-expansion-panel>
         <mat-expansion-panel #faq_4 class="white-border !rounded-5 !bg-app">
           <mat-expansion-panel-header
@@ -658,9 +672,11 @@
           >
             <span class="font-fredoka leading-normal uppercase">Wen utility?</span>
             <div class="flex-1"></div>
-            <mat-icon inline class="text-amber ml-4">{{ faq_4.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+            <mat-icon inline class="shrink-0 ml-4 text-amber">{{
+              faq_4.expanded ? 'south_east' : 'north_east'
+            }}</mat-icon>
           </mat-expansion-panel-header>
-          wen wen wen?
+          <div class="text-pretty font-fredoka text-lg">wen wen wen?</div>
         </mat-expansion-panel>
         <mat-expansion-panel #faq_5 class="white-border !rounded-5 !bg-app">
           <mat-expansion-panel-header
@@ -668,9 +684,11 @@
           >
             <span class="font-fredoka leading-normal uppercase">What da heck is swappable trait?</span>
             <div class="flex-1"></div>
-            <mat-icon inline class="text-amber ml-4">{{ faq_5.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+            <mat-icon inline class="shrink-0 ml-4 text-amber">{{
+              faq_5.expanded ? 'south_east' : 'north_east'
+            }}</mat-icon>
           </mat-expansion-panel-header>
-          ch0pch0p NFT holders can level up their NFT by 
+          <div class="text-pretty font-fredoka text-lg">ch0pch0p NFT holders can level up their NFT by</div>
         </mat-expansion-panel>
         <mat-expansion-panel #faq_6 class="white-border !rounded-5 !bg-app">
           <mat-expansion-panel-header
@@ -678,9 +696,11 @@
           >
             <span class="font-fredoka leading-normal uppercase">Do you even have a roadmap bro?</span>
             <div class="flex-1"></div>
-            <mat-icon inline class="text-amber ml-4">{{ faq_6.expanded ? 'south_east' : 'north_east' }}</mat-icon>
+            <mat-icon inline class="shrink-0 ml-4 text-amber">{{
+              faq_6.expanded ? 'south_east' : 'north_east'
+            }}</mat-icon>
           </mat-expansion-panel-header>
-          Maybe yes? Maybe no? Is that even matter bro?
+          <div class="text-pretty font-fredoka text-lg">Maybe yes? Maybe no? Is that even matter bro?</div>
         </mat-expansion-panel>
       </mat-accordion>
     </div>

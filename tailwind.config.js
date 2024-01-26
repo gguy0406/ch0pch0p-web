@@ -91,17 +91,17 @@ module.exports = {
   plugins: [
     plugin(function ({ addUtilities }) {
       addUtilities({
+        '.bg-clip-text': {
+          'background-clip': 'text',
+          '-webkit-background-clip': 'text',
+          '-webkit-text-fill-color': 'transparent',
+        },
         '.hide-scrollbar': {
           '-ms-overflow-style': 'none' /* IE and Edge */,
           'scrollbar-width': 'none' /* Firefox */,
           '&::-webkit-scrollbar': {
             display: 'none' /* Chrome, Safari and Opera */,
           },
-        },
-        '.bg-clip-text': {
-          'background-clip': 'text',
-          '-webkit-background-clip': 'text',
-          '-webkit-text-fill-color': 'transparent',
         },
       });
     }),

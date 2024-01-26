@@ -17,14 +17,6 @@
     border: 3px solid white;
   }
 
-  .paragraph-content {
-    padding: 40px;
-    text-wrap: pretty;
-    font-family: variables.$headline-font;
-    font-size: 24px;
-    line-height: 30px;
-  }
-
   .join-the-gang-slide {
     --sibling-gap: 20px;
 
@@ -70,7 +62,7 @@
   }
 
   app-three-d-slide-show {
-    margin: 80px -64px 0;
+    margin: 0 -64px;
     width: calc(100% + 128px);
 
     @media (width < #{variables.$tablet}) {
