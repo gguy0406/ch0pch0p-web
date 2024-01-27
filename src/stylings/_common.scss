@@ -39,7 +39,7 @@
     transform: rotate(3deg);
   }
 
-  &:not(&--first-heading, &--last-heading) {
+  &--normal-margin {
     margin-top: 60px;
 
     @media (width >= #{variables.$tablet}) {
@@ -67,12 +67,6 @@
   -webkit-text-fill-color: transparent;
 }
 
-.undraggable-container {
-  * {
-    user-drag: none;
-    user-select: none; /* CSS3 */
-    -webkit-user-select: none; /* Safari, Chrome */
-    -webkit-user-drag: none;
-    -moz-user-select: none; /* Firefox */
-  }
+.pointer-events-none-container * {
+  pointer-events: none;
 }

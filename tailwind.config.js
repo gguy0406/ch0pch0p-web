@@ -81,6 +81,9 @@ module.exports = {
       gap: {
         15: '60px',
       },
+      textUnderlineOffset: {
+        3: '3px',
+      },
     },
     screens: {
       tablet: '1024px',
@@ -91,11 +94,6 @@ module.exports = {
   plugins: [
     plugin(function ({ addUtilities }) {
       addUtilities({
-        '.bg-clip-text': {
-          'background-clip': 'text',
-          '-webkit-background-clip': 'text',
-          '-webkit-text-fill-color': 'transparent',
-        },
         '.hide-scrollbar': {
           '-ms-overflow-style': 'none' /* IE and Edge */,
           'scrollbar-width': 'none' /* Firefox */,

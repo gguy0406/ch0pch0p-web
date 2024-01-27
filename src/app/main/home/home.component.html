@@ -21,7 +21,7 @@
     <div class="relative pb-14 tablet:pb-5 laptop:pb-2">
       <div class="page-margin flex flex-col items-center">
         <div
-          class="section-heading section-heading--soar-left section-heading--first-heading bg-tangerine-yellow"
+          class="section-heading section-heading--soar-left bg-tangerine-yellow"
           [class]="section1progress() === 1 ? 'mt-15' : 'mt-[140px] tablet:mt-[220px] laptop:mt-[188px]'"
         >
           Keep scrolling until you see the surprise!
@@ -52,7 +52,7 @@
             class="absolute -inset-px bg-orange px-5 flex items-center justify-center origin-top-left"
             [class]="isUnveiled() ? 'grid-item--unveiled' : 'cursor-pointer'"
           >
-            <span class="text-black">what's next!</span>
+            <span class="text-black">what's next?</span>
           </div>
           @if (isUnveiled()) {
             <span class="text-black">coming soon!</span>
@@ -498,7 +498,9 @@
       <img [src]="img" width="100" height="100" alt="join the gang image" />
     </ng-template>
 
-    <div class="section-heading section-heading--soar-right bg-red-orange">A must-join (NFT) community on Cosmos</div>
+    <div class="section-heading section-heading--soar-right section-heading--normal-margin bg-red-orange">
+      A must-join NFT community on Cosmos
+    </div>
     <div
       class="mt-10 w-full flex flex-col gap-y-5 tablet:mt-15 tablet:flex-row tablet:gap-x-6 laptop:gap-x-8 desktop:gap-x-10"
     >
@@ -527,38 +529,40 @@
     </div>
 
     <!-- section 3 -->
-    <div class="contents tablet:flex tablet:justify-between tablet:items-center tablet:gap-x-24">
-      <div class="flex flex-col items-center">
-        <div class="section-heading section-heading--soar-left bg-caribbean-green">guess what!</div>
-        <div class="section-label mt-6 bg-toxic text-6xl tablet:mt-8 tablet:text-[80px] laptop:text-[100px]">
-          How ch0pch0p<br />Appear On Cosmos
+    <div class="contents tablet:mt-[120px] tablet:flex tablet:justify-between tablet:items-center tablet:gap-x-24">
+      <div class="flex flex-col items-center max-tablet:mt-15">
+        <div class="section-label bg-toxic text-6xl tablet:text-[80px] laptop:text-[100px]">
+          How ch0pch0p<br />Appeared on Cosmos
         </div>
       </div>
-      <div class="white-border mt-10 p-10 text-pretty font-fredoka text-lg tablet:mt-15">
+      <div class="white-border p-10 text-pretty font-fredoka text-lg max-tablet:mt-10">
         <p>
-          We were so fed up & frustrated with our jobs & bosses, so we decided to do sth fun and authentic on the
-          internet and pray that we would gather a community that was both witty and genuine - just like us (even
-          everyone said that internet friends are not real, lol).
+          We were so fed up and frustrated with our jobs and bosses, so we decided to do something fun and authentic on
+          the Internet, hoping to gather a community that was both witty and genuine - just like us (even though
+          everyone says that internet friends are not real, lol).
         </p>
         <p>
-          We discussed back and forth choosing the playground that contained a lot of naughty & (bad) kids. We are fun
-          but poor. It can't be ETH or Solana - where the playground is too crowded & gas is expensive.
+          We discussed back and forth choosing a playground that housed a lot of naughty (I mean, bad) kids. We are fun
+          but poor. So it couldn't be Ethereum or Solana, where the playground is too crowded and gas is expensive.
         </p>
         <p>
-          Then Thang appeared like a god and told us about Cosmos & its superior tech stack. The pitch was too long, but
-          we remembered that the gas fee was nearly 0. We chose Stargaze to launch &quot;0&quot; by ch0pch0p.
+          Then Thang appeared like a god. He introduced us to Cosmos and its superior tech stack. The pitch was a bit
+          lengthy, but we recalled that the gas fee there was nearly zero. So in the end, we chose Stargaze to launch
+          "0" by ch0pch0p.
         </p>
         <p>
-          We now have hundreds of ch0ppers in our community - who are super supportive & authentic. They all day engage
-          with our &quot;nonsense&quot; ideas that my boss always rejects. Our dream comes true. Can't ask for more but
-          launching a new baby to attract more friends. &#61;&#93;&#93;
+          Now, we have hundreds of ch0ppers in our community who are incredibly supportive and authentic. They engage
+          with our "nonsense" ideas all day, ideas that my boss always rejects. Our dream has come true. We can't ask
+          for more but to launch a new baby to attract even more friends. =]]
         </p>
       </div>
     </div>
 
     <!-- section 4 -->
-    <div class="section-heading section-heading--soar-right bg-rich-electric-pink">not perfect but fun!</div>
-    <div class="section-label mt-6 bg-budd-reverse text-6xl tablet:mt-8 tablet:text-[100px]">Meet The Team</div>
+    <div class="section-heading section-heading--soar-right section-heading--normal-margin bg-rich-electric-pink">
+      not perfect but fun!
+    </div>
+    <div class="section-label mt-6 bg-budd-reverse text-6xl tablet:mt-8 tablet:text-[100px]">Meet the Team</div>
     <div appDragToScroll class="meet-the-team hide-scrollbar">
       <app-member-intro name="quatac" team="Happen" intro="#instigator" />
       <app-member-intro name="vy" team="Happen" intro="#unlimited" />
@@ -576,11 +580,19 @@
       <app-member-intro
         name="loancute"
         team="Clear"
-        intro="Thinking about quitting my full-time job to have a fun-time (all day) role with ch0pch0pNFT."
+        intro="I won't put expectations on you. If you don't meet my standards, it's ok. You're out."
       />
-      <app-member-intro name="masu" team="Saleable" intro="xu" />
-      <app-member-intro name="chenny" team="Saleable" intro="cham" />
-      <app-member-intro name="blue" team="Saleable" intro="lu" />
+      <app-member-intro
+        name="masu"
+        team="Saleable"
+        intro="The reply. Sometimes they're hyperactive, sometime they just disappears."
+      />
+      <app-member-intro
+        name="chenny"
+        team="Saleable"
+        intro="Just freely give me your feedback, but I'm not sure I'll do it or not."
+      />
+      <app-member-intro name="blue" team="Saleable" intro="needs a good shoulder massage" />
     </div>
 
     <!-- section 5 -->
@@ -596,7 +608,11 @@
     <!-- section 6 -->
     <div class="contents desktop:mt-40 desktop:w-full desktop:flex desktop:gap-x-24 desktop:justify-between">
       <div class="flex flex-col items-center desktop:items-start">
-        <div class="section-heading section-heading--soar-left bg-tangerine-yellow desktop:!mt-0">hi guys!</div>
+        <div
+          class="section-heading section-heading--soar-left section-heading--normal-margin bg-tangerine-yellow desktop:!mt-0"
+        >
+          Still confused?
+        </div>
         <div class="section-label mt-6 bg-moon-reverse text-6xl tablet:mt-8 tablet:text-[80px] laptop:text-[100px]">
           Frequently
         </div>
@@ -622,11 +638,18 @@
             }}</mat-icon>
           </mat-expansion-panel-header>
           <div class="text-pretty font-fredoka text-lg">
-            ch0pch0p is a fun, naughty, and authentic community where ch0ppers can freely express their inner self. We
-            believe everyone has two sides: the outer self is what we show to the world, and the inner self is who we
-            really are. ch0pch0p refers to what is left inside you, whether it is a very high-level notion like your
-            favorite foods, your favorite activities such as skateboarding, a belief that you believe but the majority
-            don't, or something deep inside. Let's ch0p it down. Your inner is a miracle.
+            <p>
+              ch0pch0p is a fun, naughty, and authentic community where ch0ppers can freely express their inner selves.
+            </p>
+            <p>
+              We believe everyone has two sides: the outer self, which is what we show to the world, and the inner self,
+              which represents who we really are.
+            </p>
+            <p>
+              ch0pch0p refers to what remains inside you, whether it is your favorite hobby, a belief that you hold but
+              the majority may not, or something deep within.
+            </p>
+            <p>Let's ch0p it down. Your inner self is a miracle.</p>
           </div>
         </mat-expansion-panel>
         <mat-expansion-panel #faq_2 class="white-border !rounded-5 !bg-app">
@@ -640,13 +663,19 @@
             }}</mat-icon>
           </mat-expansion-panel-header>
           <div class="text-pretty font-fredoka text-lg">
-            You can buy ch0pch0p on
-            <a href="https://www.stargaze.zone/marketplace" target="_blank" class="underline"
-              >Stargaze NFT Marketplace</a
-            >. If you don't have STARS, please install
-            <a href="https://www.keplr.app/" target="_blank" class="underline">Keplr wallet</a> or
-            <a href="https://www.leapwallet.io/" target="_blank" class="underline">Leap wallet</a> and then swap for
-            STARS directly from Stargaze website. Please reach out to us if you need help!
+            <p>
+              You can buy ch0pch0p on
+              <a href="https://www.stargaze.zone/marketplace" target="_blank" class="underline underline-offset-3"
+                >Stargaze NFT Marketplace</a
+              >.
+            </p>
+            <p>
+              If you don't have STARS, please install
+              <a href="https://www.keplr.app/" target="_blank" class="underline underline-offset-3">Keplr wallet</a> or
+              <a href="https://www.leapwallet.io/" target="_blank" class="underline underline-offset-3">Leap wallet</a>
+              and then swap for STARS directly on Stargaze website.
+            </p>
+            Please reach out to us if you need help!
           </div>
         </mat-expansion-panel>
         <mat-expansion-panel #faq_3 class="white-border !rounded-5 !bg-app">
@@ -660,10 +689,13 @@
             }}</mat-icon>
           </mat-expansion-panel-header>
           <div class="text-pretty font-fredoka text-lg">
-            Stargaze is a community-owned NFT marketplace, secured and governed by STARS. Why Stargaze then??? Ethereum
-            is way too expensive for us, while Solana is flooded with thousands of projects. As a Cosmos bull, choosing
-            Stargaze is a no-brainer for us since it is the best Cosmos NFT marketplace with ZERO gas fees, great UX,
-            the community is organic and the Stargaze team is super supportive.
+            <p>Stargaze is a community-owned NFT marketplace, secured and governed by STARS.</p>
+            <p>Why Stargaze then?</p>
+            <p>
+              Ethereum is way too expensive for us, while Solana is flooded with thousands of projects. As a Cosmos
+              bull, choosing Stargaze is a no-brainer for us since it is the best Cosmos NFT marketplace with ZERO gas
+              fees, great UX, the community is organic and the Stargaze team is super supportive.
+            </p>
           </div>
         </mat-expansion-panel>
         <mat-expansion-panel #faq_4 class="white-border !rounded-5 !bg-app">
