@@ -66,3 +66,13 @@
   -webkit-background-clip: text; /* stylelint-disable-line property-no-vendor-prefix */
   -webkit-text-fill-color: transparent;
 }
+
+.undraggable-container {
+  * {
+    user-drag: none;
+    user-select: none; /* CSS3 */
+    -webkit-user-select: none; /* Safari, Chrome */
+    -webkit-user-drag: none;
+    -moz-user-select: none; /* Firefox */
+  }
+}

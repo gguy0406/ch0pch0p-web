@@ -8,7 +8,7 @@ import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { NavComponent } from 'src/app/components/nav/nav.component';
 import { StickyNavComponent } from 'src/app/components/sticky-nav/sticky-nav.component';
 import { ThreeDSlideShowComponent } from 'src/app/components/thee-d-slide-show/three-d-slide-show.component';
-import { HorizontalScrollDirective } from 'src/app/directives/horizontal-scroll.directive';
+import { DragToScrollDirective } from 'src/app/directives/drag-to-scroll';
 import { BUY_CH0PCH0P_URL } from 'src/lib/constants';
 import { MemberIntroComponent } from './member-intro/member-intro.component';
 
@@ -27,7 +27,7 @@ import { MemberIntroComponent } from './member-intro/member-intro.component';
     NavComponent,
     StickyNavComponent,
     ThreeDSlideShowComponent,
-    HorizontalScrollDirective,
+    DragToScrollDirective,
     NgOptimizedImage,
   ],
 })

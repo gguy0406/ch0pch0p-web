@@ -14,7 +14,8 @@
     "Solana",
     "Thang",
     "theo",
-    "trungngo"
+    "trungngo",
+    "undraggable"
   ],
   "scss.lint.unknownAtRules": "ignore"
 }
