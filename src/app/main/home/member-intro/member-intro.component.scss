@@ -1,3 +1,17 @@
+@keyframes popup {
+  0% {
+    transform: translate(0, 100%);
+  }
+
+  60% {
+    transform: translate(0, -10%);
+  }
+
+  100% {
+    transform: translate(0);
+  }
+}
+
 :host {
   display: block;
   border-radius: 40px;
@@ -10,20 +24,6 @@
 
     &--active {
       animation-play-state: running;
-    }
-  }
-
-  @keyframes popup {
-    0% {
-      transform: translate(0, 100%);
-    }
-
-    60% {
-      transform: translate(0, -10%);
-    }
-
-    100% {
-      transform: translate(0);
     }
   }
 }

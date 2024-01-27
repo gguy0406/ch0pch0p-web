@@ -1,12 +1,5 @@
-<div class="relative w-full aspect-square overflow-hidden">
-  <img
-    #memberImg
-    priority
-    fill
-    [ngSrc]="'assets/team-intro/bg-' + name + '.png'"
-    alt="team intro"
-    class="rounded-3xl"
-  />
+<div class="relative aspect-square rounded-5 overflow-hidden">
+  <img #memberImg [src]="'assets/team-intro/bg-' + name + '.png'" width="100%" alt="team intro" />
   <img
     priority
     fill

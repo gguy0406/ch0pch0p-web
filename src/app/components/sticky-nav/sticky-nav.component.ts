@@ -1,4 +1,15 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, NgZone } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostBinding,
+  OnDestroy,
+  Signal,
+  WritableSignal,
+  computed,
+  signal,
+} from '@angular/core';
 
 import { NavComponent } from '../nav/nav.component';
 
@@ -10,22 +21,29 @@ import { NavComponent } from '../nav/nav.component';
   standalone: true,
   imports: [NavComponent],
 })
-export class StickyNavComponent implements AfterViewInit {
-  private _lastScrollTopValue: number = 0;
+export class StickyNavComponent implements AfterViewInit, OnDestroy {
+  @HostBinding('style.top.px') get topPosition() {
+    return this._topPosition();
+  }
 
-  constructor(
-    private _elementRef: ElementRef<HTMLElement>,
-    private _ngZone: NgZone
-  ) {}
+  private _lastScrollTopValue: number = 0;
+  private _isScrollingUp: WritableSignal<boolean> = signal(false);
+  private _topPosition: Signal<string> = computed(() =>
+    this._isScrollingUp() ? '0' : `-${this._elementRef.nativeElement.clientHeight}`
+  );
+  private _handleScrollEvent = (event: HTMLElementEventMap['scroll']) => {
+    const scrollTop = (event.target as HTMLDivElement).scrollTop;
+    this._isScrollingUp.set(scrollTop < this._lastScrollTopValue);
+    this._lastScrollTopValue = scrollTop;
+  };
+
+  constructor(private _elementRef: ElementRef<HTMLElement>) {}
 
   ngAfterViewInit(): void {
-    this._ngZone.runOutsideAngular(() => {
-      this._elementRef.nativeElement.parentElement?.addEventListener('scroll', (event) => {
-        const scrollTop = (event.target as HTMLDivElement).scrollTop;
-        this._elementRef.nativeElement.style.top =
-          scrollTop < this._lastScrollTopValue ? '0' : `-${this._elementRef.nativeElement.clientHeight}px`;
-        this._lastScrollTopValue = scrollTop;
-      });
-    });
+    this._elementRef.nativeElement.parentElement?.addEventListener('scroll', this._handleScrollEvent);
+  }
+
+  ngOnDestroy(): void {
+    this._elementRef.nativeElement.parentElement?.removeEventListener('scroll', this._handleScrollEvent);
   }
 }
