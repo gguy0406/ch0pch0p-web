@@ -52,18 +52,17 @@
     > div {
       position: absolute;
       inset: 0;
+      border: 1px solid transparent;
       width: calc(var(--size) * 1px);
       height: calc(var(--size) * 1px);
+      background-clip: padding-box;
+      background-size: contain;
       backface-visibility: hidden;
 
       @for $i from 1 to $quantity + 1 {
         &:nth-child(#{$quantity}n + #{$i}) {
           transform: rotateY(#{math.div(360, $quantity) * $i}deg) translateZ(calc(var(--radius) * -1px));
         }
-      }
-
-      > img {
-        border: 1px solid transparent;
       }
     }
   }
