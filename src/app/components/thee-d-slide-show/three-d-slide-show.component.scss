@@ -49,7 +49,7 @@
       transform-origin: 50% calc(-50% - var(--gap) * 1px);
     }
 
-    > * {
+    > div {
       position: absolute;
       inset: 0;
       width: calc(var(--size) * 1px);
@@ -60,6 +60,10 @@
         &:nth-child(#{$quantity}n + #{$i}) {
           transform: rotateY(#{math.div(360, $quantity) * $i}deg) translateZ(calc(var(--radius) * -1px));
         }
+      }
+
+      > img {
+        border: 1px solid transparent;
       }
     }
   }
