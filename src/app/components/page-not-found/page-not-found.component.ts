@@ -1,12 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  template: `<img src="assets/app/intro.gif" alt="page not found placeholder" width="100%" />`,
-  styles: `
-    :host {
-      display: block;
-    }
-  `,
+  templateUrl: './page-not-found.component.html',
+  styleUrl: './page-not-found.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [],

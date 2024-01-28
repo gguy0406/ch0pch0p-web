@@ -1,0 +1,34 @@
+@use '/src/stylings/variables';
+
+@keyframes moveX {
+  to {
+    left: calc(100% - 200px);
+  }
+}
+
+@keyframes moveY {
+  to {
+    top: calc(100% - 200px);
+  }
+}
+
+:host {
+  position: relative;
+  margin-bottom: -40px;
+  height: 350px;
+  display: block;
+
+  img {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    animation:
+      7s linear infinite alternate moveX,
+      5s linear infinite alternate moveY;
+  }
+
+  @media (width >= #{variables.$tablet}) {
+    margin-bottom: -140px;
+    height: 650px;
+  }
+}

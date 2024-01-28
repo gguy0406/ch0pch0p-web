@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 import { ROUTE } from '../lib/constants';
 import { PageLayoutComponent } from './components/page-layout/page-layout.component';
-import { PageNotFoundComponent } from './components/page-not-found.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { C0Component } from './main/c0/c0.component';
 import { HomeComponent } from './main/home/home.component';
 

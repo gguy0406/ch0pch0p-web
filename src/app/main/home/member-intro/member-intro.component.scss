@@ -1,14 +1,14 @@
 @keyframes popup {
   0% {
-    transform: translate(0, 100%);
+    top: 100%;
   }
 
   60% {
-    transform: translate(0, -10%);
+    top: -10%;
   }
 
   100% {
-    transform: translate(0);
+    top: 0;
   }
 }
 
@@ -19,8 +19,9 @@
   padding: 20px;
 
   .member {
+    position: absolute;
     border-radius: 20px;
-    animation: 0.7s linear 0s 1 normal none paused popup;
+    animation: 0.7s linear forwards paused popup;
 
     &--active {
       animation-play-state: running;

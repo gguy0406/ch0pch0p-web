@@ -1,4 +1,4 @@
-@if (section1progress() === 1) {
+@defer (when section1progress() === 1; prefetch on immediate) {
   <app-sticky-nav />
 }
 
@@ -490,12 +490,12 @@
   }
 </div>
 
-@if (section1progress() === 1) {
+@defer (when section1progress() === 1; prefetch on immediate) {
   <div class="page-margin pb-15 flex flex-col items-center tablet:pb-[120px] laptop:pb-40">
     <!-- section 2 -->
     <ng-template #joinTheGang let-img="img">
       <span class="text-[32px] font-bold tablet:text-[40px] laptop:text-[50px]">join the gang</span>
-      <img [src]="img" width="100" height="100" alt="join the gang image" />
+      <img [src]="img" width="100" height="100" alt="c1 self trait" />
     </ng-template>
 
     <div class="section-heading section-heading--soar-right section-heading--normal-margin bg-red-orange">
@@ -504,14 +504,14 @@
     <div
       class="mt-10 w-full flex flex-col gap-y-5 tablet:mt-15 tablet:flex-row tablet:gap-x-6 laptop:gap-x-8 desktop:gap-x-10"
     >
-      <div class="relative basis-1/3 aspect-square">
-        <img fill ngSrc="assets/character/fun.png" alt="fun character" class="rounded-10" />
+      <div class="basis-1/3 aspect-square">
+        <img src="assets/character/fun.png" alt="fun character" class="rounded-10" />
       </div>
-      <div class="relative basis-1/3 aspect-square">
-        <img fill ngSrc="assets/character/authentic.png" alt="authentic character" class="rounded-10" />
+      <div class="basis-1/3 aspect-square">
+        <img src="assets/character/authentic.png" alt="authentic character" class="rounded-10" />
       </div>
-      <div class="relative basis-1/3 aspect-square">
-        <img fill ngSrc="assets/character/naughty.png" alt="naughty character" class="rounded-10" />
+      <div class="basis-1/3 aspect-square">
+        <img src="assets/character/naughty.png" alt="naughty character" class="rounded-10" />
       </div>
     </div>
     <div class="mt-10 w-full tablet:mt-15">
@@ -529,7 +529,10 @@
     </div>
 
     <!-- section 3 -->
-    <div class="contents tablet:mt-[120px] tablet:flex tablet:justify-between tablet:items-center tablet:gap-x-24">
+    <div
+      #section3
+      class="contents tablet:mt-[120px] tablet:flex tablet:justify-between tablet:items-center tablet:gap-x-24"
+    >
       <div class="flex flex-col items-center max-tablet:mt-15">
         <div class="section-label bg-toxic text-6xl tablet:text-[80px] laptop:text-[100px]">
           How ch0pch0p<br />Appeared on Cosmos
@@ -563,40 +566,46 @@
       Not perfect but fun!
     </div>
     <div class="section-label mt-6 bg-budd-reverse text-6xl tablet:mt-8 tablet:text-[100px]">Meet the Team</div>
-    <div appDragToScroll class="meet-the-team hide-scrollbar">
-      <app-member-intro name="quatac" team="Happen" intro="#instigator" />
-      <app-member-intro name="vy" team="Happen" intro="#unlimited" />
-      <app-member-intro name="theo" team="Happen" intro="I am not gonna answer you." />
-      <app-member-intro
-        name="lethang"
-        team="Saleable"
-        intro="Headchef. He makes you proud (at least that's what he thought)."
-      />
-      <app-member-intro
-        name="trungngo"
-        team="Wow"
-        intro="Shadowy Super Coder. If he is not coding then he is playing video games or board games."
-      />
-      <app-member-intro
-        name="loancute"
-        team="Clear"
-        intro="I won't put expectations on you. If you don't meet my standards, it's ok. You're out."
-      />
-      <app-member-intro
-        name="masu"
-        team="Saleable"
-        intro="The reply. Sometimes they're hyperactive, sometime they just disappears."
-      />
-      <app-member-intro
-        name="chenny"
-        team="Saleable"
-        intro="Just freely give me your feedback, but I'm not sure I'll do it or not."
-      />
-      <app-member-intro name="blue" team="Saleable" intro="needs a good shoulder massage." />
-    </div>
 
-    <!-- section 5 -->
-    <app-three-d-slide-show srcFolder="assets/c1-274-webp" class="anti-padding" />
+    @defer (on immediate) {
+      <div #meetTheTeam appDragToScroll class="meet-the-team hide-scrollbar">
+        <app-member-intro name="quatac" team="Happen" intro="#instigator" />
+        <app-member-intro name="vy" team="Happen" intro="#unlimited" />
+        <app-member-intro name="theo" team="Happen" intro="I am not gonna answer you." />
+        <app-member-intro
+          name="lethang"
+          team="Saleable"
+          intro="Headchef. He makes you proud (at least that's what he thought)."
+        />
+        <app-member-intro
+          name="trungngo"
+          team="Wow"
+          intro="Shadowy Super Coder. If he is not coding then he is playing video games or board games."
+        />
+        <app-member-intro
+          name="loancute"
+          team="Clear"
+          intro="I won't put expectations on you. If you don't meet my standards, it's ok. You're out."
+        />
+        <app-member-intro
+          name="masu"
+          team="Saleable"
+          intro="The reply. Sometimes they're hyperactive, sometime they just disappears."
+        />
+        <app-member-intro
+          name="chenny"
+          team="Saleable"
+          intro="Just freely give me your feedback, but I'm not sure I'll do it or not."
+        />
+        <app-member-intro name="blue" team="Saleable" intro="needs a good shoulder massage." />
+      </div>
+
+      <!-- section 5 -->
+      @defer (on immediate; prefetch when section1progress() === 1) {
+        <app-three-d-slide-show srcFolder="assets/c1-274-webp" class="anti-padding" />
+      }
+    }
+
     <a
       mat-button
       [href]="BUY_CH0PCH0P_URL"

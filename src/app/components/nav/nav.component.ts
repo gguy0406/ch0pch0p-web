@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Signal, WritableSignal, computed, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,7 +14,7 @@ import { BUY_CH0PCH0P_URL, ROUTE } from 'src/lib/constants';
   styleUrl: './nav.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatMenuModule, NgOptimizedImage, RouterModule],
+  imports: [CommonModule, MatButtonModule, MatIconModule, MatMenuModule, RouterModule],
 })
 export class NavComponent {
   protected readonly ROUTE = ROUTE;

@@ -1,4 +1,3 @@
-import { NgOptimizedImage } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -18,7 +17,7 @@ import { MemberTeam, TeamColor } from 'src/lib/types';
   styleUrl: './member-intro.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgOptimizedImage],
+  imports: [],
 })
 export class MemberIntroComponent implements AfterViewInit {
   @ViewChild('memberImg', { static: true }) private _memberImg!: ElementRef;

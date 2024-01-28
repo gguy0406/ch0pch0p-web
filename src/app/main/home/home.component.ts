@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, WritableSignal, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -28,7 +28,6 @@ import { MemberIntroComponent } from './member-intro/member-intro.component';
     StickyNavComponent,
     ThreeDSlideShowComponent,
     DragToScrollDirective,
-    NgOptimizedImage,
   ],
 })
 export class HomeComponent {
