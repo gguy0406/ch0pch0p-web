@@ -1,6 +1,45 @@
 @use '/src/stylings/variables';
 @use 'section-1';
 
+@keyframes fly {
+  98.001%,
+  0% {
+    display: block;
+    transform: translateX(-200%) translateY(100vh) rotateZ(0deg);
+  }
+
+  15% {
+    transform: translateX(100vw) translateY(-100%) rotateZ(180deg);
+  }
+
+  15.001%,
+  18% {
+    transform: translateX(100vw) translateY(-30%) rotateZ(0deg);
+  }
+
+  40% {
+    transform: translateX(-200%) translateY(3vh) rotateZ(-180deg);
+  }
+
+  40.001%,
+  43% {
+    transform: translateX(-200%) translateY(-100%) rotateZ(-180deg);
+  }
+
+  65% {
+    transform: translateX(100vw) translateY(50vh) rotateZ(0deg);
+  }
+
+  65.001%,
+  68% {
+    transform: translateX(20vw) translateY(-200%) rotateZ(180deg);
+  }
+
+  95% {
+    transform: translateX(10vw) translateY(100vh) rotateZ(0deg);
+  }
+}
+
 @keyframes join-the-gang-slide {
   to {
     transform: translate(calc(-100% - var(--sibling-gap)));
@@ -15,6 +54,13 @@
   .white-border {
     border-radius: 40px;
     border: 3px solid white;
+  }
+
+  .flying-0 {
+    position: fixed;
+    z-index: 999;
+    pointer-events: none;
+    animation: 50s linear 1s infinite fly;
   }
 
   .join-the-gang-slide {
