@@ -13,3 +13,5 @@ export const CONTRACT_ADDRESS = {
 } as const;
 
 export const BUY_CH0PCH0P_URL = getMarketplaceUrl(CONTRACT_ADDRESS.c0);
+export const DISCORD_URL = 'https://discord.com/invite/tH3bnHEFGY';
+export const X_URL = 'https://twitter.com/ch0pch0pNFT';

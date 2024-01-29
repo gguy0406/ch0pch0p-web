@@ -2,20 +2,20 @@
 
 @keyframes moveX {
   to {
-    left: calc(100% - 200px);
+    left: calc(100% - 400px);
   }
 }
 
 @keyframes moveY {
   to {
-    top: calc(100% - 200px);
+    top: calc(100% - 400px);
   }
 }
 
 :host {
   position: relative;
   margin-bottom: -40px;
-  height: 350px;
+  height: 450px;
   display: block;
 
   img {
@@ -23,12 +23,17 @@
     top: 20px;
     left: 0;
     animation:
-      7s linear infinite alternate moveX,
-      5s linear infinite alternate moveY;
+      5.25s linear infinite alternate moveX,
+      3.75s linear infinite alternate moveY;
   }
 
   @media (width >= #{variables.$tablet}) {
     margin-bottom: -140px;
-    height: 650px;
+    height: calc(100vh - 160px);
+  }
+
+  @media (width >= #{variables.$laptop}) {
+    margin-bottom: -140px;
+    height: calc(100vh - 128px);
   }
 }
