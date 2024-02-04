@@ -3,8 +3,8 @@ import winston from 'winston';
 winston.addColors({
   error: 'red',
   warn: 'yellow',
-  info: 'green',
-  http: 'magenta',
+  info: 'cyan',
+  http: 'green',
   debug: 'white',
 });
 
@@ -17,14 +17,22 @@ export const logger = winston.createLogger({
     http: 3,
     debug: 4,
   },
-  format: winston.format.combine(
-    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
-    winston.format.colorize({ all: true }),
-    winston.format.printf((info) => `${info['timestamp']} ${info.level}: ${info.message}`)
-  ),
-  transports: [new winston.transports.File({ filename: 'api-log' })],
+  transports: [
+    new winston.transports.File({
+      filename: 'api-log',
+      format: winston.format.combine(
+        winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        winston.format.printf((info) => `${info['timestamp']} ${info.level}: ${info.message}`)
+      ),
+    }),
+  ],
 });
 
 if (process.env['NODE_ENV'] !== 'production') {
-  logger.add(new winston.transports.Console({ format: winston.format.simple(), level: 'debug' }));
+  logger.add(
+    new winston.transports.Console({
+      level: 'debug',
+      format: winston.format.combine(winston.format.colorize({ all: true }), winston.format.simple()),
+    })
+  );
 }

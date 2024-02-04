@@ -13,3 +13,5 @@ export const CONTRACT_ADDRESS = {
 } as const;
 
 export const BUY_CH0PCH0P_URL = getMarketplaceUrl(CONTRACT_ADDRESS.c0);
+export const RECEIVER_ADDRESS = 'stars1vka2ttgakm65av7kqt9ecwh3eeswz9avca853q';
+export const GAME_FEE = 10;

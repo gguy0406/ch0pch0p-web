@@ -11,3 +11,8 @@ export enum TeamColor {
   Wow = '#3498DB',
   Clear = '#E67E22',
 }
+
+export enum Machine {
+  REKT_GANG = 'rekt-gang',
+  PIXEL_WIZARD = 'pixel-wizard',
+}
