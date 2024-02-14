@@ -12,7 +12,13 @@ export enum TeamColor {
   Clear = '#E67E22',
 }
 
-export enum Machine {
+export enum STMachine {
   REKT_GANG = 'rekt-gang',
   PIXEL_WIZARD = 'pixel-wizard',
+}
+
+export enum MachineStatus {
+  COMING_SOON = 1,
+  AVAILABLE = 2,
+  OUT_OF_STOCK = 3,
 }

@@ -48,3 +48,7 @@ Thumbs.db
 
 # Log file
 api-log
+
+# Service account file
+src/server/service-account.json
+src/server/web-runner.json

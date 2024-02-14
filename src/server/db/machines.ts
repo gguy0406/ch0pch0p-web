@@ -1,0 +1,31 @@
+import { Firestore, getFirestore } from 'firebase-admin/firestore';
+
+import { STMachine } from 'src/lib/types';
+
+import { COLLECTION } from '../lib/constants';
+import { MachineSetting } from '../lib/types';
+
+let db: Firestore;
+let machineStateCollectionRef: ReturnType<Firestore['collection']>;
+
+setImmediate(() => {
+  db = getFirestore();
+  machineStateCollectionRef = db.collection(COLLECTION.MACHINES_STATE);
+});
+
+export async function getAll() {
+  const snapshot = await machineStateCollectionRef.get();
+
+  if (snapshot.empty) throw new Error('Cannot retrieve machine state');
+
+  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }) as { id: string } & MachineSetting);
+}
+
+export async function get(machine: STMachine): Promise<MachineSetting> {
+  const docRef = machineStateCollectionRef.doc(machine);
+  const doc = await docRef.get();
+
+  if (!doc.exists) throw new Error('Cannot retrieve machine state');
+
+  return doc.data()! as MachineSetting;
+}

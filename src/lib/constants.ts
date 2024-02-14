@@ -13,5 +13,6 @@ export const CONTRACT_ADDRESS = {
 } as const;
 
 export const BUY_CH0PCH0P_URL = getMarketplaceUrl(CONTRACT_ADDRESS.c0);
-export const RECEIVER_ADDRESS = 'stars1vka2ttgakm65av7kqt9ecwh3eeswz9avca853q';
+export const GRAPHQL_ENDPOINT = 'https://graphql.mainnet.stargaze-apis.com/graphql';
+export const WEB_RUNNER_ADDRESS = 'stars1vka2ttgakm65av7kqt9ecwh3eeswz9avca853q';
 export const GAME_FEE = 10;

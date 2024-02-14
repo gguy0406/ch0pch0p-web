@@ -4,7 +4,7 @@ import createHttpError from 'http-errors';
 
 import { logger } from '../utils/logger';
 
-export function checkValidationResult(req: Request, res: Response, next: NextFunction) {
+export function checkValidationResult(req: Request, _res: Response, next: NextFunction) {
   const result = validationResult(req);
 
   if (result.isEmpty()) {
