@@ -2,7 +2,7 @@ import { getMarketplaceUrl } from './functions';
 
 export const ROUTE = {
   C0: '"0"-by-ch0pch0p',
-  C1: 'c1',
+  C1: 'ch0pch0p',
   LEADERBOARD: 'hall-of-fame',
   STAKING: 'stake-with-us',
   GAME: 'ch0p-it',
