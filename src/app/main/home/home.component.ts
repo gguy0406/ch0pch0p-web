@@ -38,6 +38,6 @@ export class HomeComponent {
 
   protected onSection1Scroll(event: Event) {
     const section1: HTMLDivElement = event.target as HTMLDivElement;
-    this.section1progress.set(Math.min(section1.scrollTop / section1.clientHeight, 1));
+    this.section1progress.set(Math.min((section1.scrollTop + 1) / section1.clientHeight, 1));
   }
 }
