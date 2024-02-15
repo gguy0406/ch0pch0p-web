@@ -1,18 +1,22 @@
-import { MachineStatus } from 'src/lib/types';
+import { STMachine, MachineStatus } from 'src/lib/types';
+
 import { MachineSetting } from './types';
 
 export const COLLECTION = {
   MACHINES_STATE: 'machines-state',
   PLAY_TURN_COUNT: 'play-turn-count',
-};
+} as const;
 
 export const DOCUMENT = {
   SWAPPABLE_TRAITS: 'swappable-traits',
-};
+} as const;
 
-export const ST_MAXIMUM_TURN_PER_DAY = 2;
+export const MACHINE_COLLABORATOR_COLLECTION_ADDRESSES: { [k in STMachine]: string[] } = {
+  'rekt-gang': [],
+  'pixel-wizard': [],
+} as const;
 
-export const DEFAULT_MACHINE_SETTING: Omit<MachineSetting, 'collectionAddresses' | 'stageEndDate'> = {
+export const DEFAULT_MACHINE_SETTING: Omit<MachineSetting, 'stageEndDate'> = {
   status: MachineStatus.COMING_SOON,
   totalTurn: 0,
   stage: 1,
@@ -34,8 +38,9 @@ export const DEFAULT_MACHINE_SETTING: Omit<MachineSetting, 'collectionAddresses'
     3: 3,
     4: 10,
   },
-};
+} as const;
 
+export const ST_MAXIMUM_TURN_PER_DAY = 2;
 export const RPC_ENDPOINT =
   process.env['NODE_ENV'] === 'production'
     ? 'https://rpc.stargaze-apis.com/'

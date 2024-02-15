@@ -1,11 +1,11 @@
 import { createClient } from 'graphql-http';
 
-import { GRAPHQL_ENDPOINT } from 'src/lib/constants';
+import { STARGAZE_GRAPHQL_ENDPOINT } from 'src/lib/constants';
 
 type QueryResult = { data: { tokens: { pageInfo: { total: number } } } };
 
 export async function checkTokenHolder(ownerAddress: string, collectionAddresses: string[]) {
-  const graphqlClient = createClient({ url: GRAPHQL_ENDPOINT });
+  const graphqlClient = createClient({ url: STARGAZE_GRAPHQL_ENDPOINT });
 
   const result = await new Promise<QueryResult>((resolve, reject) => {
     let result: QueryResult;

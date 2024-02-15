@@ -1,4 +1,4 @@
-import { getFirestore } from 'firebase-admin/firestore';
+import { FieldValue, getFirestore } from 'firebase-admin/firestore';
 
 import { STMachine } from 'src/lib/types';
 
@@ -6,16 +6,21 @@ import { COLLECTION, DOCUMENT } from '../lib/constants';
 import { MachineSetting } from '../lib/types';
 
 export function consumeTurn(
-  machine: { name: STMachine; data: MachineSetting },
-  player: { address: string; turnCount: number }
+  machine: { name: STMachine; stage: MachineSetting['stage'] },
+  playerAddress: string,
+  winThePrize?: boolean
 ) {
   const db = getFirestore();
   const machineRef = db.collection(COLLECTION.MACHINES_STATE).doc(machine.name);
   const turnCountRef = db.collection(COLLECTION.PLAY_TURN_COUNT).doc(DOCUMENT.SWAPPABLE_TRAITS);
   const batch = db.batch();
 
-  batch.set(machineRef, machine.data);
-  batch.update(turnCountRef, { [player.address]: player.turnCount });
+  batch.update(machineRef, {
+    totalTurn: FieldValue.increment(1),
+    [`remainedTurn.${machine.stage}`]: FieldValue.increment(-1),
+    ...(winThePrize ? { [`prizeAllocation.${machine.stage}`]: FieldValue.increment(-1) } : {}),
+  });
+  batch.update(turnCountRef, { [playerAddress]: FieldValue.increment(1) });
 
   return batch.commit();
 }

@@ -5,7 +5,6 @@ type Stage = 1 | 2 | 3 | 4;
 export interface MachineSetting {
   status: MachineStatus;
   totalTurn: number;
-  collectionAddresses: string[];
   stage: Stage;
   stageEndDate: Date;
   remainedTurn: { [k in Stage]: number };

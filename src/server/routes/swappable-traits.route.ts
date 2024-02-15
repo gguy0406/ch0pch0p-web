@@ -58,15 +58,15 @@ router.patch(
   [
     rateLimit({ windowMs: 24 * 60 * 60 * 1000, limit: 100 }),
     param('tokenId').toInt().isInt({ min: 1, max: 5000 }),
-    body('sendTraitTx').isArray(),
-    body('sendTraitTx.*').isInt({ min: 0, max: 255 }),
+    body('transferTx').isArray(),
+    body('transferTx.*').isInt({ min: 0, max: 255 }),
     checkValidationResult,
   ],
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = await updateTokenMetadata(
-        matchedData(req)['tokenId'],
-        new Uint8Array(matchedData(req)['sendTraitTx'])
+        matchedData(req)['tokenId'].toString(),
+        new Uint8Array(matchedData(req)['transferTx'])
       );
 
       res.status(200).json(result);
