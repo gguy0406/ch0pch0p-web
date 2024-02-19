@@ -45,3 +45,11 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+# Log file
+api-log
+
+# Server secret file
+src/server/service-account.json
+src/server/storage-api-key.json
+src/server/web-runner.json
