@@ -53,3 +53,6 @@ api-log
 src/server/service-account.json
 src/server/storage-api-key.json
 src/server/web-runner.json
+
+# Artwork file
+src/server/assets/traits/*
