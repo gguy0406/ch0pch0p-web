@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { DISCORD_URL, X_URL } from 'src/lib/constants';
 
 @Component({
   selector: 'app-footer',
@@ -8,4 +9,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   standalone: true,
   imports: [],
 })
-export class FooterComponent {}
+export class FooterComponent {
+  protected readonly DISCORD_URL = DISCORD_URL;
+  protected readonly X_URL = X_URL;
+}

@@ -2,33 +2,32 @@
 
 @keyframes moveX {
   to {
-    left: calc(100% - 200px);
+    left: calc(100% - 400px);
   }
 }
 
 @keyframes moveY {
   to {
-    top: calc(100% - 200px);
+    top: calc(100% - 400px);
   }
 }
 
 :host {
-  position: relative;
-  margin-bottom: -40px;
-  height: 350px;
-  display: block;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 
-  img {
-    position: absolute;
-    top: 20px;
-    left: 0;
-    animation:
-      7s linear infinite alternate moveX,
-      5s linear infinite alternate moveY;
-  }
+  .bouncing-container {
+    flex-grow: 1;
+    position: relative;
 
-  @media (width >= #{variables.$tablet}) {
-    margin-bottom: -140px;
-    height: 650px;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      animation:
+        5.25s linear infinite alternate moveX,
+        3.75s linear infinite alternate moveY;
+    }
   }
 }

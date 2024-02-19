@@ -11,7 +11,7 @@ setImmediate(() => {
 });
 
 export async function get(address: string): Promise<number> {
-  const doc = await docRef.get();
+  const docSnap = await docRef.get();
 
-  return (doc.exists ? doc.data()?.[address] : null) ?? ST_MAXIMUM_TURN_PER_DAY;
+  return (docSnap.exists ? docSnap.data()?.[address] : null) ?? ST_MAXIMUM_TURN_PER_DAY;
 }

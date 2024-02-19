@@ -9,6 +9,16 @@ import { getMachines, getTurnCount, play, updateTokenMetadata } from '../service
 
 export const router = Router();
 
+router.get('/machines', rateLimit({ windowMs: 15 * 1000, limit: 5 }), async (req, res, next) => {
+  try {
+    const machines = await getMachines();
+
+    res.status(200).json(machines);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get(
   '/turn-count/:address',
   [rateLimit({ windowMs: 15 * 1000, limit: 5 }), param('address').trim().escape(), checkValidationResult],
@@ -22,16 +32,6 @@ router.get(
     }
   }
 );
-
-router.get('/machines', rateLimit({ windowMs: 15 * 1000, limit: 5 }), async (req, res, next) => {
-  try {
-    const machines = await getMachines();
-
-    res.status(200).json(machines);
-  } catch (err) {
-    next(err);
-  }
-});
 
 router.patch(
   '/play/:machine',

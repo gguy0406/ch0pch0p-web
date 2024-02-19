@@ -7,8 +7,7 @@ import { C0Component } from './main/c0/c0.component';
 import { HomeComponent } from './main/home/home.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, title: 'Home' },
+  { path: '', pathMatch: 'full', component: HomeComponent, title: 'Home' },
   {
     path: '',
     component: PageLayoutComponent,
@@ -18,7 +17,7 @@ export const routes: Routes = [
         component: C0Component,
         title: '"0" by ch0pch0p',
       },
-      { path: '**', component: PageNotFoundComponent },
     ],
   },
+  { path: '**', component: PageNotFoundComponent },
 ];

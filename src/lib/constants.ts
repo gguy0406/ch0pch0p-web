@@ -2,7 +2,7 @@ import { getMarketplaceUrl } from './helpers';
 
 export const ROUTE = {
   C0: '"0"-by-ch0pch0p',
-  C1: 'c1',
+  C1: 'ch0pch0p',
   LEADERBOARD: 'hall-of-fame',
   STAKING: 'stake-with-us',
   GAME: 'ch0p-it',
@@ -16,6 +16,9 @@ export const CONTRACT_ADDRESS = {
 } as const;
 
 export const BUY_CH0PCH0P_URL = getMarketplaceUrl(CONTRACT_ADDRESS.C0_SG721);
+export const DISCORD_URL = 'https://discord.com/invite/tH3bnHEFGY';
+export const X_URL = 'https://twitter.com/ch0pch0pNFT';
+
 export const STARGAZE_GRAPHQL_ENDPOINT = 'https://graphql.mainnet.stargaze-apis.com/graphql';
 export const WEB_RUNNER_ADDRESS = 'stars1vka2ttgakm65av7kqt9ecwh3eeswz9avca853q';
 export const GAME_FEE = 10;

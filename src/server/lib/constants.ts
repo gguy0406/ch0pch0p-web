@@ -11,7 +11,7 @@ export const DOCUMENT = {
   SWAPPABLE_TRAITS: 'swappable-traits',
 } as const;
 
-export const MACHINE_COLLABORATOR_COLLECTION_ADDRESSES: { [k in STMachine]: string[] } = {
+export const MACHINE_COLLABORATOR_COLLECTION_ADDRESSES: { [k in STMachine]: readonly string[] } = {
   'rekt-gang': [],
   'pixel-wizard': [],
 } as const;

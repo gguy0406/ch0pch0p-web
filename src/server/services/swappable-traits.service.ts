@@ -8,8 +8,9 @@ import { Tx } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
 import { MsgExecuteContract } from 'cosmjs-types/cosmwasm/wasm/v1/tx';
 import createHttpError, { UnknownError } from 'http-errors';
 import { Blob, File, NFTStorage } from 'nft.storage';
+import path, { dirname, join as pathJoin, resolve } from 'node:path';
 import { readFile, readdir } from 'node:fs/promises';
-import path, { join as pathJoin } from 'path';
+import { fileURLToPath } from 'node:url';
 
 import { CONTRACT_ADDRESS, GAME_FEE, WEB_RUNNER_ADDRESS } from 'src/lib/constants';
 import { STMachine, MachineStatus } from 'src/lib/types';
@@ -24,14 +25,14 @@ import { checkTokenHolder } from '../utils/check-token-owner';
 import storageApiKey from '../storage-api-key.json';
 import webRunnerMnemonic from '../web-runner.json';
 
-export function getTurnCount(address: string) {
-  return dbTurnCount.get(address);
-}
-
 export async function getMachines() {
   const machines = await dbMachines.getAll();
 
   return machines.map((machine) => ({ id: machine.id, status: machine.status }));
+}
+
+export function getTurnCount(address: string) {
+  return dbTurnCount.get(address);
 }
 
 export async function play(machine: STMachine, payFeeTx: Uint8Array) {
@@ -54,30 +55,30 @@ export async function play(machine: STMachine, payFeeTx: Uint8Array) {
     return;
   }
 
-  // const machineSetting = await dbMachines.get(machine);
+  const machineSetting = await dbMachines.get(machine);
 
-  // if (machineSetting.status !== MachineStatus.AVAILABLE) throw createHttpError(400, 'Machine is not available');
+  if (machineSetting.status !== MachineStatus.AVAILABLE) throw createHttpError(400, 'Machine is not available');
 
-  // const playerTurnCount = await dbTurnCount.get(msgSend.fromAddress);
+  const playerTurnCount = await dbTurnCount.get(msgSend.fromAddress);
 
-  // if (playerTurnCount >= ST_MAXIMUM_TURN_PER_DAY) throw createHttpError(400, `${msgSend.fromAddress} out of turn`);
+  if (playerTurnCount >= ST_MAXIMUM_TURN_PER_DAY) throw createHttpError(400, `${msgSend.fromAddress} out of turn`);
 
-  // const isEligible =
-  //   (await checkTokenHolder(msgSend.fromAddress, [CONTRACT_ADDRESS.c0])) ||
-  //   (await checkTokenHolder(msgSend.fromAddress, MACHINE_COLLABORATOR_COLLECTION_ADDRESSES[machine]));
+  const isEligible =
+    (await checkTokenHolder(msgSend.fromAddress, [CONTRACT_ADDRESS.C0_SG721])) ||
+    (await checkTokenHolder(msgSend.fromAddress, MACHINE_COLLABORATOR_COLLECTION_ADDRESSES[machine]));
 
-  // if (!isEligible) throw createHttpError(403, `${msgSend.fromAddress} is not eligible`);
+  if (!isEligible) throw createHttpError(403, `${msgSend.fromAddress} is not eligible`);
 
   const payFeeTxResult = await broadcastTx(payFeeTx);
 
   if (payFeeTxResult.code !== 0) throw createHttpError(402);
 
-  // const winThePrize = runProbability(machineSetting);
+  const winThePrize = runProbability(machineSetting);
 
-  // if (!winThePrize) {
-  //   await consumeTurn({ name: machine, stage: machineSetting.stage }, msgSend.fromAddress);
-  //   return;
-  // }
+  if (!winThePrize) {
+    await consumeTurn({ name: machine, stage: machineSetting.stage }, msgSend.fromAddress);
+    return;
+  }
 
   const client = await SigningCosmWasmClient.connectWithSigner(
     RPC_ENDPOINT,
@@ -94,16 +95,17 @@ export async function play(machine: STMachine, payFeeTx: Uint8Array) {
   };
   const txResult = await client.signAndBroadcast(WEB_RUNNER_ADDRESS, [mintMsg], 'auto', 'win lucky gacha');
 
-  if (txResult.code !== 0)
+  if (txResult.code !== 0) {
     throw createHttpError(
       500,
-      `Cert mint failed.` +
-        `Address: ${msgSend.fromAddress}.` +
-        // `Remained prize: ${machineSetting.prizeAllocation[machineSetting.stage]}.` +
+      `Cert mint failed.\n` +
+        `Address: ${msgSend.fromAddress}.\n` +
+        `Remained prize: ${machineSetting.prizeAllocation[machineSetting.stage]}.\n` +
         `Tx hash: ${txResult.transactionHash}`
     );
+  }
 
-  // await consumeTurn({ name: machine, stage: machineSetting.stage }, msgSend.fromAddress, true);
+  await consumeTurn({ name: machine, stage: machineSetting.stage }, msgSend.fromAddress, true);
   return txResult.transactionHash;
 }
 
@@ -134,27 +136,33 @@ export async function updateTokenMetadata(tokenId: string, transferTx: Uint8Arra
     throw createHttpError(400, `Cannot update token ${tokenId}`);
   }
 
-  // const transferTxResult = await broadcastTx(transferTx);
+  const transferTxResult = await broadcastTx(transferTx);
 
-  // if (transferTxResult.code !== 0) throw createHttpError(400);
+  if (transferTxResult.code !== 0) throw createHttpError(400);
 
   const image = await generateNewImage(c1TokenMetadata.rawAttributes, certTokenMetadata.rawAttributes);
   const cid = await uploadImageToStorage(image, `${tokenId}.jpeg`);
+  const client = await SigningCosmWasmClient.connectWithSigner(
+    'https://stargaze-testnet-rpc.polkachu.com/',
+    await DirectSecp256k1HdWallet.fromMnemonic(webRunnerMnemonic.mnemonic, { prefix: 'stars' }),
+    { gasPrice: GasPrice.fromString('1ustars') }
+  );
+  const updateMsg: MsgExecuteContractEncodeObject = {
+    typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+    value: MsgExecuteContract.fromPartial({
+      sender: WEB_RUNNER_ADDRESS,
+      contract: CONTRACT_ADDRESS.CERT_MINTER,
+      msg: toUtf8(JSON.stringify({ update_token_metadata: { token_id: tokenId, token_uri: cid } })),
+    }),
+  };
+  const txResult = await client.signAndBroadcast(WEB_RUNNER_ADDRESS, [updateMsg], 'auto', 'level up');
 
-  // const client = await SigningCosmWasmClient.connectWithSigner(
-  //   'https://stargaze-testnet-rpc.polkachu.com/',
-  //   await DirectSecp256k1HdWallet.fromMnemonic(webRunnerMnemonic.mnemonic, { prefix: 'stars' }),
-  //   { gasPrice: GasPrice.fromString('1ustars') }
-  // );
-
-  // {
-  //   update_token_metadata: {
-  //     token_id: id,
-  //     token_uri:
-  //       'ipfs://bafybeie3g6kkop74aapqwlbuqikq7qouw34eu6leo5whyulwpau4xsyzy4/' +
-  //       Math.floor(Math.random() * 1000),
-  //   },
-  // }
+  if (txResult.code !== 0) {
+    throw createHttpError(
+      500,
+      `Update metadata failed.\nToken Id: ${tokenId}.\nCID: ${cid}.\nTx hash: ${txResult.transactionHash}`
+    );
+  }
 }
 
 function decodeTx(tx: Uint8Array) {
@@ -189,6 +197,14 @@ async function broadcastTx(tx: Uint8Array) {
   } catch (err) {
     throw createHttpError(400, (err as UnknownError).toString());
   }
+}
+
+function runProbability(machineSetting: MachineSetting) {
+  const remainedTurn = machineSetting.remainedTurn[machineSetting.stage];
+  const prizeAllocation = machineSetting.prizeAllocation[machineSetting.stage];
+  const random = Math.random() * (remainedTurn + (remainedTurn - prizeAllocation) / 20);
+
+  return random < prizeAllocation;
 }
 
 async function getOwnerOf(tokenId: string) {
@@ -245,14 +261,6 @@ async function getTokenUri(sg721Address: string, tokenId: string) {
   }
 }
 
-function runProbability(machineSetting: MachineSetting) {
-  const remainedTurn = machineSetting.remainedTurn[machineSetting.stage];
-  const prizeAllocation = machineSetting.prizeAllocation[machineSetting.stage];
-  const random = Math.random() * (remainedTurn + (remainedTurn - prizeAllocation) / 20);
-
-  return random < prizeAllocation;
-}
-
 async function generateNewImage(tokenMetadata: Record<string, string>, traitMetadata: Record<string, string>) {
   const traits = ['Background', 'Body', 'Clothes', 'Self', 'Hand', 'Head', 'Hair', 'Face', 'Ear', 'Nose'];
   const syncColorSetting = {
@@ -271,7 +279,8 @@ async function generateNewImage(tokenMetadata: Record<string, string>, traitMeta
   type ColorType = keyof (typeof syncColorSetting)['defaultSet'];
   type Skin = keyof (typeof syncColorSetting)['colorSets'];
 
-  const traitsPath = pathJoin(__dirname, '..', 'assets');
+  const currentDir = dirname(fileURLToPath(import.meta.url));
+  const traitsPath = resolve(currentDir, '..', 'assets');
   const layerRegex = /\.\d+$/;
   const layers: Record<string, Image> = {};
 

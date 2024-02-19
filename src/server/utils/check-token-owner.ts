@@ -4,7 +4,7 @@ import { STARGAZE_GRAPHQL_ENDPOINT } from 'src/lib/constants';
 
 type QueryResult = { data: { tokens: { pageInfo: { total: number } } } };
 
-export async function checkTokenHolder(ownerAddress: string, collectionAddresses: string[]) {
+export async function checkTokenHolder(ownerAddress: string, collectionAddresses: readonly string[]) {
   const graphqlClient = createClient({ url: STARGAZE_GRAPHQL_ENDPOINT });
 
   const result = await new Promise<QueryResult>((resolve, reject) => {

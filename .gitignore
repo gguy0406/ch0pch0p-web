@@ -51,5 +51,5 @@ api-log
 
 # Server secret file
 src/server/service-account.json
-src/server/web-runner.json
 src/server/storage-api-key.json
+src/server/web-runner.json

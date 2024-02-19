@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { ThreeDSlideShowComponent } from 'src/app/components/thee-d-slide-show/three-d-slide-show.component';
 import { CONTRACT_ADDRESS } from 'src/lib/constants';
-import { getMarketplaceUrl } from 'src/lib/functions';
+import { getMarketplaceUrl } from 'src/lib/helpers';
 
 @Component({
   selector: 'app-c0',
@@ -14,5 +14,5 @@ import { getMarketplaceUrl } from 'src/lib/functions';
   imports: [MatButtonModule, ThreeDSlideShowComponent],
 })
 export class C0Component {
-  protected readonly CO_URL = getMarketplaceUrl(CONTRACT_ADDRESS.c0);
+  protected readonly CO_URL = getMarketplaceUrl(CONTRACT_ADDRESS.C0_SG721);
 }

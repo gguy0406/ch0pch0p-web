@@ -1,7 +1,7 @@
 <div class="slide-container">
   @for (i of array(14); track i; let idx = $index) {
     <div>
-      <img [src]="'assets/c1-274-webp/' + (idx + 1) + '.png'" alt="collection asset" />
+      <img [src]="srcFolder + '/' + (idx + 1) + '.webp'" alt="collection asset" />
     </div>
     <div></div>
   }
@@ -10,14 +10,14 @@
   @for (i of array(14); track i; let idx = $index) {
     <div></div>
     <div>
-      <img [src]="'assets/c1-274-webp/' + (idx + 15) + '.png'" alt="collection asset" />
+      <img [src]="srcFolder + '/' + (idx + 15) + '.webp'" alt="collection asset" />
     </div>
   }
 </div>
 <div class="slide-container">
   @for (i of array(14); track i; let idx = $index) {
     <div>
-      <img [src]="'assets/c1-274-webp/' + (idx + 29) + '.png'" alt="collection asset" />
+      <img [src]="srcFolder + '/' + (idx + 29) + '.webp'" alt="collection asset" />
     </div>
     <div></div>
   }

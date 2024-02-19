@@ -23,9 +23,9 @@ export async function getAll() {
 
 export async function get(machine: STMachine): Promise<MachineSetting> {
   const docRef = machineStateCollectionRef.doc(machine);
-  const doc = await docRef.get();
+  const docSnap = await docRef.get();
 
-  if (!doc.exists) throw new Error('Cannot retrieve machine state');
+  if (!docSnap.exists) throw new Error('Cannot retrieve machine state');
 
-  return doc.data()! as MachineSetting;
+  return docSnap.data()! as MachineSetting;
 }
