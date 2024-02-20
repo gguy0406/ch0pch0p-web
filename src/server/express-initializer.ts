@@ -12,8 +12,7 @@ export function expressInitializer(app: Express) {
 
   initializeApp({ credential: cert(serviceAccount) });
 
-  app.disable('x-powered-by');
-  app.use(helmet());
+  app.use(helmet({ contentSecurityPolicy: false }));
   app.use('/api', apiRouter);
 
   process.on('uncaughtExceptionMonitor', (err, origin) => logger.error(origin, err));
