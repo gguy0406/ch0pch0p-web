@@ -39,7 +39,14 @@
             "ssr": { "entry": "server.ts" },
             "stylePreprocessorOptions": { "includePaths": [""] },
             "allowedCommonJsDependencies": ["*"],
-            "externalDependencies": ["@cosmjs/*", "canvas", "firebase-admin"],
+            "externalDependencies": [
+              "@cosmjs/cosmwasm-stargate",
+              "@cosmjs/encoding",
+              "@cosmjs/proto-signing",
+              "@cosmjs/stargate",
+              "canvas",
+              "firebase-admin"
+            ],
             "optimization": {
               "scripts": true,
               "styles": {
@@ -54,7 +61,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "800kb",
+                  "maximumWarning": "900kb",
                   "maximumError": "1mb"
                 },
                 {
@@ -76,20 +83,14 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production": {
-              "buildTarget": "ch0pch0p-web:build:production"
-            },
-            "development": {
-              "buildTarget": "ch0pch0p-web:build:development"
-            }
+            "production": { "buildTarget": "ch0pch0p-web:build:production" },
+            "development": { "buildTarget": "ch0pch0p-web:build:development" }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "ch0pch0p-web:build"
-          }
+          "options": { "buildTarget": "ch0pch0p-web:build" }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
@@ -99,9 +100,7 @@
         },
         "deploy": {
           "builder": "@angular/fire:deploy",
-          "options": {
-            "version": 2
-          },
+          "options": { "version": 2 },
           "configurations": {
             "production": {
               "buildTarget": "ch0pch0p-web:build:production",

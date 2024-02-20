@@ -8,22 +8,24 @@ import { Tx } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
 import { MsgExecuteContract } from 'cosmjs-types/cosmwasm/wasm/v1/tx';
 import createHttpError, { UnknownError } from 'http-errors';
 import { Blob, File, NFTStorage } from 'nft.storage';
-import path, { dirname, join as pathJoin, resolve } from 'node:path';
 import { readFile, readdir } from 'node:fs/promises';
+import path, { dirname, join as pathJoin, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-
-import { CONTRACT_ADDRESS, GAME_FEE, WEB_RUNNER_ADDRESS } from 'src/lib/constants';
-import { STMachine, MachineStatus } from 'src/lib/types';
 
 import { consumeTurn } from '../db/consume-turn';
 import * as dbMachines from '../db/machines';
 import * as dbTurnCount from '../db/st-turn-count';
-import { MACHINE_COLLABORATOR_COLLECTION_ADDRESSES, RPC_ENDPOINT, ST_MAXIMUM_TURN_PER_DAY } from '../lib/constants';
-import { MachineSetting } from '../lib/types';
+import {
+  CONTRACT_ADDRESS,
+  GAME_FEE,
+  MACHINE_COLLABORATOR_COLLECTION_ADDRESSES,
+  RPC_ENDPOINT,
+  ST_MAXIMUM_TURN_PER_DAY,
+  WEB_RUNNER_ADDRESS,
+} from '../lib/constants';
+import { checkTokenHolder } from '../lib/helpers';
+import { MachineSetting, MachineStatus, STMachine } from '../lib/types';
 import { logger } from '../utils/logger';
-import { checkTokenHolder } from '../utils/check-token-owner';
-import storageApiKey from '../storage-api-key.json';
-import webRunnerMnemonic from '../web-runner.json';
 
 export async function getMachines() {
   const machines = await dbMachines.getAll();
@@ -82,7 +84,7 @@ export async function play(machine: STMachine, payFeeTx: Uint8Array) {
 
   const client = await SigningCosmWasmClient.connectWithSigner(
     RPC_ENDPOINT,
-    await DirectSecp256k1HdWallet.fromMnemonic(webRunnerMnemonic.mnemonic, { prefix: 'stars' }),
+    await DirectSecp256k1HdWallet.fromMnemonic(process.env['WEB_RUNNER_SEED'] as string, { prefix: 'stars' }),
     { gasPrice: GasPrice.fromString('1ustars') }
   );
   const mintMsg: MsgExecuteContractEncodeObject = {
@@ -144,7 +146,7 @@ export async function updateTokenMetadata(tokenId: string, transferTx: Uint8Arra
   const cid = await uploadImageToStorage(image, `${tokenId}.jpeg`);
   const client = await SigningCosmWasmClient.connectWithSigner(
     'https://stargaze-testnet-rpc.polkachu.com/',
-    await DirectSecp256k1HdWallet.fromMnemonic(webRunnerMnemonic.mnemonic, { prefix: 'stars' }),
+    await DirectSecp256k1HdWallet.fromMnemonic(process.env['WEB_RUNNER_SEED'] as string, { prefix: 'stars' }),
     { gasPrice: GasPrice.fromString('1ustars') }
   );
   const updateMsg: MsgExecuteContractEncodeObject = {
@@ -331,7 +333,7 @@ async function generateNewImage(tokenMetadata: Record<string, string>, traitMeta
 }
 
 function uploadImageToStorage(image: Buffer, fileName: string) {
-  const client = new NFTStorage({ token: storageApiKey.key });
+  const client = new NFTStorage({ token: process.env['STORAGE_API_KEY'] as string });
   const blob = new Blob([image]);
   const file = new File([blob], fileName);
 

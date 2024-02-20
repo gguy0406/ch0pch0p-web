@@ -1,6 +1,4 @@
-import { STMachine, MachineStatus } from 'src/lib/types';
-
-import { MachineSetting } from './types';
+export * from 'src/lib/constants';
 
 export const COLLECTION = {
   MACHINES_STATE: 'machines-state',
@@ -9,35 +7,6 @@ export const COLLECTION = {
 
 export const DOCUMENT = {
   SWAPPABLE_TRAITS: 'swappable-traits',
-} as const;
-
-export const MACHINE_COLLABORATOR_COLLECTION_ADDRESSES: { [k in STMachine]: readonly string[] } = {
-  'rekt-gang': [],
-  'pixel-wizard': [],
-} as const;
-
-export const DEFAULT_MACHINE_SETTING: Omit<MachineSetting, 'stageEndDate'> = {
-  status: MachineStatus.COMING_SOON,
-  totalTurn: 0,
-  stage: 1,
-  remainedTurn: {
-    1: 300,
-    2: 200,
-    3: 200,
-    4: 400,
-  },
-  maximumDay: {
-    1: 1,
-    2: 1,
-    3: 1,
-    4: Infinity,
-  },
-  prizeAllocation: {
-    1: 4,
-    2: 3,
-    3: 3,
-    4: 10,
-  },
 } as const;
 
 export const ST_MAXIMUM_TURN_PER_DAY = 2;

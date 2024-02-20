@@ -1,3 +1,4 @@
+export * from 'src/lib/types';
 import { MachineStatus } from 'src/lib/types';
 
 type Stage = 1 | 2 | 3 | 4;

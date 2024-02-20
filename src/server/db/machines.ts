@@ -1,9 +1,7 @@
 import { Firestore, getFirestore } from 'firebase-admin/firestore';
 
-import { STMachine } from 'src/lib/types';
-
 import { COLLECTION } from '../lib/constants';
-import { MachineSetting } from '../lib/types';
+import { MachineSetting, STMachine } from '../lib/types';
 
 let db: Firestore;
 let machineStateCollectionRef: ReturnType<Firestore['collection']>;

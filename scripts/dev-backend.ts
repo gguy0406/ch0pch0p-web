@@ -1,10 +1,10 @@
 import express, { Express } from 'express';
 import cors from 'cors';
 
-import { expressInitializer } from './express-initializer';
+import { expressInitializer } from '../src/server/express-initializer';
 
 const app: Express = express();
-const port = process.env['PORT'] || 4000;
+const port = process.env['NG_SSR_PORT'] || 4000;
 
 app.use(cors());
 expressInitializer(app);

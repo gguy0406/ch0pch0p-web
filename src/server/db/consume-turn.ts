@@ -1,9 +1,7 @@
 import { FieldValue, Firestore, getFirestore } from 'firebase-admin/firestore';
 
-import { STMachine } from 'src/lib/types';
-
 import { COLLECTION, DOCUMENT } from '../lib/constants';
-import { MachineSetting } from '../lib/types';
+import { MachineSetting, STMachine } from '../lib/types';
 
 let db: Firestore;
 
