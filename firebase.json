@@ -4,20 +4,7 @@
       "target": "ch0pch0p-web",
       "source": ".",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "frameworksBackend": { "region": "asia-east1" },
-      "rewrites": [
-        {
-          "source": "/api/**",
-          "function": {
-            "functionId": "ssrch0pch0pweb",
-            "region": "asia-east1"
-          }
-        },
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
+      "frameworksBackend": { "region": "asia-east1" }
     }
   ]
 }

@@ -1,11 +1,12 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { getAnalytics, provideAnalytics, ScreenTrackingService } from '@angular/fire/analytics';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { TitleStrategy, provideRouter } from '@angular/router';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
+
 import { TemplatePageTitleStrategy } from './services/title-strategy.service';
 import { routes } from './app.routes';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { getAnalytics, provideAnalytics, ScreenTrackingService } from '@angular/fire/analytics';
 
 export const appConfig: ApplicationConfig = {
   providers: [
