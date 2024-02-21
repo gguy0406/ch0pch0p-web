@@ -51,10 +51,12 @@ module.exports = {
         'lavender-blush': lavenderBlush,
       },
       backgroundImage: {
+        budd: linearGradientFactory(tangerineYellow, richElectricPink),
         'budd-reverse': linearGradientFactory(richElectricPink, tangerineYellow),
         'moon-reverse': linearGradientFactory(amber, ultramarineBlue),
         lime: linearGradientFactory(caribbeanGreen, amber),
         orange: linearGradientFactory(amber, redOrange),
+        red: linearGradientFactory(amber, rosePink),
         toxic: linearGradientFactory(caribbeanGreen, rosePink),
       },
       borderRadius: {

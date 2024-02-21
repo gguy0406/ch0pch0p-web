@@ -6,6 +6,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
+import { WalletService } from 'src/app/services/connect-wallet.service';
 import { BUY_CH0PCH0P_URL, ROUTE } from 'src/lib/constants';
 
 @Component({
@@ -21,12 +22,19 @@ export class NavComponent {
   protected readonly BUY_CH0PCH0P_URL = BUY_CH0PCH0P_URL;
   protected currentUrl: WritableSignal<string> = signal('');
   protected matchRouteSignals: { [k in (typeof ROUTE)[keyof typeof ROUTE]]: Signal<boolean> } = Object.fromEntries(
-    Object.values(ROUTE).map((value) => [value, computed(() => this.currentUrl() === '/' + value)])
+    Object.values(ROUTE).map((value) => [value, computed(() => this.currentUrl().startsWith(`/${value}`))])
   ) as { [k in (typeof ROUTE)[keyof typeof ROUTE]]: Signal<boolean> };
 
-  constructor(router: Router) {
+  constructor(
+    router: Router,
+    protected walletService: WalletService
+  ) {
     router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe((e) => this.currentUrl.set(decodeURI((e as NavigationEnd).url)));
+  }
+
+  protected connectWallet() {
+    this.walletService.connectWallet();
   }
 }

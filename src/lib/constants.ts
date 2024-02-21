@@ -7,6 +7,8 @@ export const ROUTE = {
   LEADERBOARD: 'hall-of-fame',
   STAKING: 'stake-with-us',
   GAME: 'ch0p-it',
+  LUCKY_GACHA: 'lucky-gacha',
+  LEVEL_UP: 'level-up',
 } as const;
 
 export const CONTRACT_ADDRESS = {
@@ -24,7 +26,9 @@ export const MACHINE_COLLABORATOR_COLLECTION_ADDRESSES: { [k in STMachine]: read
 export const BUY_CH0PCH0P_URL = getMarketplaceUrl(CONTRACT_ADDRESS.C0_SG721);
 export const DISCORD_URL = 'https://discord.com/invite/tH3bnHEFGY';
 export const X_URL = 'https://twitter.com/ch0pch0pNFT';
+export const KEPLR_URL = 'https://www.keplr.app/download';
 
+export const CHAIN_ID = process.env['NODE_ENV'] === 'production' ? 'stargaze-1' : 'elgafar-1';
 export const STARGAZE_GRAPHQL_ENDPOINT = 'https://graphql.mainnet.stargaze-apis.com/graphql';
 export const WEB_RUNNER_ADDRESS = 'stars1vka2ttgakm65av7kqt9ecwh3eeswz9avca853q';
 export const GAME_FEE = 10;

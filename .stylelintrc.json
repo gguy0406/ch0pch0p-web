@@ -3,6 +3,7 @@
   "rules": {
     "at-rule-no-unknown": null,
     "scss/at-rule-no-unknown": [true, { "ignoreAtRules": ["tailwind"] }],
-    "selector-pseudo-element-no-unknown": [true, { "ignorePseudoElements": ["ng-deep"] }]
+    "selector-pseudo-element-no-unknown": [true, { "ignorePseudoElements": ["ng-deep"] }],
+    "number-max-precision": [4, { "ignoreProperties": ["opacity"] }]
   }
 }

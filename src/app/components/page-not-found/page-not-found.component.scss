@@ -1,12 +1,12 @@
 @use '/src/stylings/variables';
 
-@keyframes moveX {
+@keyframes move-x {
   to {
     left: calc(100% - 400px);
   }
 }
 
-@keyframes moveY {
+@keyframes move-y {
   to {
     top: calc(100% - 400px);
   }
@@ -26,8 +26,8 @@
       top: 0;
       left: 0;
       animation:
-        5.25s linear infinite alternate moveX,
-        3.75s linear infinite alternate moveY;
+        5.25s linear infinite alternate move-x,
+        3.75s linear infinite alternate move-y;
     }
   }
 }

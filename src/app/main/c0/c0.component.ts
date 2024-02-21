@@ -6,7 +6,6 @@ import { CONTRACT_ADDRESS } from 'src/lib/constants';
 import { getMarketplaceUrl } from 'src/lib/helpers';
 
 @Component({
-  selector: 'app-c0',
   templateUrl: './c0.component.html',
   styleUrl: './c0.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
