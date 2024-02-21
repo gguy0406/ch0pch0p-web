@@ -19,6 +19,7 @@ export const CONTRACT_ADDRESS = {
 } as const;
 
 export const MACHINE_COLLABORATOR_COLLECTION_ADDRESSES: { [k in STMachine]: readonly string[] } = {
+  ch0pch0p: [],
   'rekt-gang': [],
   'pixel-wizard': [],
 } as const;
