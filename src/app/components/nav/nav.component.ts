@@ -6,7 +6,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-import { WalletService } from 'src/app/services/connect-wallet.service';
+import { WalletService } from 'src/app/services/wallet.service';
 import { BUY_CH0PCH0P_URL, ROUTE } from 'src/lib/constants';
 
 @Component({

@@ -6,6 +6,7 @@ import { CHAIN_ID, KEPLR_URL } from 'src/lib/constants';
 
 @Injectable({ providedIn: 'root' })
 export class WalletService {
+  isActive: WritableSignal<boolean> = signal(false);
   key: WritableSignal<Key | undefined> = signal(undefined);
 
   protected keplr?: Keplr;
@@ -19,7 +20,7 @@ export class WalletService {
   private _connectKeplr() {
     if (!window.keplr) {
       this._snackBar
-        .open('Please install keplr', 'Install', { duration: 6000, horizontalPosition: 'end' })
+        .open('Please install keplr', 'Install')
         .onAction()
         .subscribe(() => window.open(KEPLR_URL, '_blank'));
       return;

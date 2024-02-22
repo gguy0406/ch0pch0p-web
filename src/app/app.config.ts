@@ -1,10 +1,13 @@
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { getAnalytics, provideAnalytics, ScreenTrackingService } from '@angular/fire/analytics';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { TitleStrategy, provideRouter } from '@angular/router';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
+import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { TemplatePageTitleStrategy } from './services/title-strategy.service';
 import { routes } from './app.routes';
 
@@ -14,6 +17,13 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideAnimations(),
     { provide: TitleStrategy, useClass: TemplatePageTitleStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+    importProvidersFrom(HttpClientModule),
+    provideHttpClient(withFetch()),
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: { duration: 2500, horizontalPosition: 'end', panelClass: ['pr-4', 'pb-3'] },
+    },
     importProvidersFrom(
       provideFirebaseApp(() =>
         initializeApp({

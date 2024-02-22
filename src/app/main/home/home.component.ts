@@ -10,6 +10,7 @@ import { StickyNavComponent } from 'src/app/components/sticky-nav/sticky-nav.com
 import { ThreeDSlideShowComponent } from 'src/app/components/thee-d-slide-show/three-d-slide-show.component';
 import { DragToScrollDirective } from 'src/app/directives/drag-to-scroll';
 import { BUY_CH0PCH0P_URL } from 'src/lib/constants';
+
 import { MemberIntroComponent } from './member-intro/member-intro.component';
 
 @Component({

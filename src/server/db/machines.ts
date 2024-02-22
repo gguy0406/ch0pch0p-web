@@ -16,7 +16,7 @@ export async function getAll() {
 
   if (snapshot.empty) throw new Error('Cannot retrieve machine state');
 
-  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }) as { id: string } & MachineSetting);
+  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }) as { id: STMachine } & MachineSetting);
 }
 
 export async function get(machine: STMachine): Promise<MachineSetting> {

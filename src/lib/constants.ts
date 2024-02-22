@@ -21,7 +21,6 @@ export const CONTRACT_ADDRESS = {
 export const MACHINE_COLLABORATOR_COLLECTION_ADDRESSES: { [k in STMachine]: readonly string[] } = {
   ch0pch0p: [],
   'rekt-gang': [],
-  'pixel-wizard': [],
 } as const;
 
 export const BUY_CH0PCH0P_URL = getMarketplaceUrl(CONTRACT_ADDRESS.C0_SG721);
