@@ -12,6 +12,8 @@ import { readFile, readdir } from 'node:fs/promises';
 import path, { dirname, join as pathJoin, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { RPC_ENDPOINT } from 'environments/environment';
+
 import { consumeTurn } from '../db/consume-turn';
 import * as dbMachines from '../db/machines';
 import * as dbTurnCount from '../db/st-turn-count';
@@ -19,7 +21,6 @@ import {
   CONTRACT_ADDRESS,
   GAME_FEE,
   MACHINE_COLLABORATOR_COLLECTION_ADDRESSES,
-  RPC_ENDPOINT,
   ST_MAXIMUM_TURN_PER_DAY,
   WEB_RUNNER_ADDRESS,
 } from '../lib/constants';

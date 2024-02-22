@@ -2,7 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "declaration": false,
     "esModuleInterop": true,
     "experimentalDecorators": true,
@@ -20,7 +20,14 @@
     "sourceMap": true,
     "strict": true,
     "target": "ES2022",
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "paths": {
+      "@components/*": ["webapp/app/components/*"],
+      "@directives/*": ["webapp/app/directives/*"],
+      "@interceptors/*": ["webapp/app/interceptors/*"],
+      "@lib/*": ["webapp/app/lib/*"],
+      "@services/*": ["webapp/app/services/*"]
+    }
   },
   "angularCompilerOptions": {
     "_enabledBlockTypes": ["if", "for", "switch", "defer"],

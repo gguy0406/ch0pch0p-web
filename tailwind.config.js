@@ -26,7 +26,7 @@ function linearGradientFactory(from, to) {
 }
 
 module.exports = {
-  content: ['./src/**/*.{html,ts}'],
+  content: ['./src/webapp/**/*.{html,ts}'],
   theme: {
     extend: {
       backgroundColor: {

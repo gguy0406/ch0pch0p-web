@@ -4,10 +4,6 @@ import { STARGAZE_GRAPHQL_ENDPOINT } from './constants';
 
 type QueryResult = { data: { tokens: { pageInfo: { total: number } } } };
 
-export function getMarketplaceUrl(contractAddress: string) {
-  return `https://www.stargaze.zone/m/${contractAddress}/tokens`;
-}
-
 export async function checkTokenHolder(ownerAddress: string, collectionAddresses: readonly string[]) {
   const graphqlClient = createClient({ url: STARGAZE_GRAPHQL_ENDPOINT });
 

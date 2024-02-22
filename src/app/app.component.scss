@@ -1,8 +1,0 @@
-@use '/src/stylings/variables';
-
-:host {
-  height: 100%;
-  background-color: variables.$bg-app;
-  color: white;
-  display: block;
-}

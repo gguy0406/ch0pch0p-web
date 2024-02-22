@@ -1,0 +1,283 @@
+@use 'stylings/functions';
+@use 'stylings/mixins';
+@use 'stylings/variables';
+
+@mixin select-nth-child($cols, $offset: 0) {
+  @for $i from 0 to 4 {
+    &:nth-child(n + #{$i * $cols + 1 + $offset}):nth-child(-n + #{($i + 1) * $cols + $offset}) {
+      --row: #{$i + 1};
+
+      @if $i + $offset == 0 {
+        border-top-width: 0;
+      }
+    }
+  }
+
+  @for $j from 1 to $cols + 1 {
+    &:nth-child(#{$cols}n + #{$j + $offset}) {
+      --col: #{$j};
+
+      @if $j == 1 {
+        border-left-width: 0;
+      }
+
+      @if $j == $cols {
+        border-right-width: 0;
+      }
+    }
+  }
+}
+
+@keyframes nav-container-hiding {
+  0% {
+    border-radius: 64px;
+  }
+
+  100% {
+    top: 0;
+    right: 0;
+    left: 0;
+    border-radius: 0;
+    padding: var(--padding);
+    display: none;
+  }
+}
+
+@keyframes grid-item-grow {
+  to {
+    border-color: #333;
+    background-color: variables.$bg-app;
+  }
+}
+
+@keyframes airdrop {
+  10% {
+    transform: rotate(-2deg);
+  }
+
+  40% {
+    transform: rotate(50deg);
+  }
+
+  60% {
+    transform: rotate(28deg);
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(10px, 400px);
+    display: none;
+  }
+}
+
+@keyframes flying {
+  50% {
+    bottom: 50%;
+    left: 50%;
+    transform: rotate(0) scale(1) translate(-50%, 0);
+  }
+
+  100% {
+    bottom: 200%;
+    left: 90%;
+    transform: rotate(-7.66deg) scale(0.5);
+    display: none;
+  }
+}
+
+:host {
+  $linear-gradient: functions.app-linear-gradient(
+    '#fff calc(var(--section-scroll) * 100%), #{variables.$tangerine-yellow}',
+    variables.$caribbean-green
+  );
+
+  @include mixins.bg-logo($linear-gradient, 'url("/assets/app/logo.svg") center', 130%);
+
+  .nav-container {
+    --padding: 20px 16px;
+
+    animation: 1s calc(((var(--section-scroll) - 0.6) / 0.4 * -1s)) forwards paused nav-container-hiding;
+
+    @media (width >= #{variables.$tablet}) {
+      --padding: 44px 64px;
+    }
+
+    @media (width >= #{variables.$laptop}) {
+      --padding: 20px 40px;
+    }
+  }
+
+  .grid-container {
+    --cols: 3;
+    --rows: 6;
+    --cells: calc(var(--cols) * var(--rows));
+    --covered-grid-size: 165px;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, var(--covered-grid-size)) minmax(0, 1fr);
+
+    .grid-item {
+      --actual-row: calc(var(--row) + var(--offset-rows, 0));
+      --animation-delay: calc(
+        (var(--col) * (var(--rows) - var(--actual-row) + 1) - var(--section-scroll) * (var(--cells) + 1)) * 1s
+      );
+
+      border: solid 1px #afafaf;
+      background-color: white;
+      display: none;
+      animation: 1s var(--animation-delay) forwards paused grid-item-grow;
+
+      &--unveiled {
+        animation: 1s forwards airdrop;
+      }
+    }
+
+    &--first-half {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      grid-template-rows: repeat(4, minmax(0, 1fr));
+      align-content: end;
+
+      &--finished {
+        --diff-margin: 80px;
+
+        grid-template-rows: 1fr repeat(3, calc((100% + var(--diff-margin)) / 4));
+
+        @media (min-width: variables.$tablet) {
+          --diff-margin: 160px;
+        }
+
+        @media (min-width: variables.$laptop) {
+          --diff-margin: 128px;
+        }
+      }
+
+      .grid-item {
+        &:nth-child(-n + 12) {
+          display: block;
+        }
+
+        @media (width < #{variables.$tablet}) {
+          @include select-nth-child(3);
+        }
+
+        @media (#{variables.$tablet} <= width < #{variables.$desktop}) {
+          &:nth-child(-n + 28) {
+            display: block;
+          }
+
+          @include select-nth-child(7);
+        }
+
+        @media (width >= #{variables.$desktop}) {
+          &:nth-child(-n + 36) {
+            display: block;
+          }
+
+          @include select-nth-child(9);
+        }
+      }
+    }
+
+    &--second-half {
+      --offset-rows: 4;
+
+      position: relative;
+      height: calc(var(--covered-grid-size) * 2);
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+
+      /* stylelint-disable-next-line no-descending-specificity */
+      .grid-item {
+        &:nth-child(n + 4):nth-child(-n + 9) {
+          display: block;
+        }
+
+        @media (width < #{variables.$tablet}) {
+          @include select-nth-child(3, 3);
+        }
+
+        @media (#{variables.$tablet} <= width < #{variables.$desktop}) {
+          &:nth-child(n + 2):nth-child(-n + 15) {
+            display: block;
+          }
+
+          @include select-nth-child(7, 1);
+        }
+
+        @media (width >= #{variables.$desktop}) {
+          &:nth-child(n + 1):nth-child(-n + 18) {
+            display: block;
+          }
+
+          @include select-nth-child(9);
+        }
+      }
+
+      .fly-kv {
+        position: absolute;
+        bottom: -72px;
+        left: -100px;
+        z-index: 2;
+        transform: rotate(7.66deg) scale(0.5);
+        animation: 1s calc((var(--section-scroll) * -1s)) forwards paused flying;
+
+        > svg {
+          width: 400px;
+          height: 200px;
+        }
+
+        @media (width >= #{variables.$tablet}) {
+          bottom: -120px;
+          left: -165px;
+
+          > svg {
+            width: 660px;
+            height: 330px;
+          }
+        }
+
+        @media (width >= #{variables.$laptop}) {
+          bottom: -220px;
+          left: -300px;
+
+          > svg {
+            width: 1200px;
+            height: 600px;
+          }
+        }
+      }
+    }
+
+    @media (width >= #{variables.$tablet}) {
+      --cols: 7;
+      --covered-grid-size: 176px;
+
+      grid-template-columns:
+        minmax(0, 0.25fr)
+        repeat(2, minmax(0, 1fr))
+        minmax(0, var(--covered-grid-size))
+        repeat(2, minmax(0, 1fr))
+        minmax(0, 0.25fr);
+    }
+
+    @media (width >= #{variables.$laptop}) {
+      --covered-grid-size: 225px;
+    }
+
+    @media (min-width: variables.$desktop) {
+      --cols: 9;
+
+      grid-template-columns:
+        minmax(0, 0.5fr)
+        repeat(3, minmax(0, 1fr))
+        minmax(0, var(--covered-grid-size))
+        repeat(3, minmax(0, 1fr))
+        minmax(0, 0.5fr);
+    }
+  }
+}

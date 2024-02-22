@@ -21,25 +21,25 @@
         "@schematics/angular:service": { "skipTests": true }
       },
       "root": "",
-      "sourceRoot": "src",
+      "sourceRoot": "src/webapp",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/ch0pch0p-web",
-            "index": "src/index.html",
-            "browser": "src/main.ts",
+            "index": "src/webapp/index.html",
+            "browser": "src/webapp/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "assets": ["src/webapp/favicon.ico", "src/webapp/assets"],
+            "styles": ["src/webapp/styles.scss"],
             "scripts": [],
-            "server": "src/main.server.ts",
+            "server": "src/webapp/main.server.ts",
             "prerender": true,
-            "ssr": { "entry": "server.ts" },
-            "stylePreprocessorOptions": { "includePaths": [""] },
+            "ssr": { "entry": "src/server/server.ts" },
+            "stylePreprocessorOptions": { "includePaths": ["", "src/webapp"] },
             "allowedCommonJsDependencies": ["*"],
             "externalDependencies": [
               "@cosmjs/cosmwasm-stargate",
@@ -63,8 +63,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "900kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "1.2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -77,7 +77,13 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -97,7 +103,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": ["src/**/*.ts", "src/webapp/**/*.html"]
           }
         },
         "deploy": {

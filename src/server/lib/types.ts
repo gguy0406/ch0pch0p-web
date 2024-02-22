@@ -1,10 +1,10 @@
-export * from 'src/lib/types';
-
 import { Timestamp } from 'firebase-admin/firestore';
 
-import { MachineStatus } from 'src/lib/types';
+import { MachineStatus } from 'lib/types';
 
-type Stage = 1 | 2 | 3 | 4;
+export * from 'lib/types';
+
+export type Stage = 1 | 2 | 3 | 4;
 
 export interface MachineSetting {
   status: MachineStatus;

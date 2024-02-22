@@ -1,1 +1,1 @@
-export * from 'src/lib/helpers';
+export * from 'lib/helpers';

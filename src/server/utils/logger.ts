@@ -1,5 +1,7 @@
 import winston from 'winston';
 
+import { IS_PRODUCTION } from 'environments/environment';
+
 winston.addColors({
   error: 'red',
   warn: 'yellow',
@@ -19,11 +21,8 @@ export const logger = winston.createLogger({
   },
   transports: [
     new winston.transports.Console({
-      level: process.env['NODE_ENV'] === 'production' ? 'info' : 'debug',
-      format: winston.format.combine(
-        winston.format.colorize({ all: process.env['NODE_ENV'] !== 'production' }),
-        winston.format.simple()
-      ),
+      level: IS_PRODUCTION ? 'info' : 'debug',
+      format: winston.format.combine(winston.format.colorize({ all: !IS_PRODUCTION }), winston.format.simple()),
     }),
   ],
 });

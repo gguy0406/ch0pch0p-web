@@ -2,7 +2,7 @@ import { Express } from 'express';
 import { cert, initializeApp } from 'firebase-admin/app';
 import helmet from 'helmet';
 
-import { apiRouter } from './routes';
+import { apiRouter } from './routes/api.route';
 import { logger } from './utils/logger';
 
 export function expressInitializer(app: Express) {
