@@ -1,8 +1,8 @@
-import express, { Express } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import express, { Express } from 'express';
 
-import { expressInitializer } from '../src/server/express-initializer';
+import { expressInitializer } from 'server/express-initializer';
 
 dotenv.config();
 

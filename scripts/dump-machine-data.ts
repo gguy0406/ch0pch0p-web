@@ -2,9 +2,9 @@ import dotenv from 'dotenv';
 import { cert, initializeApp } from 'firebase-admin/app';
 import { Timestamp, getFirestore } from 'firebase-admin/firestore';
 
-import { MachineStatus, STMachine } from '../src/lib/types';
-import { COLLECTION } from '../src/server/lib/constants';
-import { MachineSetting } from 'src/server/lib/types';
+import { MachineStatus, STMachine } from 'lib/types';
+import { COLLECTION } from 'server/lib/constants';
+import { MachineSetting } from 'server/lib/types';
 
 const machine = STMachine[process.argv[2] as keyof typeof STMachine];
 const startDate = process.argv[3];
