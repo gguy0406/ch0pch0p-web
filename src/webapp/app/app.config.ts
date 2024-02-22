@@ -7,6 +7,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { TitleStrategy, provideRouter } from '@angular/router';
 
+import { ApiBaseUrlInterceptor } from './interceptors/api-base-url.interceptor';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { TemplatePageTitleStrategy } from './services/title-strategy.service';
 import { routes } from './app.routes';
@@ -17,6 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideAnimations(),
     { provide: TitleStrategy, useClass: TemplatePageTitleStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: ApiBaseUrlInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     importProvidersFrom(HttpClientModule),
     provideHttpClient(withFetch()),
