@@ -4,7 +4,7 @@ import { Keplr, Key } from '@keplr-wallet/types';
 
 import { KEPLR_URL } from '@lib/constants';
 
-import { CHAIN_ID } from 'environments/environment';
+import { STARGAZE_CHAIN_ID } from 'environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class WalletService {
@@ -32,12 +32,12 @@ export class WalletService {
       this.keplr = window.keplr!;
 
       try {
-        await this.keplr.enable(CHAIN_ID);
+        await this.keplr.enable(STARGAZE_CHAIN_ID);
 
-        this.key.set(await this.keplr.getKey(CHAIN_ID));
+        this.key.set(await this.keplr.getKey(STARGAZE_CHAIN_ID));
 
         window.addEventListener('keplr_keystorechange', async () => {
-          this.key.set(await this.keplr!.getKey(CHAIN_ID));
+          this.key.set(await this.keplr!.getKey(STARGAZE_CHAIN_ID));
         });
       } catch {
         /* empty */

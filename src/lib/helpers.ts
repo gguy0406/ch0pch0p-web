@@ -1,6 +1,6 @@
 import { createClient } from 'graphql-http';
 
-import { STARGAZE_GRAPHQL_ENDPOINT } from './constants';
+import { STARGAZE_GRAPHQL_ENDPOINT } from '../environments/environment';
 
 type QueryResult = { data: { tokens: { pageInfo: { total: number } } } };
 

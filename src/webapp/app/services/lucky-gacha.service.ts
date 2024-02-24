@@ -13,7 +13,7 @@ export type MachineMap = Record<STMachine, Machine>;
 export class LuckyGachaService {
   machines: WritableSignal<MachineMap | undefined> = signal(undefined);
 
-  private _baseUrl = '/api/swappable-traits';
+  private _baseUrl = '/swappable-traits';
 
   constructor(private readonly _httpClient: HttpClient) {}
 

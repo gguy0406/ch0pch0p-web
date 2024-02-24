@@ -1,4 +1,4 @@
-import { CONTRACT_ADDRESS } from 'lib/constants';
+import { CONTRACT_ADDRESS } from 'environments/environment';
 
 import { getMarketplaceUrl } from './helpers';
 

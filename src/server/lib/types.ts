@@ -8,6 +8,7 @@ export type Stage = 1 | 2 | 3 | 4;
 
 export interface MachineSetting {
   status: MachineStatus;
+  wonPrize: number;
   totalTurn: number;
   stage: Stage;
   stageStartDate: Timestamp;

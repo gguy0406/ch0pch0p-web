@@ -12,18 +12,12 @@ import { readFile, readdir } from 'node:fs/promises';
 import path, { dirname, join as pathJoin, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { RPC_ENDPOINT } from 'environments/environment';
+import { CONTRACT_ADDRESS, MACHINE_CONFIG, STARGAZE_RPC_ENDPOINT } from 'environments/environment';
 
 import { consumeTurn } from '../db/consume-turn';
 import * as dbMachines from '../db/machines';
 import * as dbTurnCount from '../db/st-turn-count';
-import {
-  CONTRACT_ADDRESS,
-  GAME_FEE,
-  MACHINE_COLLABORATOR_COLLECTION_ADDRESSES,
-  ST_MAXIMUM_TURN_PER_DAY,
-  WEB_RUNNER_ADDRESS,
-} from '../lib/constants';
+import { GAME_FEE, ST_MAXIMUM_TURN_PER_DAY, WEB_RUNNER_ADDRESS } from '../lib/constants';
 import { checkTokenHolder } from '../lib/helpers';
 import { MachineSetting, MachineStatus, STMachine } from '../lib/types';
 import { logger } from '../utils/logger';
@@ -68,7 +62,7 @@ export async function play(machine: STMachine, payFeeTx: Uint8Array) {
 
   const isEligible =
     (await checkTokenHolder(msgSend.fromAddress, [CONTRACT_ADDRESS.C0_SG721])) ||
-    (await checkTokenHolder(msgSend.fromAddress, MACHINE_COLLABORATOR_COLLECTION_ADDRESSES[machine]));
+    (await checkTokenHolder(msgSend.fromAddress, MACHINE_CONFIG[machine].CONTRACT_ADDRESSES_HOLDER_CHECK));
 
   if (!isEligible) throw createHttpError(403, `${msgSend.fromAddress} is not eligible`);
 
@@ -83,17 +77,20 @@ export async function play(machine: STMachine, payFeeTx: Uint8Array) {
     return;
   }
 
-  const client = await SigningCosmWasmClient.connectWithSigner(
-    RPC_ENDPOINT,
-    await DirectSecp256k1HdWallet.fromMnemonic(process.env['WEB_RUNNER_SEED'] as string, { prefix: 'stars' }),
-    { gasPrice: GasPrice.fromString('1ustars') }
-  );
+  const client = await getSigningCosmWasmClient();
   const mintMsg: MsgExecuteContractEncodeObject = {
     typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
     value: MsgExecuteContract.fromPartial({
       sender: WEB_RUNNER_ADDRESS,
       contract: CONTRACT_ADDRESS.CERT_MINTER,
-      msg: toUtf8(JSON.stringify({ mint_to: { recipient: msgSend.fromAddress } })),
+      msg: toUtf8(
+        JSON.stringify({
+          mint_for: {
+            token_id: MACHINE_CONFIG[machine].TOKEN_ID_START_FROM + machineSetting.wonPrize,
+            recipient: msgSend.fromAddress,
+          },
+        })
+      ),
     }),
   };
   const txResult = await client.signAndBroadcast(WEB_RUNNER_ADDRESS, [mintMsg], 'auto', 'win lucky gacha');
@@ -145,11 +142,7 @@ export async function updateTokenMetadata(tokenId: string, transferTx: Uint8Arra
 
   const image = await generateNewImage(c1TokenMetadata.rawAttributes, certTokenMetadata.rawAttributes);
   const cid = await uploadImageToStorage(image, `${tokenId}.jpeg`);
-  const client = await SigningCosmWasmClient.connectWithSigner(
-    'https://stargaze-testnet-rpc.polkachu.com/',
-    await DirectSecp256k1HdWallet.fromMnemonic(process.env['WEB_RUNNER_SEED'] as string, { prefix: 'stars' }),
-    { gasPrice: GasPrice.fromString('1ustars') }
-  );
+  const client = await getSigningCosmWasmClient();
   const updateMsg: MsgExecuteContractEncodeObject = {
     typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
     value: MsgExecuteContract.fromPartial({
@@ -193,13 +186,21 @@ function decodeMsgExecuteContract(encodedMsg: Uint8Array) {
 }
 
 async function broadcastTx(tx: Uint8Array) {
-  const stargateClient = await StargateClient.connect(RPC_ENDPOINT);
+  const stargateClient = await StargateClient.connect(STARGAZE_RPC_ENDPOINT);
 
   try {
     return await stargateClient.broadcastTx(tx);
   } catch (err) {
     throw createHttpError(400, (err as UnknownError).toString());
   }
+}
+
+async function getSigningCosmWasmClient() {
+  return SigningCosmWasmClient.connectWithSigner(
+    STARGAZE_RPC_ENDPOINT,
+    await DirectSecp256k1HdWallet.fromMnemonic(process.env['WEB_RUNNER_SEED'] as string, { prefix: 'stars' }),
+    { gasPrice: GasPrice.fromString('1ustars') }
+  );
 }
 
 function runProbability(machineSetting: MachineSetting) {
@@ -211,7 +212,7 @@ function runProbability(machineSetting: MachineSetting) {
 }
 
 async function getOwnerOf(tokenId: string) {
-  const cosmWasmClient = await CosmWasmClient.connect(RPC_ENDPOINT);
+  const cosmWasmClient = await CosmWasmClient.connect(STARGAZE_RPC_ENDPOINT);
 
   try {
     return (await cosmWasmClient.queryContractSmart(CONTRACT_ADDRESS.C1_SG721, { owner_of: { token_id: tokenId } }))
@@ -255,7 +256,7 @@ async function getTokenMetadata(
 }
 
 async function getTokenUri(sg721Address: string, tokenId: string) {
-  const cosmWasmClient = await CosmWasmClient.connect(RPC_ENDPOINT);
+  const cosmWasmClient = await CosmWasmClient.connect(STARGAZE_RPC_ENDPOINT);
 
   try {
     return (await cosmWasmClient.queryContractSmart(sg721Address, { nft_info: { token_id: tokenId } })).token_uri;
