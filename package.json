@@ -9,7 +9,7 @@
     "serve:ssr": "node ./scripts/serve-ssr.js",
     "lint": "ng lint && npx stylelint \"**/*.scss\"",
     "dev-be": "tsx watch ./scripts/dev-backend.ts",
-    "dev-ssr": "npm run dev-be & npm run start",
+    "dev-full": "npm run dev-be & npm run start",
     "dump-machine-data": "tsx ./scripts/dump-machine-data.ts",
     "test-probability": "tsx ./scripts/test-probability.ts"
   },

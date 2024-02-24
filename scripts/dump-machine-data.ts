@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { cert, initializeApp } from 'firebase-admin/app';
-import { getFirestore } from 'firebase-admin/firestore';
+import { Timestamp, getFirestore } from 'firebase-admin/firestore';
 
 import { MACHINE_CONFIG } from 'environments/environment.development';
 import { MachineStatus, STMachine } from 'lib/types';
@@ -68,7 +68,7 @@ const setting: MachineSetting = {
   wonPrize: 0,
   totalTurn: 0,
   stage: 1,
-  stageStartDate: MACHINE_CONFIG[machine].START_TIME,
+  stageStartDate: Timestamp.fromDate(MACHINE_CONFIG[machine].START_TIME),
   ...machineConfig[machine],
 };
 

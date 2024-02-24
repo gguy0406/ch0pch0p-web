@@ -1,6 +1,8 @@
 import { Firestore, getFirestore } from 'firebase-admin/firestore';
 
-import { COLLECTION, DOCUMENT, ST_MAXIMUM_TURN_PER_DAY } from '../lib/constants';
+import { ST_MAXIMUM_TURN_PER_DAY } from 'environments/environment';
+
+import { COLLECTION, DOCUMENT } from '../lib/constants';
 
 let db: Firestore;
 let docRef: ReturnType<ReturnType<Firestore['collection']>['doc']>;
