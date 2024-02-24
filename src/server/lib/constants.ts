@@ -9,4 +9,4 @@ export const DOCUMENT = {
   SWAPPABLE_TRAITS: 'swappable-traits',
 } as const;
 
-export const ST_MAXIMUM_TURN_PER_DAY = 2;
+export const ST_MAXIMUM_TURN_PER_DAY = 1000;

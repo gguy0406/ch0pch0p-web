@@ -6,5 +6,5 @@ export enum STMachine {
 export enum MachineStatus {
   COMING_SOON = 1,
   AVAILABLE = 2,
-  OUT_OF_STOCK = 3,
+  MINT_OUT = 3,
 }

@@ -6,12 +6,14 @@
   >
     Our Collections
   </button>
-  <a mat-menu-item [href]="ROUTE.LEADERBOARD" [class.!text-amber]="matchRouteSignals[ROUTE.LEADERBOARD]()"
-    >Hall of Fame</a
-  >
-  <a mat-menu-item [href]="ROUTE.STAKING" [class.!text-amber]="matchRouteSignals[ROUTE.STAKING]()">Stake With Us</a>
-  <a mat-menu-item [href]="ROUTE.GAME" [class.!text-amber]="matchRouteSignals[ROUTE.GAME]()">ch0p It!</a>
-  <a mat-menu-item [href]="BUY_CH0PCH0P_URL" class="tablet:!hidden">buy ch0pch0p</a>
+  <a mat-menu-item [routerLink]="ROUTE.LEADERBOARD" [class.!text-amber]="matchRouteSignals[ROUTE.LEADERBOARD]()">
+    Hall of Fame
+  </a>
+  <a mat-menu-item [routerLink]="ROUTE.STAKING" [class.!text-amber]="matchRouteSignals[ROUTE.STAKING]()">
+    Stake With Us
+  </a>
+  <a mat-menu-item [routerLink]="ROUTE.GAME" [class.!text-amber]="matchRouteSignals[ROUTE.GAME]()">ch0p It!</a>
+  <a mat-menu-item [routerLink]="BUY_CH0PCH0P_URL" class="tablet:!hidden">buy ch0pch0p</a>
 </mat-menu>
 
 <mat-menu #collectionMenu="matMenu">
@@ -46,22 +48,25 @@
     [routerLink]="'/' + ROUTE.LEADERBOARD"
     class="headline-font !text-2xl desktop:!text-3xl"
     [class.!text-amber]="matchRouteSignals[ROUTE.LEADERBOARD]()"
-    >Hall of Fame</a
   >
+    Hall of Fame
+  </a>
   <a
     mat-button
     [routerLink]="'/' + ROUTE.STAKING"
     class="headline-font !text-2xl desktop:!text-3xl"
     [class.!text-amber]="matchRouteSignals[ROUTE.STAKING]()"
-    >Stake With Us</a
   >
+    Stake With Us
+  </a>
   <a
     mat-button
     [routerLink]="'/' + ROUTE.GAME"
     class="headline-font !text-2xl desktop:!text-3xl"
     [class.!text-amber]="matchRouteSignals[ROUTE.GAME]()"
-    >ch0p It!</a
   >
+    ch0p It!
+  </a>
 </div>
 
 @if (walletService.isActive()) {
@@ -89,6 +94,7 @@
     [href]="BUY_CH0PCH0P_URL"
     target="_blank"
     class="!rounded-full !bg-lime !py-9 !px-8 !text-lg font-bold !text-black !hidden tablet:!flex laptop:!py-11 laptop:!px-11 laptop:!text-2xl"
-    >buy ch0pch0p</a
   >
+    buy ch0pch0p
+  </a>
 }

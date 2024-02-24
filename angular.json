@@ -94,7 +94,8 @@
             "production": { "buildTarget": "ch0pch0p-web:build:production" },
             "development": { "buildTarget": "ch0pch0p-web:build:development" }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": { "open": true }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

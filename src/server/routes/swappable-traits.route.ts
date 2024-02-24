@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { body, matchedData, param } from 'express-validator';
 
-import { Machines } from '../lib/dto-types';
+import { Machine } from '../lib/dto-types';
 import { STMachine } from '../lib/types';
 import { checkValidationResult } from '../middlewares/check-validation-result';
 import { getMachines, getTurnCount, play, updateTokenMetadata } from '../services/swappable-traits.service';
@@ -10,7 +10,7 @@ export const router = Router();
 
 router.get('/machines', async (req, res, next) => {
   try {
-    const machines: Machines = await getMachines();
+    const machines: Machine[] = await getMachines();
 
     res.status(200).json(machines);
   } catch (err) {

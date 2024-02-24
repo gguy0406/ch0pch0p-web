@@ -79,7 +79,7 @@ export async function play(machine: STMachine, payFeeTx: Uint8Array) {
   const winThePrize = runProbability(machineSetting);
 
   if (!winThePrize) {
-    await consumeTurn({ name: machine, stage: machineSetting.stage }, msgSend.fromAddress);
+    await consumeTurn({ name: machine, data: machineSetting }, msgSend.fromAddress);
     return;
   }
 
@@ -108,7 +108,7 @@ export async function play(machine: STMachine, payFeeTx: Uint8Array) {
     );
   }
 
-  await consumeTurn({ name: machine, stage: machineSetting.stage }, msgSend.fromAddress, true);
+  await consumeTurn({ name: machine, data: machineSetting }, msgSend.fromAddress, true);
   return txResult.transactionHash;
 }
 
