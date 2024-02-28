@@ -13,6 +13,7 @@ import { MachineComponent } from './main/game/lucky-gacha/machine/machine.compon
 import { LuckyGachaComponent } from './main/game/lucky-gacha/lucky-gacha.component';
 import { HomeComponent } from './main/home/home.component';
 import { WalletService } from './services/wallet.service';
+import { EventComponent } from './main/event/event.component';
 
 const useWalletRouteGuard = {
   canActivate: [
@@ -45,6 +46,7 @@ export const routes: Routes = [
         component: RouterOutletContainerComponent,
         title: 'ch0p it!',
         ...useWalletRouteGuard,
+        canActivate: [() => false],
         children: [
           {
             path: '',
@@ -72,6 +74,11 @@ export const routes: Routes = [
             title: 'Level Up',
           },
         ],
+      },
+      {
+        path: ROUTE.EVENT,
+        component: EventComponent,
+        title: 'Cosmos NFT Conference',
       },
     ],
   },

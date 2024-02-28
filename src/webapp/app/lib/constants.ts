@@ -12,6 +12,7 @@ export const ROUTE = {
   GAME: 'ch0p-it',
   LUCKY_GACHA: 'lucky-gacha',
   LEVEL_UP: 'level-up',
+  EVENT: 'event',
 } as const;
 
 export const BUY_CH0PCH0P_URL = getMarketplaceUrl(CONTRACT_ADDRESS.C0_SG721);

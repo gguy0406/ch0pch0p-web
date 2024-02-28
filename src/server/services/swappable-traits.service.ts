@@ -12,12 +12,17 @@ import { readFile, readdir } from 'node:fs/promises';
 import path, { dirname, join as pathJoin, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { CONTRACT_ADDRESS, MACHINE_CONFIG, STARGAZE_RPC_ENDPOINT } from 'environments/environment';
+import {
+  CONTRACT_ADDRESS,
+  MACHINE_CONFIG,
+  ST_MAXIMUM_TURN_PER_DAY,
+  STARGAZE_RPC_ENDPOINT,
+} from 'environments/environment';
 
 import { consumeTurn } from '../db/consume-turn';
 import * as dbMachines from '../db/machines';
 import * as dbTurnCount from '../db/st-turn-count';
-import { GAME_FEE, ST_MAXIMUM_TURN_PER_DAY, WEB_RUNNER_ADDRESS } from '../lib/constants';
+import { GAME_FEE, WEB_RUNNER_ADDRESS } from '../lib/constants';
 import { checkTokenHolder } from '../lib/helpers';
 import { MachineSetting, MachineStatus, STMachine } from '../lib/types';
 import { logger } from '../utils/logger';

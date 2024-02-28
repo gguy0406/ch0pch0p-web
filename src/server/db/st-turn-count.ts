@@ -1,11 +1,11 @@
-import { Firestore, getFirestore } from 'firebase-admin/firestore';
+import { DocumentReference, Firestore, getFirestore } from 'firebase-admin/firestore';
 
 import { ST_MAXIMUM_TURN_PER_DAY } from 'environments/environment';
 
 import { COLLECTION, DOCUMENT } from '../lib/constants';
 
 let db: Firestore;
-let docRef: ReturnType<ReturnType<Firestore['collection']>['doc']>;
+let docRef: DocumentReference;
 
 setImmediate(() => {
   db = getFirestore();

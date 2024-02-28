@@ -4,7 +4,26 @@ export enum STMachine {
 }
 
 export enum MachineStatus {
-  COMING_SOON = 1,
-  AVAILABLE = 2,
-  MINT_OUT = 3,
+  COMING_SOON,
+  AVAILABLE,
+  MINT_OUT,
+}
+
+export interface EventRegister {
+  email: string;
+  ticket: Ticket;
+  transactionHash: string;
+  name?: string;
+  communityGang?: string;
+  walletAddress?: string;
+}
+
+export enum Ticket {
+  STANDARD,
+  DONOR,
+}
+
+export enum Payment {
+  NOBLE,
+  OSMOSIS,
 }
