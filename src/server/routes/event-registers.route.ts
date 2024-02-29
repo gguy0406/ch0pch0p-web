@@ -10,17 +10,17 @@ export const router = Router();
 router.post(
   '/register',
   [
-    body('email').isEmail(),
+    body('email').isEmail().isLength({ max: 255 }),
     body('ticket').isIn(Object.values(Ticket)),
     body('transactionHash').isString().isLength({ max: 255 }),
     body('name').optional().isString().isLength({ max: 255 }),
     body('communityGang').optional().isString().isLength({ max: 255 }),
-    body('walletAddress').optional().isString().isLength({ max: 255 }),
+    body('walletId').optional().isString().isLength({ max: 255 }),
     checkValidationResult,
   ],
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      await register(matchedData(body) as EventRegister);
+      await register(matchedData(req) as EventRegister);
 
       res.status(200).json();
     } catch (err) {

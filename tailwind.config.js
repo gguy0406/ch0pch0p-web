@@ -55,12 +55,13 @@ module.exports = {
         'blue-sky': linearGradientFactory(vividCerulean, ultramarineBlue),
         budd: linearGradientFactory(tangerineYellow, richElectricPink),
         'budd-reverse': linearGradientFactory(richElectricPink, tangerineYellow),
-        evil: linearGradientFactory(redOrange, ultramarineBlue),
-        moon: linearGradientFactory(ultramarineBlue, amber),
+        dawn: linearGradientFactory(purple, amber),
+        freeze: linearGradientFactory(paleRobinEggBlue, ultramarineBlue),
         'moon-reverse': linearGradientFactory(amber, ultramarineBlue),
         lime: linearGradientFactory(caribbeanGreen, amber),
         'lime-reverse': linearGradientFactory(amber, caribbeanGreen),
         lunar: linearGradientFactory(redOrange, ultramarineBlue),
+        pimple: linearGradientFactory(paleRobinEggBlue, redOrange),
         orange: linearGradientFactory(amber, redOrange),
         toxic: linearGradientFactory(caribbeanGreen, rosePink),
       },
@@ -101,6 +102,11 @@ module.exports = {
   plugins: [
     plugin(function ({ addUtilities }) {
       addUtilities({
+        '.bg-clip-text': {
+          'background-clip': 'text',
+          '-webkit-background-clip': 'text',
+          '-webkit-text-fill-color': 'transparent',
+        },
         '.hide-scrollbar': {
           '-ms-overflow-style': 'none' /* IE and Edge */,
           'scrollbar-width': 'none' /* Firefox */,

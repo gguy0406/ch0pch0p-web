@@ -1,376 +1,723 @@
-<div class="self-start w-1/2 flex flex-col items-start">
-  <div class="section-heading section-heading--soar-left section-heading--normal-margin bg-ultramarine-blue">
-    virtual event
-  </div>
-  <div class="section-label mt-8 bg-evil text-left text-[140px] uppercase">Cosmos NFT Conference</div>
-  <div class="mt-14 text-5xl font-bold">09-10 March, 2024</div>
-  <div class="mt-4 text-[40px]">Gather town</div>
-</div>
+<app-sticky-nav />
 
-<div class="mt-40 section-label bg-lime-reverse text-[100px]">Why join?</div>
-<div class="mt-15 w-full flex gap-x-10">
-  <ng-template #flipCard let-content="content" let-imgSrc="imgSrc" let-alt="alt">
-    <div class="flip-card basis-1/3 aspect-square">
-      <div class="white-border p-10 text-pretty font-fredoka text-lg">{{ content }}</div>
-      <img fill [ngSrc]="imgSrc" [alt]="alt" class="rounded-10" />
-    </div>
-  </ng-template>
+<div class="overflow-x-auto">
+  <div class="universe-container">
+    <div class="constellation">
+      <div class="self-start flex flex-col items-start">
+        <div class="mt-10 section-heading section-heading--soar-left bg-red">virtual event</div>
+        <div class="section-label mt-8 w-min bg-lunar text-left text-[100px] uppercase">Cosmos NFT Conference</div>
+        <div class="mt-20 text-5xl font-bold">March 8 - 10, 2024</div>
+        <div class="mt-4 text-[40px] font-bold">Gather town</div>
+        <div class="mt-36 flex gap-x-15">
+          <div class="div text-center text-3xl">
+            Organizers
+            <div class="mt-7 flex gap-x-10">
+              <img ngSrc="assets/event/organizers/stargaze-1.png" width="182" height="44" alt="Stargaze logo" />
+              <img ngSrc="assets/app/logo.svg" width="138" height="44" alt="ch0pch0p logo" />
+            </div>
+          </div>
+          <div class="self-stretch border-r border-white"></div>
+          <div class="div text-center text-3xl">
+            Sponsors
+            <div class="mt-5 flex gap-x-10">
+              <div class="relative rounded-md border-white w-[60px] h-[60px]">
+                <img fill ngSrc="assets/event/sponsors/pixel-wizard.png" alt="Pixel Wizard logo" />
+              </div>
+              <div class="relative rounded-md border-white w-[60px] h-[60px]">
+                <img fill ngSrc="assets/event/sponsors/omniflix.png" alt="Omniflix logo" />
+              </div>
+              <div class="relative rounded-md border-white w-[60px] h-[60px]">
+                <img fill ngSrc="assets/event/sponsors/aura-network.png" alt="Aura Network logo" />
+              </div>
+              <div class="relative rounded-md border-white w-[60px] h-[60px]">
+                <img fill ngSrc="assets/event/sponsors/ohhNft.png" alt="OhhNFT logo" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <ng-container
-    *ngTemplateOutlet="
-      flipCard;
-      context: {
-        imgSrc: 'assets/event/prizes.png',
-        alt: 'prizes',
-        content:
-          'Embark on a gaming adventure with over 10+ games spanning 2-day event. Don\'t miss your golden opportunity to dive into the action, compete with fellow enthusiasts, and snag awesome prizes valued up to $200, provided by our partners and exhibitors.'
-      }
-    "
-  />
-  <ng-container
-    *ngTemplateOutlet="
-      flipCard;
-      context: {
-        imgSrc: 'assets/event/insights.png',
-        alt: 'insights',
-        content:
-          'Provide a unique chance to expand and elevate your network. This event is your passport to global connections, offering a unique opportunity to collaborate, share ideas, and be part of a transformative movement.'
-      }
-    "
-  />
-  <ng-container
-    *ngTemplateOutlet="
-      flipCard;
-      context: {
-        imgSrc: 'assets/event/impact.png',
-        alt: 'impact',
-        content:
-          'Prepare for a thought-provoking journey at our Conference with top leaders and renowned speakers, discussing diverse perspectives and experiences, offering insights to inspire and broaden your understanding of the NFT landscape.'
-      }
-    "
-  />
-</div>
+      <div class="mt-[336px] section-heading section-heading--soar-left bg-caribbean-green">virtual event</div>
+      <div class="section-label mt-8 bg-lime-reverse text-[100px]">Why join?</div>
+      <div class="mt-15 w-full flex gap-x-10">
+        <div class="flip-card basis-1/3 aspect-square">
+          <div class="rounded-10 border-3px-white p-10 text-pretty font-fredoka text-[28px]">
+            Snag awesome&nbsp;<span class="font-bold text-[#ffb000]">prizes valued up to $2000</span>&nbsp;provided by
+            our partners and exhibitors. Embarking on a gaming adventure with 10+ games spanning 3-day event. Don't miss
+            your golden opportunity!
+          </div>
+          <img fill ngSrc="assets/event/prizes.png" alt="prizes" class="rounded-10" />
+        </div>
+        <div class="flip-card basis-1/3 aspect-square">
+          <div class="rounded-10 border-3px-white p-10 text-pretty font-fredoka text-[28px]">
+            Provide a unique chance to expand and elevate your network. This event is your passport to Cosmos NFT
+            connections, offering a unique opportunity to collaborate, share ideas, and be part of a transformative
+            movement.
+          </div>
+          <img fill ngSrc="assets/event/insights.png" alt="insights" class="rounded-10" />
+        </div>
+        <div class="flip-card basis-1/3 aspect-square">
+          <div class="rounded-10 border-3px-white p-10 text-pretty font-fredoka text-[28px]">
+            Prepare for a thought-provoking journey at our Conference with top leaders and renowned speakers, discussing
+            diverse perspectives and experiences, offering insights to inspire and broaden your understanding of the NFT
+            landscape.
+          </div>
+          <img fill ngSrc="assets/event/impact.png" alt="impact" class="rounded-10" />
+        </div>
+      </div>
 
-<div class="section-heading section-heading--soar-left section-heading--normal-margin bg-purple">what to expect?</div>
-<div class="section-label mt-8 bg-beauty text-[100px]">Exhibitors</div>
-<div class="mt-16 flex flex-wrap justify-center gap-16">
-  <img ngSrc="assets/event/exhibitor/01-Hitobito.png" width="200" height="200" alt="Hitobito logo" />
-  <img ngSrc="assets/event/exhibitor/02-Bad-Pets.jpeg" width="200" height="200" alt="Bad Pets logo" />
-  <img ngSrc="assets/event/exhibitor/03-Bad-Kids.jpeg" width="200" height="200" alt="Bad Kids logo" />
-  <img ngSrc="assets/event/exhibitor/05-Omniflix-Network.svg" width="200" height="200" alt="Omniflix Network logo" />
-  <img ngSrc="assets/event/exhibitor/06-Pixel-Wizards.png" width="200" height="200" alt="Pixel Wizards logo" />
-  <img ngSrc="assets/event/exhibitor/07-Shrimp-Club.jpeg" width="200" height="200" alt="Shrimp Club logo" />
-  <img ngSrc="assets/event/exhibitor/09-Sneaky-Animals.png" width="256" height="200" alt="Sneaky Animal logo" />
-  <img ngSrc="assets/event/exhibitor/10-ANYO.jpeg" width="200" height="200" alt="ANYO logo" />
-  <img ngSrc="assets/event/exhibitor/11-Cosmos-Kiwis.jpeg" width="200" height="200" alt="Cosmos Kiwis logo" />
-  <img ngSrc="assets/event/exhibitor/12-Rekt-Gang.jpeg" width="200" height="200" alt="Rekt Gang logo" />
-  <img ngSrc="assets/event/exhibitor/13-Aura-Network.jpeg" width="200" height="200" alt="Aura Network logo" />
-  <img ngSrc="assets/event/exhibitor/14-ohhNFT.webp" width="208.97" height="200" alt="Bad Pets logo" />
-</div>
+      <div class="mt-40 section-heading section-heading--soar-left bg-purple">diverse participation!</div>
+      <div class="section-label mt-8 bg-beauty text-[100px]">Exhibitors</div>
+      <div class="mt-15 flex gap-x-10">
+        <img ngSrc="assets/event/exhibitors/stargaze.png" width="337" height="337" alt="Stargaze logo" />
+        <img ngSrc="assets/event/exhibitors/ch0pch0p.png" width="337" height="337" alt="ch0pch0p logo" />
+        <img ngSrc="assets/event/exhibitors/pixel-wizard.png" width="337" height="337" alt="Pixel Wizard logo" />
+      </div>
+      <div class="mt-10 flex gap-x-10">
+        <img ngSrc="assets/event/exhibitors/rekt-gang.png" width="337" height="337" alt="Rekt Gang logo" />
+        <img ngSrc="assets/event/exhibitors/aura-network.png" width="337" height="337" alt="Aura Network logo" />
+        <img ngSrc="assets/event/exhibitors/omniflix.png" width="337" height="337" alt="Omniflix logo" />
+        <img ngSrc="assets/event/exhibitors/ohhnft.png" width="337" height="337" alt="OhhNFT logo" />
+      </div>
+      <div class="mt-10 flex gap-x-10">
+        <img ngSrc="assets/event/exhibitors/bad-kids.png" width="262" height="262" alt="Bad Kids logo" />
+        <img ngSrc="assets/event/exhibitors/shrimp-club.png" width="262" height="262" alt="Shrimp Club logo" />
+        <img ngSrc="assets/event/exhibitors/bad-pets.png" width="262" height="262" alt="Bad Pets logo" />
+        <img ngSrc="assets/event/exhibitors/sneaky-animal.png" width="262" height="262" alt="Sneaky Animal logo" />
+        <img ngSrc="assets/event/exhibitors/hitobito.png" width="262" height="262" alt="Hitobito logo" />
+      </div>
+      <div class="mt-10 flex gap-x-10">
+        <img ngSrc="assets/event/exhibitors/8-bit-cities.png" width="262" height="262" alt="8-bit Cities logo" />
+        <img ngSrc="assets/event/exhibitors/anyo.png" width="262" height="262" alt="ANYO logo" />
+        <img ngSrc="assets/event/exhibitors/cosmos-kiwis.png" width="262" height="262" alt="Cosmos Kiwis logo" />
+        <img ngSrc="assets/event/exhibitors/proto-towers.png" width="262" height="262" alt="Proto Towers logo" />
+        <img ngSrc="assets/event/exhibitors/zom-bs.png" width="262" height="262" alt="ZomBs logo" />
+      </div>
 
-<div class="section-heading section-heading--soar-right section-heading--normal-margin bg-vivid-cerulean">
-  introducing
-</div>
-<div class="section-label mt-8 bg-blue-sky text-[100px]">Speakers</div>
+      <div class="mt-40 section-heading section-heading--soar-right bg-vivid-cerulean">introducing</div>
+      <div class="section-label mt-8 bg-blue-sky text-[100px]">Speakers</div>
+      <div class="mt-15 flex justify-center flex-wrap gap-x-10 gap-y-15">
+        <ng-template #speaker let-img="img" let-name="name" let-title="title">
+          <div class="rounded-10 border-3px-white p-5 flex flex-col items-center">
+            <img [ngSrc]="img" width="290" height="290" alt="Shane" class="rounded-5" />
+            <div class="mt-2 font-bold text-[26px]">{{ name }}</div>
+            <div class="mt-2 bg-ultramarine-blue py-1 px-2 font-fredoka text-xl">{{ title }}</div>
+          </div>
+        </ng-template>
 
-<div class="mt-40 flex justify-between gap-x-40">
-  <div class="section-label bg-moon-reverse text-left text-[100px]">Inside the events</div>
-  <mat-accordion hideToggle displayMode="flat" class="flex flex-col gap-y-8">
-    <mat-expansion-panel #inside_1 class="white-border !rounded-5 !bg-app">
-      <mat-expansion-panel-header class="!h-min !py-5 !text-3xl flex justify-between items-center">
-        <span class="font-monotalic leading-normal uppercase">Exhibiti0n</span>
-        <div class="flex-1"></div>
-        <mat-icon inline class="shrink-0 ml-4 text-amber">{{
-          inside_1.expanded ? 'south_east' : 'north_east'
-        }}</mat-icon>
-      </mat-expansion-panel-header>
-      <div class="flex items-center">
-        <div class="basis-1/2 font-fredoka font-bold text-2xl">Date: 09 - 10/03/2024</div>
-        <div class="basis-1/2 font-fredoka font-bold text-2xl">Time: All day</div>
-      </div>
-      <div class="mt-5 text-pretty font-fredoka text-xl">
-        <p>
-          Step into the vibrant universe of Cosmos as we showcase a curated collection of 15+ top-tier NFT projects.
-          Join us to explore the limitless potential of NFTs and witness visionary leaders.
-        </p>
-      </div>
-    </mat-expansion-panel>
-    <mat-expansion-panel #inside_2 class="white-border !rounded-5 !bg-app">
-      <mat-expansion-panel-header class="!h-min !py-5 !text-3xl flex justify-between items-center">
-        <span class="font-monotalic leading-normal uppercase">C0nference</span>
-        <div class="flex-1"></div>
-        <mat-icon inline class="shrink-0 ml-4 text-amber">{{
-          inside_2.expanded ? 'south_east' : 'north_east'
-        }}</mat-icon>
-      </mat-expansion-panel-header>
-      <div class="flex items-center">
-        <div class="basis-1/2 font-fredoka font-bold text-2xl">Date: 10/03/2024</div>
-        <div class="basis-1/2 font-fredoka font-bold text-2xl">Time: ????</div>
-      </div>
-      <div class="mt-5 text-pretty font-fredoka text-xl">
-        <p>
-          <span class="font-fredoka font-bold text-2xl">Panel discussion:</span>&nbsp;How to spot a hidden gem &
-          evaluate on NFT project?
-        </p>
-        <p><span class="font-fredoka font-bold text-2xl">Panelists:</span></p>
-        <ul>
-          <li>Cortlandt, Founder of Bad Kids</li>
-          <li>Zerk, Founder of Rekt Gang</li>
-          <li>WolfmanKnows, Founder of OhhNFT</li>
-        </ul>
-        <p class="!mt-4"><span class="font-fredoka font-bold text-2xl">Host:</span></p>
-        <p>
-          <span class="font-fredoka font-bold text-2xl">Interactive session:</span>&nbsp;NFTs, AI, Metaverse & The New
-          Internet
-        </p>
-        <p><span class="font-fredoka font-bold text-2xl">Panelists:</span></p>
-        <ul>
-          <li>Lex Avellino, Founder and CCO of Passage</li>
-          <li>Long Nguyen, CTO of Aura Network</li>
-        </ul>
-      </div>
-    </mat-expansion-panel>
-    <mat-expansion-panel #inside_2 class="white-border !rounded-5 !bg-app">
-      <mat-expansion-panel-header class="!h-min !py-5 !text-3xl flex justify-between items-center">
-        <span class="font-monotalic leading-normal uppercase">Game</span>
-        <div class="flex-1"></div>
-        <mat-icon inline class="shrink-0 ml-4 text-amber">{{
-          inside_2.expanded ? 'south_east' : 'north_east'
-        }}</mat-icon>
-      </mat-expansion-panel-header>
-      <div class="flex items-center">
-        <div class="basis-1/2 font-fredoka font-bold text-2xl">Date: 09 - 10/03/2024</div>
-        <div class="basis-1/2 font-fredoka font-bold text-2xl">Time: ????</div>
-      </div>
-      <div class="mt-5 text-pretty font-fredoka text-xl">
-        <p>
-          <span class="font-fredoka font-bold text-2xl">What to expect?</span>
-        </p>
-        <p>
-          Treasure hunt hosted by ch0pch0p: Collect 6 traits around the space to receive an exclusive gift by ch0pch0p
-        </p>
-        <p><span class="font-fredoka font-bold text-2xl">Side game event:</span></p>
-        <p>
-          Reaching for the stars to win NFTs and incredible prizes up to .... during a series of games hosted on Monday
-          afternoon by exhibitors, including:
-        </p>
-        <ul>
-          <li>Rekt Gang</li>
-          <li>Racoon Community</li>
-          <li>Sneaky team</li>
-          <li>Flappy Bird by ???</li>
-        </ul>
-      </div>
-    </mat-expansion-panel>
-    <mat-expansion-panel #inside_2 class="white-border !rounded-5 !bg-app">
-      <mat-expansion-panel-header class="!h-min !py-5 !text-3xl flex justify-between items-center">
-        <span class="font-monotalic leading-normal uppercase">Cosmos NFT Award</span>
-        <div class="flex-1"></div>
-        <mat-icon inline class="shrink-0 ml-4 text-amber">{{
-          inside_2.expanded ? 'south_east' : 'north_east'
-        }}</mat-icon>
-      </mat-expansion-panel-header>
-      <div class="flex items-center">
-        <div class="basis-1/2 font-fredoka font-bold text-2xl">Date: 10/03/2024</div>
-        <div class="basis-1/2 font-fredoka font-bold text-2xl">Time: ????</div>
-      </div>
-      <div class="mt-5 text-pretty font-fredoka text-xl">
-        <p>
-          Celebrating the outstanding achievements and contributions made by individuals, projects, and organizations in
-          the realm of Non-Fungible Tokens in Cosmos.
-        </p>
-        <p><span class="font-fredoka font-bold text-2xl">Vote for your favorite projects</span></p>
-        <ul>
-          <li>Best NFT Collection</li>
-          <li>Best NFT Artist</li>
-          <li>Best NFT Community</li>
-        </ul>
-        <p class="!mt-4"><span class="font-fredoka font-bold text-2xl">Term & Conditions</span></p>
-        <ul>
-          <li>All exhibitors who join the event will become nominees.</li>
-          <li>Live voting starts during the exhibition.</li>
-          <li>Every attendee will have 1 vote for each category.</li>
-        </ul>
-      </div>
-    </mat-expansion-panel>
-  </mat-accordion>
-</div>
-
-<div class="mt-40 section-label bg-budd text-[100px]">Agenda</div>
-<div>
-  <div class="mt-15 rounded-5 w-full bg-white py-5 px-10 flex items-center justify-center gap-x-9">
-    <div
-      role="presentation"
-      (click)="agendaStep.set(1)"
-      class="text-4xl font-semibold font-fredoka cursor-pointer"
-      [class]="agendaStep() === 1 ? 'text-black' : 'text-gray-300'"
-    >
-      Mar 08
-    </div>
-    <img ngSrc="assets/event/arrow-right.png" width="25" height="33" alt="arrow right" />
-    <div
-      role="presentation"
-      (click)="agendaStep.set(2)"
-      class="text-4xl font-semibold font-fredoka cursor-pointer"
-      [class]="agendaStep() === 2 ? 'text-black' : 'text-gray-300'"
-    >
-      Mar 09
-    </div>
-    <img ngSrc="assets/event/arrow-right.png" width="25" height="33" alt="arrow right" />
-    <div
-      role="presentation"
-      (click)="agendaStep.set(3)"
-      class="text-4xl font-semibold font-fredoka cursor-pointer"
-      [class]="agendaStep() === 3 ? 'text-black' : 'text-gray-300'"
-    >
-      Mar 10
-    </div>
-  </div>
-  <div class="mt-8 grid grid-cols-5">
-    <ng-template #agendaRow let-time="time" let-content="content">
-      <div class="agenda-border h-16"></div>
-      <div class="agenda-border h-16 text-2xl font-fredoka flex items-center justify-center">{{ time }}</div>
-      <div class="agenda-border h-16"></div>
-      <div class="agenda-border h-16 text-2xl font-fredoka flex items-center">{{ content }}</div>
-      <div class="agenda-border h-16"></div>
-    </ng-template>
-
-    @switch (agendaStep()) {
-      @case (1) {
-        <ng-container *ngTemplateOutlet="agendaRow; context: { time: '09:00', content: 'Open exhibitions' }" />
-      }
-      @case (2) {
-        <ng-container *ngTemplateOutlet="agendaRow; context: { time: '09:00', content: 'Open exhibitions' }" />
-        <ng-container *ngTemplateOutlet="agendaRow; context: { time: '17:00', content: 'Rekt Racing' }" />
-        <ng-container *ngTemplateOutlet="agendaRow; context: { time: '18:00', content: 'Raccoon Game' }" />
-        <ng-container *ngTemplateOutlet="agendaRow; context: { time: '18:30', content: 'Sneaky animal game' }" />
-      }
-      @case (3) {
-        <ng-container *ngTemplateOutlet="agendaRow; context: { time: '09:00', content: 'Open exhibitions' }" />
-        <ng-container *ngTemplateOutlet="agendaRow; context: { time: '15:00 - 15:10', content: 'Welcome speech' }" />
-        <ng-container *ngTemplateOutlet="agendaRow; context: { time: '15:10 - 15:40', content: 'Keynote' }" />
-        <ng-container *ngTemplateOutlet="agendaRow; context: { time: '15:40 - 15:50', content: 'Break time' }" />
-        <ng-container *ngTemplateOutlet="agendaRow; context: { time: '15:50 - 16:50', content: 'Panel 1' }" />
-        <ng-container *ngTemplateOutlet="agendaRow; context: { time: '16:50 - 17:50', content: 'Panel 2' }" />
         <ng-container
-          *ngTemplateOutlet="agendaRow; context: { time: '17:50 - 18:00', content: 'Egg hatch countdown' }"
+          *ngTemplateOutlet="
+            speaker;
+            context: { img: 'assets/event/speakers/shane.png', name: 'Shane', title: 'Co-founder of Stargaze' }
+          "
         />
-        <ng-container *ngTemplateOutlet="agendaRow; context: { time: '18:00 - 18:30', content: 'Cosmos NFT award' }" />
-        <ng-container *ngTemplateOutlet="agendaRow; context: { time: '18:30 - 18:40', content: 'Game award' }" />
-        <ng-container *ngTemplateOutlet="agendaRow; context: { time: '18:40 - 18:50', content: 'End' }" />
-      }
-    }
-  </div>
-</div>
+        <ng-container
+          *ngTemplateOutlet="
+            speaker;
+            context: { img: 'assets/event/speakers/lethang.png', name: 'Le Thang', title: 'Founder ch0pch0p NFT' }
+          "
+        />
+        <ng-container
+          *ngTemplateOutlet="
+            speaker;
+            context: { img: 'assets/event/speakers/zerk.png', name: 'Zerk', title: 'Founder of Rekt Gang' }
+          "
+        />
+        <ng-container
+          *ngTemplateOutlet="
+            speaker;
+            context: { img: 'assets/event/speakers/cortlandt.png', name: 'Cortlandt', title: 'Founder of Bad Kids' }
+          "
+        />
+        <ng-container
+          *ngTemplateOutlet="
+            speaker;
+            context: {
+              img: 'assets/event/speakers/don-cryptonium.png',
+              name: 'Don Cryptonium',
+              title: '@cryptoniummaker'
+            }
+          "
+        />
+        <ng-container
+          *ngTemplateOutlet="
+            speaker;
+            context: { img: 'assets/event/speakers/wolfmanknows.png', name: 'WolfmanKnows', title: 'Founder of OhhNFT' }
+          "
+        />
+        <ng-container
+          *ngTemplateOutlet="
+            speaker;
+            context: { img: 'assets/event/speakers/cosmos-joe.png', name: 'Cosmos Joe', title: '@CosmosDefi' }
+          "
+        />
+        <ng-container
+          *ngTemplateOutlet="
+            speaker;
+            context: {
+              img: 'assets/event/speakers/lex-avellino.png',
+              name: 'Lex Avellino',
+              title: 'Founder and CCO of Passage'
+            }
+          "
+        />
+        <ng-container
+          *ngTemplateOutlet="
+            speaker;
+            context: { img: 'assets/event/speakers/long-nguyen.png', name: 'Long Nguyen', title: 'CTO of Aura Network' }
+          "
+        />
+        <ng-container
+          *ngTemplateOutlet="
+            speaker;
+            context: { img: 'assets/event/speakers/sistla.png', name: 'Sistla', title: 'Founder of OmniFlix' }
+          "
+        />
+        <ng-container
+          *ngTemplateOutlet="
+            speaker;
+            context: {
+              img: 'assets/event/speakers/abhitej-singh.png',
+              name: 'Abhitej Singh',
+              title: 'Filament Finance'
+            }
+          "
+        />
+      </div>
 
-<div class="section-heading section-heading--soar-right section-heading--normal-margin bg-red">hi guys!</div>
-<div class="section-label mt-8 bg-budd text-[100px]">Get Your Ticket</div>
-<div class="mt-15 flex gap-x-10">
-  <div class="relative rounded-10 w-[589px] bg-[#292929] pt-10 px-7 pb-20">
-    <div class="relative h-[269px] bg-lunar px-16 flex overflow-hidden">
-      <div class="ticket-cut"></div>
-      <div class="ticket-cut"></div>
-      <div class="grow flex flex-col">
-        <div class="h-1/2 pt-6 flex items-center text-6xl uppercase">
-          <div><span>stan</span><br /><span>-dard</span></div>
+      <div class="mt-40 section-heading section-heading--soar-left bg-school-bus-yellow">what to expect?</div>
+      <div class="section-label mt-8 bg-budd text-[100px]">Inside The Event</div>
+
+      <ng-template #panelHeader let-expanded="expanded" let-bg="bg" let-label="label" let-description="description">
+        <div class="flex justify-between items-center gap-x-10">
+          <div class="shrink-0 w-[552px] font-monotalic font-bold text-5xl">
+            <div class="w-fit" [class]="expanded ? '' : 'bg-clip-text ' + bg">{{ label }}</div>
+          </div>
+          <div class="font-light text-xl" [innerHTML]="description"></div>
+          <mat-icon class="!w-[60px] !h-[60px] shrink-0 text-6xl" [class.text-amber]="!expanded">
+            {{ expanded ? 'south_east' : 'north_east' }}
+          </mat-icon>
         </div>
-        <div class="h-1/2 flex items-center justify-end">
-          <span class="text-3xl">$&nbsp;</span><span class="text-[110px]">10</span>
+      </ng-template>
+
+      <ng-template #insideContainer let-date="date" let-time="time" let-content="content">
+        <div class="mt-[30px] flex items-center font-fredoka first:mt-0">
+          <div class="shrink-0 w-[469px]">
+            <div class="font-medium text-3xl">Date: {{ date }}</div>
+            <div class="mt-2 font-medium text-3xl">Time: {{ time }}</div>
+          </div>
+          <div class="self-stretch mr-[120px] border-r-2 border-white"></div>
+          <div class="font-light text-xl">
+            <ng-container *ngTemplateOutlet="content" />
+          </div>
+        </div>
+      </ng-template>
+
+      <mat-expansion-panel
+        #exhibition
+        hideToggle
+        displayMode="flat"
+        class="!mt-15 !rounded-[30px] border-3px-white !bg-app"
+      >
+        <mat-expansion-panel-header
+          class="!rounded-none !h-min !py-10 !pr-6 !pl-10"
+          [class]="exhibition.expanded ? 'border-b-[3px] border-white !bg-toxic' : ''"
+        >
+          <ng-container
+            *ngTemplateOutlet="
+              panelHeader;
+              context: {
+                expanded: exhibition.expanded,
+                bg: 'bg-toxic',
+                label: 'Exhibition',
+                description:
+                  'Showcasing 15+ innovative and outstanding NFT projects on Cosmos. Immerse yourself in a universe\
+                  where digital art and blockchain technology collide.'
+              }
+            "
+          />
+        </mat-expansion-panel-header>
+
+        <ng-template #exhibitionContent>
+          <div>
+            Step into the vibrant universe of Cosmos as we showcase a curated collection of 15+ top-tier NFT projects.
+            Join us to explore the limitless potential of NFTs and witness visionary leaders.
+          </div>
+        </ng-template>
+
+        <div class="pt-8 px-4 pb-6">
+          <ng-container
+            *ngTemplateOutlet="
+              insideContainer;
+              context: { date: 'March 8 - 10, 2024', time: 'All day', content: exhibitionContent }
+            "
+          />
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel
+        #conference
+        hideToggle
+        displayMode="flat"
+        class="!mt-10 !rounded-[30px] border-3px-white !bg-app"
+      >
+        <mat-expansion-panel-header
+          class="!rounded-none !h-min !py-10 !pr-6 !pl-10"
+          [class]="conference.expanded ? 'border-b-[3px] border-white !bg-lunar' : ''"
+        >
+          <ng-container
+            *ngTemplateOutlet="
+              panelHeader;
+              context: {
+                expanded: conference.expanded,
+                bg: 'bg-lunar',
+                label: 'Conference',
+                description:
+                  'Sharing ideas and stories through a series of insightful keynote, panel discussions, showcased by\
+                  the most visionary founders, artist, and investors in Cosmos.'
+              }
+            "
+          />
+        </mat-expansion-panel-header>
+
+        <ng-template #conferenceContent1>
+          <div class="font-semibold text-3xl">Keynote: A brief history & the future of NFTs</div>
+          <div class="mt-2"><span class="font-semibold">Speaker:</span>&nbsp;Shane Vitarana - Stargaze Co-founder</div>
+        </ng-template>
+
+        <ng-template #conferenceContent2>
+          <div class="font-semibold text-3xl">Panel Discussion: How to spot & evaluate potential NFT projects?</div>
+          <div class="mt-2"><span class="font-semibold">Moderator:</span>&nbsp;Le Thang, Founder of ch0pch0p NFT</div>
+          <div class="mt-2 font-semibold">Panelists:</div>
+          <ul class="mt-2">
+            <li>Don at &#64;cryptoniummaker</li>
+            <li>Cortlandt, Founder of Bad Kids</li>
+            <li>Zerk, Founder of Rekt Gang</li>
+            <li>WolfmanKnows, Founder of OhhNFT</li>
+          </ul>
+        </ng-template>
+
+        <ng-template #conferenceContent3>
+          <div class="font-semibold text-3xl">Interactive Session: NFTs use cases beyond PFP</div>
+          <div class="mt-2"><span class="font-semibold">Moderator:</span>&nbsp;Cosmos Joe (&#64;CosmosDefi)</div>
+          <div class="mt-2 font-semibold">Speakers:</div>
+          <ul class="mt-2">
+            <li>Lex Avellino, Founder and CCO of Passage</li>
+            <li>Long Nguyen, CTO of Aura Network</li>
+            <li>Sistla, Founder of OmniFlix</li>
+            <li>Abhitej Singh, Co-Founder of Filament Finance</li>
+          </ul>
+        </ng-template>
+
+        <div class="pt-8 px-4 pb-6">
+          <ng-container
+            *ngTemplateOutlet="
+              insideContainer;
+              context: { date: 'March 10, 2024', time: '13:10 - 13:40 (UTC)', content: conferenceContent1 }
+            "
+          />
+          <ng-container
+            *ngTemplateOutlet="
+              insideContainer;
+              context: { date: 'March 10, 2024', time: '13:50 - 14:50 (UTC)', content: conferenceContent2 }
+            "
+          />
+          <ng-container
+            *ngTemplateOutlet="
+              insideContainer;
+              context: { date: 'March 10, 2024', time: '14:50 - 15:50 (UTC)', content: conferenceContent3 }
+            "
+          />
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel
+        #gameTown
+        hideToggle
+        displayMode="flat"
+        class="!mt-10 !rounded-[30px] border-3px-white !bg-app"
+      >
+        <mat-expansion-panel-header
+          class="!rounded-none !h-min !py-10 !pr-6 !pl-10"
+          [class]="gameTown.expanded ? 'border-b-[3px] border-white !bg-lime-reverse' : ''"
+        >
+          <ng-container
+            *ngTemplateOutlet="
+              panelHeader;
+              context: {
+                expanded: gameTown.expanded,
+                bg: 'bg-lime-reverse',
+                label: 'Game Town',
+                description:
+                  '\<p\>$2000++ prizes are waiting for your captivation. Exploring various games designed for your\
+                  enjoyment in this once-in-a-lifetime event.\<\/p\>\<div\>Win some $STARS, tokens or an NFT\
+                  valued $100?\<\/div\>'
+              }
+            "
+          />
+        </mat-expansion-panel-header>
+
+        <ng-template #gameTownContent1>
+          <div class="font-semibold text-3xl">Play & win at Game Town</div>
+          <ul class="mt-2">
+            <li>
+              Treasure hunt hosted by ch0pch0p: Explore the space & collect 7 traits to receive an exclusive gift valued
+              $150 by ch0pch0p.
+            </li>
+            <li>
+              ch0pch0p gacha game hosted by ch0pch0p: play gacha game and win 42+ NFTs from exhibitors valued up to
+              $2000.
+            </li>
+            <li>Flappy Don hosted by ohhNFT: Top 3 winners will receive gifts from ohhNFT.</li>
+          </ul>
+        </ng-template>
+
+        <ng-template #gameTownContent2>
+          <div class="font-semibold text-3xl">Live Game event</div>
+          <div class="mt-2">
+            Reaching for the stars to win NFTs and incredible prizes during a series of games hosted on Saturday
+            afternoon by exhibitors, including:
+          </div>
+          <ul class="mt-2">
+            <li>[Live] Rekt Racing (Open for all participants)</li>
+            <li>[Live] Sneaky Animal Guessing Game</li>
+          </ul>
+        </ng-template>
+
+        <div class="pt-8 px-4 pb-6">
+          <ng-container
+            *ngTemplateOutlet="
+              insideContainer;
+              context: { date: 'March 8 - 10, 2024', time: 'All day', content: gameTownContent1 }
+            "
+          />
+          <ng-container
+            *ngTemplateOutlet="
+              insideContainer;
+              context: { date: 'March 9, 2024', time: '15:00 - 17:00 (UTC)', content: gameTownContent2 }
+            "
+          />
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel #award hideToggle displayMode="flat" class="!mt-10 !rounded-[30px] border-3px-white !bg-app">
+        <mat-expansion-panel-header
+          class="!rounded-none !h-min !py-10 !pr-6 !pl-10"
+          [class]="award.expanded ? 'border-b-[3px] border-white !bg-pimple' : ''"
+        >
+          <ng-container
+            *ngTemplateOutlet="
+              panelHeader;
+              context: {
+                expanded: award.expanded,
+                bg: 'bg-pimple',
+                label: 'Cosmos NFT Award',
+                description:
+                  'Honoring remarkable accomplishments and contributions in the Cosmos NFT sphere made by individuals, projects, and organizations.'
+              }
+            "
+          />
+        </mat-expansion-panel-header>
+
+        <ng-template #awardContent>
+          <div>
+            Celebrating the outstanding achievements and contributions made by individuals, projects, and organizations
+            in the realm of Non-Fungible Tokens in Cosmos.
+          </div>
+          <div class="mt-5 font-semibold text-3xl">Vote for your favorite projects</div>
+          <ol class="mt-2">
+            <li>Best NFT Collection</li>
+            <li>Best Original Art</li>
+            <li>Best NFT Community</li>
+          </ol>
+          <div class="mt-5 font-semibold text-3xl">Terms & Conditions</div>
+          <ul class="mt-2">
+            <li>All exhibitors who join the event will become nominees.</li>
+            <li>Live voting starts during the exhibition.</li>
+            <li>Every attendee will have 1 vote for each category.</li>
+          </ul>
+        </ng-template>
+
+        <div class="pt-8 px-4 pb-6">
+          <ng-container
+            *ngTemplateOutlet="
+              insideContainer;
+              context: { date: 'March 10, 2024', time: '16:00 - 17:00 (UTC)', content: awardContent }
+            "
+          />
+        </div>
+      </mat-expansion-panel>
+
+      <div class="mt-40 section-heading section-heading--soar-right bg-ultramarine-blue">exciting activities!</div>
+      <div class="section-label mt-8 bg-freeze text-[100px]">Agenda</div>
+      <div class="mt-15 flex gap-x-10">
+        <button
+          mat-flat-button
+          class="!rounded-5 !border-3px-white !bg-app !py-8 !px-16 !text-2xl"
+          [class]="agendaDay() === 1 ? 'bg-on-border !border-transparent !bg-dawn !bg-center !text-black' : ''"
+          (click)="agendaDay.set(1)"
+        >
+          Mar 08
+        </button>
+        <button
+          mat-flat-button
+          class="!rounded-5 !border-3px-white !bg-app !py-8 !px-16 !text-2xl"
+          [class]="agendaDay() === 2 ? 'bg-on-border !border-transparent !bg-dawn !bg-center !text-black' : ''"
+          (click)="agendaDay.set(2)"
+        >
+          Mar 09
+        </button>
+        <button
+          mat-flat-button
+          class="!rounded-5 !border-3px-white !bg-app !py-8 !px-16 !text-2xl"
+          [class]="agendaDay() === 3 ? 'bg-on-border !border-transparent !bg-dawn !bg-center !text-black' : ''"
+          (click)="agendaDay.set(3)"
+        >
+          Mar 10
+        </button>
+      </div>
+      <div class="mt-10 w-[966px] font-fredoka font-semibold text-2xl">
+        <div class="border-t border-white"></div>
+
+        <ng-template #agenda let-time="time" let-content="content">
+          <div class="border-b border-white py-5 pl-2 flex gap-x-15">
+            <div class="basis-1/4 shrink-0">{{ time }}</div>
+            <ng-container *ngTemplateOutlet="content" />
+          </div>
+        </ng-template>
+
+        <ng-template #content1>
+          <div>Open Exhibition & Game Town<br />Cosmos NFT Award vote</div>
+        </ng-template>
+
+        @switch (agendaDay()) {
+          @case (1) {
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '09:00 (UTC)', content: content1 }" />
+          }
+          @case (2) {
+            <ng-template #content2>
+              <div>[Live] Rekt Racing&nbsp;<span class="font-light">(Open for all participants)</span></div>
+            </ng-template>
+
+            <ng-template #content3>
+              <div>[Live] Sneaky Animal Guessing Game</div>
+            </ng-template>
+
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '09:00 (UTC)', content: content1 }" />
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '15:00 - 16:00 (UTC)', content: content2 }" />
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '16:00 - 17:00 (UTC)', content: content3 }" />
+          }
+          @case (3) {
+            <ng-template #content2>
+              <div>Opening speech from Organizers</div>
+            </ng-template>
+
+            <ng-template #contentExpansion let-header="header" let-content="content">
+              <mat-expansion-panel #expansion hideToggle displayMode="flat" class="grow !bg-app">
+                <mat-expansion-panel-header class="!h-min !p-0 !font-semibold !text-2xl">
+                  <div class="w-full pr-1 flex items-center justify-between">
+                    <div>{{ header }}</div>
+                    <img
+                      ngSrc="assets/event/arrow-right.png"
+                      width="25"
+                      height="19"
+                      alt="arrow"
+                      class="h-fit transition-transform"
+                      [class.rotate-90]="expansion.expanded"
+                    />
+                  </div>
+                </mat-expansion-panel-header>
+                <div class="-mx-6 -mb-4 pt-2 font-fredoka font-thin text-xl">
+                  <ng-container *ngTemplateOutlet="content" />
+                </div>
+              </mat-expansion-panel>
+            </ng-template>
+
+            <ng-template #content3>
+              <ng-template #content>
+                <span class="font-semibold">Keynote Speaker:</span>&nbsp;Shane Vitarana, Co-Founder Stargaze
+              </ng-template>
+
+              <ng-container
+                *ngTemplateOutlet="
+                  contentExpansion;
+                  context: { header: 'Keynote: A brief history & the future of NFT', content }
+                "
+              />
+            </ng-template>
+
+            <ng-template #content4>
+              <div>Break time</div>
+            </ng-template>
+
+            <ng-template #content5>
+              <ng-template #content>
+                <div><span class="font-semibold">Moderator:</span>&nbsp;Le Thang, Founder ch0pch0p NFT</div>
+                <div class="mt-2 font-semibold">Panelists:</div>
+                <ul class="mt-2">
+                  <li>Don at &#64;cryptoniummaker</li>
+                  <li>Cortlandt, Founder of Bad Kids</li>
+                  <li>Zerk, Founder of Rekt Gang</li>
+                  <li>WolfmanKnows, Founder of OhhNFT</li>
+                </ul>
+              </ng-template>
+
+              <ng-container
+                *ngTemplateOutlet="
+                  contentExpansion;
+                  context: { header: 'Panel Discussion: How to spot & evaluate potential NFT projects?', content }
+                "
+              />
+            </ng-template>
+
+            <ng-template #content6>
+              <ng-template #content>
+                <div><span class="font-semibold">Moderator:</span>&nbsp;Cosmos Joe (&#64;CosmosDefi)</div>
+                <div class="mt-2 font-semibold">Panelists:</div>
+                <ul class="mt-2">
+                  <li>Lex Avellino, Founder and CCO of Passage</li>
+                  <li>Long Nguyen, CTO of Aura Network</li>
+                  <li>Sistla, Founder of OmniFlix</li>
+                  <li>Abhitej Singh, Co-Founder of Filament Finance</li>
+                </ul>
+              </ng-template>
+
+              <ng-container
+                *ngTemplateOutlet="
+                  contentExpansion;
+                  context: { header: 'Interactive Session: NFTs use cases beyond PFP', content }
+                "
+              />
+            </ng-template>
+
+            <ng-template #content7>
+              <div>ch0pch0p Egg Hatch Countdown & Celebration</div>
+            </ng-template>
+
+            <ng-template #content8>
+              <div>Cosmos NFT Award 2024 Ceremony</div>
+            </ng-template>
+
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '09:00 (UTC)', content: content1 }" />
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '15:00 - 15:10 (UTC)', content: content2 }" />
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '15:10 - 15:40 (UTC)', content: content3 }" />
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '15:40 - 15:50 (UTC)', content: content4 }" />
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '15:50 - 16:50 (UTC)', content: content5 }" />
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '16:50 - 17:50 (UTC)', content: content6 }" />
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '17:50 - 18:00 (UTC)', content: content7 }" />
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '18:00 - 18:30 (UTC)', content: content8 }" />
+          }
+        }
+      </div>
+
+      <div class="mt-40 section-heading section-heading--soar-left bg-red">come join us!</div>
+      <div class="section-label mt-8 bg-budd text-[100px]">Get Your Ticket</div>
+      <div class="mt-15 flex gap-x-10">
+        <div class="relative rounded-10 w-[589px] bg-[#292929] pt-10 px-7 pb-20">
+          <div class="relative h-[269px] bg-lime px-16 text-black flex overflow-hidden">
+            <div class="ticket-cut"></div>
+            <div class="ticket-cut"></div>
+            <div class="grow flex flex-col">
+              <div class="h-1/2 pt-6 flex items-center text-6xl uppercase">
+                <div><span>stan</span><br /><span>-dard</span></div>
+              </div>
+              <div class="h-1/2 flex items-center justify-end">
+                <span class="text-3xl">$&nbsp;</span><span class="text-[110px]">10</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-6 px-8">
+            <div class="border-t border-solid border-white w-full"></div>
+            <ul class="mt-8 font-fredoka text-3xl">
+              <li>Full access to 3-day event</li>
+              <li>Participate in all games during the event</li>
+              <li>Grab unlimited awesome prize up to $2k</li>
+              <li>Have a vote for your favourite collection</li>
+            </ul>
+          </div>
+          <button
+            mat-button
+            (click)="buyTicket(TICKET.STANDARD)"
+            class="ticket-buy-btn !rounded-full w-1/2 !bg-lime !py-9 !text-lg font-bold !text-black"
+          >
+            Buy
+          </button>
+        </div>
+        <div class="relative rounded-10 w-[589px] bg-[#292929] pt-10 px-7 pb-20">
+          <div class="relative h-[269px] bg-budd px-16 text-black flex overflow-hidden">
+            <div class="ticket-cut"></div>
+            <div class="ticket-cut"></div>
+            <div class="grow flex flex-col">
+              <div class="h-1/2 pt-6 flex items-center text-6xl uppercase">d0n0r</div>
+              <div class="h-1/2 flex items-center justify-end">
+                <span class="text-3xl">$&nbsp;</span><span class="text-[110px]">15</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-6 px-8">
+            <div class="border-t border-solid border-white w-full"></div>
+            <ul class="mt-8 font-fredoka text-3xl">
+              <li>Full access to 3-day event</li>
+              <li>Participate in all games during the event</li>
+              <li>Grab unlimited awesome prize up to $2k</li>
+              <li>Have a vote for your favourite collection</li>
+              <li>Give organizers a coffee with extra $5 for the standard ticket</li>
+            </ul>
+          </div>
+          <button
+            mat-button
+            (click)="buyTicket(TICKET.DONOR)"
+            class="ticket-buy-btn !rounded-full w-1/2 !bg-budd !py-9 !text-lg font-bold !text-black"
+          >
+            Buy & Donate
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-40 section-heading section-heading--soar-right bg-purple">dedicated contributors!</div>
+      <div class="section-label mt-8 bg-toxic text-[100px]">About Organizers</div>
+      <div class="mt-15 flex gap-x-28 font-fredoka text-xl">
+        <div class="basis-1/2 flex flex-col items-center">
+          <img
+            ngSrc="assets/event/organizers/lethang.png"
+            width="200"
+            height="200"
+            alt="Le Thang"
+            class="rounded-full"
+          />
+          <img ngSrc="assets/event/organizers/ch0pch0p.svg" width="250" height="82" alt="ch0pch0p logo" class="mt-3" />
+          <p class="!mt-10">
+            Being a Cosmos community member since early 2021 and a founder of ch0pch0p NFT, Thang recognized that Cosmos
+            has an organic community but lacks a centralized party to coordinate things and unite people.
+          </p>
+          <p>
+            Hence, we decided to organize the first virtual Cosmos NFT Conference. This is a place for like-minded
+            people to share their thoughts, recognize their contributions and also for NFT projects to showcase their
+            works.
+          </p>
+        </div>
+        <div class="basis-1/2 flex flex-col items-center">
+          <img
+            ngSrc="assets/event/organizers/stargaze-2.png"
+            width="200"
+            height="200"
+            alt="Stargaze logo"
+            class="rounded-full"
+          />
+          <img
+            ngSrc="assets/event/organizers/stargaze-1.png"
+            width="250"
+            height="50"
+            alt="Stargaze logo"
+            class="mt-8"
+          />
+          <div class="mt-10">
+            Mint and trade NFTs on the fastest community-owned app chain, secured and governed by $STARS.
+          </div>
         </div>
       </div>
     </div>
-    <div class="mt-6 px-8">
-      <div class="border-t border-solid border-white w-full"></div>
-      <ul class="mt-8 font-fredoka text-3xl">
-        <li>Full access to 3-day event</li>
-        <li>Participate in all games during the event</li>
-        <li>Grab unlimited awesome prize up to $2k</li>
-        <li>Have a vote for your favourite collection</li>
-      </ul>
-    </div>
-    <button
-      mat-button
-      (click)="buyTicket(TICKET.STANDARD)"
-      class="ticket-buy-btn !rounded-full w-1/2 !bg-lunar !py-9 !text-lg font-bold !text-black"
-    >
-      Buy
-    </button>
-  </div>
-  <div class="relative rounded-10 w-[589px] bg-[#292929] pt-10 px-7 pb-20">
-    <div class="relative h-[269px] bg-budd px-16 flex overflow-hidden">
-      <div class="ticket-cut"></div>
-      <div class="ticket-cut"></div>
-      <div class="grow flex flex-col">
-        <div class="h-1/2 pt-6 flex items-center text-6xl uppercase">d0n0r</div>
-        <div class="h-1/2 flex items-center justify-end">
-          <span class="text-3xl">$&nbsp;</span><span class="text-[110px]">15</span>
-        </div>
-      </div>
-    </div>
-    <div class="mt-6 px-8">
-      <div class="border-t border-solid border-white w-full"></div>
-      <ul class="mt-8 font-fredoka text-3xl">
-        <li>Full access to 3-day event</li>
-        <li>Participate in all games during the event</li>
-        <li>Grab unlimited awesome prize up to $2k</li>
-        <li>Have a vote for your favourite collection</li>
-        <li>Give organizers a coffee with extra $5 for the standard ticket</li>
-      </ul>
-    </div>
-    <button
-      mat-button
-      (click)="buyTicket(TICKET.DONOR)"
-      class="ticket-buy-btn !rounded-full w-1/2 !bg-budd !py-9 !text-lg font-bold !text-black"
-    >
-      Buy & Donate
-    </button>
   </div>
 </div>
 
-<div class="mt-40 section-label bg-toxic text-[100px]">About Organizers</div>
-<div class="mt-20 flex gap-x-15">
-  <div class="w-[504px] flex flex-col items-center">
-    <div class="relative rounded-full w-[268px] h-[268px] overflow-hidden">
-      <img fill ngSrc="assets/team-intro/member-lethang.png" alt="Le Thang" />
-    </div>
-    <div class="relative mt-24 rounded-[30px] white-border py-20 px-8 text-center text-pretty font-fredoka text-lg">
-      <img
-        ngSrc="assets/event/organizer/ch0pch0p.svg"
-        width="364"
-        height="115"
-        alt="ch0ph0p logo"
-        class="organizer-logo"
-      />
-      <p>
-        Being a Cosmos community member since early 2021 and a founder of ch0pch0p NFT, I recognized that Cosmos has an
-        organic community but lacks a centralized party to coordinate things and unite people.
-      </p>
-      <p>
-        Hence, we decided to organize the first virtual Cosmos NFT Conference. This is a place for like-minded people to
-        share their thoughts, recognize their contributions and also for NFT projects to showcase their works.
-      </p>
-    </div>
-  </div>
-  <div class="w-[504px] flex flex-col items-center">
-    <div class="relative rounded-full w-[268px] h-[268px] overflow-hidden">
-      <img fill ngSrc="assets/event/organizer/shanev.jpg" alt="Shanev" />
-    </div>
-    <div class="relative mt-24 rounded-[30px] white-border py-20 px-8 text-center text-pretty font-fredoka text-lg">
-      <img
-        ngSrc="assets/event/organizer/stargaze.png"
-        width="364"
-        height="115"
-        alt="Stargaze logo"
-        class="organizer-logo"
-      />
-      <p>
-        Being a Cosmos community member since early 2021 and a founder of ch0pch0p NFT, I recognized that Cosmos has an
-        organic community but lacks a centralized party to coordinate things and unite people.
-      </p>
-      <p>
-        Hence, we decided to organize the first virtual Cosmos NFT Conference. This is a place for like-minded people to
-        share their thoughts, recognize their contributions and also for NFT projects to showcase their works.
-      </p>
-    </div>
-  </div>
-</div>
+<app-footer />

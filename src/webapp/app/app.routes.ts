@@ -75,12 +75,12 @@ export const routes: Routes = [
           },
         ],
       },
-      {
-        path: ROUTE.EVENT,
-        component: EventComponent,
-        title: 'Cosmos NFT Conference',
-      },
     ],
+  },
+  {
+    path: ROUTE.EVENT,
+    component: EventComponent,
+    title: 'Cosmos NFT Conference',
   },
   { path: '**', component: PageNotFoundComponent },
 ];

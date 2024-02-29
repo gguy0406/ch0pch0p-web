@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import { IS_PRODUCTION } from 'environments/environment';
 
 import { logger } from '../utils/logger';
+import { router as eventRegisterRouter } from './event-registers.route';
 import { router as swappableTraitsRouter } from './swappable-traits.route';
 
 export const apiRouter = Router();
@@ -12,6 +13,7 @@ export const apiRouter = Router();
 apiRouter.use(express.urlencoded({ extended: false }));
 apiRouter.use(express.json());
 apiRouter.use(httpLogger());
+apiRouter.use('/event-register', eventRegisterRouter);
 apiRouter.use('/swappable-traits', swappableTraitsRouter);
 apiRouter.use((req, res, next) => next(createHttpError(404)));
 apiRouter.use(logErrors);

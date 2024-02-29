@@ -1,11 +1,42 @@
-<mat-form-field>
-  <mat-label>Name</mat-label>
-  <input matInput />
-</mat-form-field>
-<mat-form-field>
-  <mat-label>Ticket</mat-label>
-  <mat-select>
-    <mat-option value="one">First option</mat-option>
-    <mat-option value="two">Second option</mat-option>
-  </mat-select>
-</mat-form-field>
+<div class="bg-clip-text bg-budd text-center text-6xl uppercase">Buy Ticket</div>
+
+<form (ngSubmit)="registerForm.valid && onSubmit()" #registerForm="ngForm">
+  <div class="mt-10 w-full flex gap-x-10">
+    <mat-form-field class="grow">
+      <mat-label>name</mat-label>
+      <input matInput [(ngModel)]="model.name" name="name" maxlength="255" />
+    </mat-form-field>
+    <mat-form-field class="grow">
+      <mat-label>email</mat-label>
+      <input matInput required type="email" [(ngModel)]="model.email" name="email" maxlength="255" />
+    </mat-form-field>
+  </div>
+
+  <div class="mt-5 w-full flex gap-x-10">
+    <mat-form-field class="grow">
+      <mat-label>community gang</mat-label>
+      <input matInput [(ngModel)]="model.communityGang" name="communityGang" maxlength="255" />
+    </mat-form-field>
+    <mat-form-field class="grow">
+      <mat-label>Ticket</mat-label>
+      <mat-select required [(ngModel)]="model.ticket" name="ticket">
+        <mat-option [value]="TICKET.STANDARD">Standard</mat-option>
+        <mat-option [value]="TICKET.DONOR">Donor</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field class="mt-5 !block">
+    <mat-label>wallet ID</mat-label>
+    <input matInput [(ngModel)]="model.walletId" name="walletId" maxlength="255" />
+  </mat-form-field>
+
+  <mat-form-field class="mt-5 !block">
+    <mat-label>transaction hash</mat-label>
+    <input matInput required [(ngModel)]="model.transactionHash" name="transactionHash" maxlength="255" />
+  </mat-form-field>
+
+  <button mat-button type="submit" class="mt-5 mx-auto !rounded-full w-[338px] !h-[81px] !bg-budd !text-black !block">
+    confirm
+  </button>
+</form>
