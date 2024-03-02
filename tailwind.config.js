@@ -67,11 +67,14 @@ module.exports = {
       },
       borderRadius: {
         5: '20px',
+        7.5: '30px',
         10: '40px',
       },
       colors: {
         amber: amber,
+        'electric-purple': electricPurple,
         'school-bus-yellow': schoolBusYellow,
+        red: red,
       },
       fontFamily: {
         fredoka: ['"Fredoka", sans-serif'],

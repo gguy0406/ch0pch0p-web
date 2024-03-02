@@ -45,7 +45,7 @@ export class EventComponent implements OnInit {
   protected buyTicket(ticket: Ticket) {
     this.dialog.open(DialogEventRegisterComponent, {
       data: { ticket } satisfies DialogData,
-      minWidth: 1048,
+      width: '900px',
       panelClass: 'rounded-[50px]',
     });
   }

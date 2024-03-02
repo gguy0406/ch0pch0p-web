@@ -19,6 +19,7 @@ export interface EventRegister {
 }
 
 export enum Ticket {
+  CH0PPERS,
   STANDARD,
   DONOR,
 }

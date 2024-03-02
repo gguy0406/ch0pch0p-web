@@ -1,9 +1,10 @@
 @use 'stylings/variables';
 
 :host {
-  border-radius: 50px;
+  position: relative;
+  border-radius: 30px;
   border: 3px solid white;
   background-color: variables.$bg-app;
-  padding: 60px 40px;
+  padding: 40px;
   display: block;
 }

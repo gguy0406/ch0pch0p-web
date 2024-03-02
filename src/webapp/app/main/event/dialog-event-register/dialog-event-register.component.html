@@ -1,42 +1,129 @@
-<div class="bg-clip-text bg-budd text-center text-6xl uppercase">Buy Ticket</div>
-
-<form (ngSubmit)="registerForm.valid && onSubmit()" #registerForm="ngForm">
-  <div class="mt-10 w-full flex gap-x-10">
-    <mat-form-field class="grow">
-      <mat-label>name</mat-label>
-      <input matInput [(ngModel)]="model.name" name="name" maxlength="255" />
-    </mat-form-field>
-    <mat-form-field class="grow">
-      <mat-label>email</mat-label>
-      <input matInput required type="email" [(ngModel)]="model.email" name="email" maxlength="255" />
-    </mat-form-field>
-  </div>
-
-  <div class="mt-5 w-full flex gap-x-10">
-    <mat-form-field class="grow">
-      <mat-label>community gang</mat-label>
-      <input matInput [(ngModel)]="model.communityGang" name="communityGang" maxlength="255" />
-    </mat-form-field>
-    <mat-form-field class="grow">
-      <mat-label>Ticket</mat-label>
-      <mat-select required [(ngModel)]="model.ticket" name="ticket">
-        <mat-option [value]="TICKET.STANDARD">Standard</mat-option>
-        <mat-option [value]="TICKET.DONOR">Donor</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-  <mat-form-field class="mt-5 !block">
-    <mat-label>wallet ID</mat-label>
-    <input matInput [(ngModel)]="model.walletId" name="walletId" maxlength="255" />
-  </mat-form-field>
-
-  <mat-form-field class="mt-5 !block">
-    <mat-label>transaction hash</mat-label>
-    <input matInput required [(ngModel)]="model.transactionHash" name="transactionHash" maxlength="255" />
-  </mat-form-field>
-
-  <button mat-button type="submit" class="mt-5 mx-auto !rounded-full w-[338px] !h-[81px] !bg-budd !text-black !block">
-    confirm
+@if (!successSubmitted) {
+  <button
+    mat-icon-button
+    aria-label="Close dialog"
+    (click)="dialogRef.close()"
+    class="!absolute -top-10 -right-10 bg-budd"
+  >
+    <mat-icon class="font-bold">close</mat-icon>
   </button>
-</form>
+
+  <div class="bg-clip-text bg-budd text-center font-bold text-5xl">register</div>
+  <div class="mt-5 text-center font-bold text-xl text-white">Please send Noble USDC to this Osmosis address:</div>
+  <div class="mt-2.5 mx-auto rounded-lg border-3px-white w-fit py-2.5 pr-1 pl-5 text-white flex items-center gap-x-2">
+    <span class="text-lg">osmo1m8067xdm7jugjr3n74c8fk4z0vy8qg8rzkx5j8</span>
+    <button mat-button cdkCopyToClipboard="osmo1m8067xdm7jugjr3n74c8fk4z0vy8qg8rzkx5j8">
+      <img ngSrc="assets/icon/copy.svg" width="32" height="32" alt="copy" />
+    </button>
+  </div>
+
+  <form (ngSubmit)="registerForm.valid && onSubmit()" #registerForm="ngForm">
+    <div class="mt-5 flex flex-wrap gap-x-5">
+      <mat-form-field class="w-[397px]">
+        <mat-label>your name</mat-label>
+        <input matInput [(ngModel)]="model.name" name="name" maxlength="255" />
+      </mat-form-field>
+
+      <mat-form-field class="w-[397px]">
+        <mat-label>your email</mat-label>
+        <input
+          matInput
+          required
+          type="email"
+          [(ngModel)]="model.email"
+          name="email"
+          maxlength="255"
+          pattern="^[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,4}$"
+        />
+        <div matSuffix class="px-4">
+          <img
+            ngSrc="assets/event/info-budd.png"
+            width="20"
+            height="20"
+            alt="info"
+            matTooltip="We collect your email to set up gather town for invitee only."
+            matTooltipPosition="above"
+          />
+        </div>
+      </mat-form-field>
+
+      <mat-form-field class="w-[397px]">
+        <mat-label>community gang</mat-label>
+        <input matInput [(ngModel)]="model.communityGang" name="communityGang" maxlength="255" />
+      </mat-form-field>
+
+      <mat-form-field class="w-[397px]">
+        <mat-label>ticket</mat-label>
+        <mat-select required [(ngModel)]="model.ticket" name="ticket">
+          <mat-option [value]="TICKET.CH0PPERS">Ch0pper</mat-option>
+          <mat-option [value]="TICKET.STANDARD">Standard</mat-option>
+          <mat-option [value]="TICKET.DONOR">Donor</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-[397px]">
+        <mat-label>wallet ID</mat-label>
+        <input
+          matInput
+          [required]="model.ticket === TICKET.CH0PPERS"
+          [(ngModel)]="model.walletId"
+          name="walletId"
+          maxlength="255"
+        />
+        <div matSuffix class="px-4">
+          <img
+            ngSrc="assets/event/info-budd.png"
+            width="20"
+            height="20"
+            alt="info"
+            matTooltip="We collect your wallet ID to set up the gacha game & racing game. If you do not submit your wallet ID, you agree not to join our gacha & racing game in the event."
+            matTooltipPosition="above"
+          />
+        </div>
+      </mat-form-field>
+
+      @if (model.ticket !== TICKET.CH0PPERS) {
+        <mat-form-field class="w-[397px]">
+          <mat-label>transaction hash</mat-label>
+          <input matInput required [(ngModel)]="model.transactionHash" name="transactionHash" maxlength="255" />
+        </mat-form-field>
+      } @else {
+        <div class="w-[397px] font-bold text-xl text-white">
+          Don't have enough ch0pch0p?<br />Go
+          <a
+            href="https://www.stargaze.zone/l/stars1j947vk0takflmf4j6wjsy3gr58ua5n7g55af2v8zskmvfxqejzhqw66ys6"
+            target="_blank"
+            class="text-red underline underline-offset-3"
+            >buy here</a
+          >
+        </div>
+      }
+    </div>
+
+    <button
+      mat-button
+      type="submit"
+      [disabled]="isSubmitting"
+      class="mt-10 mx-auto !rounded-full w-56 !h-[74px] !bg-budd !font-bold !text-xl !text-black !block"
+    >
+      confirm
+    </button>
+  </form>
+} @else {
+  <div class="bg-clip-text bg-budd text-center font-bold text-5xl">register</div>
+  <div class="text-center font-bold text-xl">
+    <p>Thank you for joining with us.</p>
+    <p>The confirmation and event information will be sent to your email in 1 or 2 days.</p>
+    <p>Please check your inbox or spam.</p>
+    <p>Let us know if you haven't received it yet.</p>
+  </div>
+
+  <button
+    mat-button
+    [disabled]="isSubmitting"
+    (click)="dialogRef.close()"
+    class="mt-10 mx-auto !rounded-full w-56 !h-[74px] !bg-budd !font-bold !text-xl !text-black !block"
+  >
+    okay go
+  </button>
+}

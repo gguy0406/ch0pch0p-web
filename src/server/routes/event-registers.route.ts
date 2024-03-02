@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import { body, matchedData } from 'express-validator';
+import { ValidationChain, body, matchedData } from 'express-validator';
 
 import { EventRegister, Ticket } from '../lib/types';
 import { checkValidationResult } from '../middlewares/check-validation-result';
@@ -7,15 +7,28 @@ import { register } from '../services/event-registers.service';
 
 export const router = Router();
 
+const normalStringValidation = (chain: ValidationChain) => chain.isString().isLength({ max: 255 });
+
 router.post(
   '/register',
   [
     body('email').isEmail().isLength({ max: 255 }),
     body('ticket').isIn(Object.values(Ticket)),
-    body('transactionHash').isString().isLength({ max: 255 }),
-    body('name').optional().isString().isLength({ max: 255 }),
-    body('communityGang').optional().isString().isLength({ max: 255 }),
-    body('walletId').optional().isString().isLength({ max: 255 }),
+    normalStringValidation(body('name').optional()),
+    normalStringValidation(body('communityGang').optional()),
+    async (req: Request) => {
+      const { ticket } = matchedData(req);
+
+      if (ticket === Ticket.CH0PPERS) {
+        await normalStringValidation(body('walletId')).run(req);
+        await normalStringValidation(body('transactionHash').optional()).run(req);
+      } else {
+        await normalStringValidation(body('walletId').optional()).run(req);
+        await normalStringValidation(body('transactionHash')).run(req);
+      }
+
+      // Check the validation errors, and update the user's settings.
+    },
     checkValidationResult,
   ],
   async (req: Request, res: Response, next: NextFunction) => {

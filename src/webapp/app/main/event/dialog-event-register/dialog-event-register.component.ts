@@ -1,10 +1,15 @@
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { finalize } from 'rxjs/operators';
 
 import { Ticket } from '@lib/types';
 
@@ -20,15 +25,29 @@ export interface DialogData {
   styleUrl: './dialog-event-register.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [FormsModule, MatButtonModule, MatDialogContent, MatFormFieldModule, MatInputModule, MatSelectModule],
+  imports: [
+    ClipboardModule,
+    FormsModule,
+    MatButtonModule,
+    MatDialogContent,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+    NgOptimizedImage,
+    MatTooltipModule,
+  ],
   providers: [EventRegisterService, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } }],
 })
 export class DialogEventRegisterComponent {
   protected readonly TICKET = Ticket;
   protected model;
+  protected isSubmitting?: boolean;
+  protected successSubmitted?: boolean;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private _data: DialogData,
+    protected dialogRef: MatDialogRef<void>,
     private _eventRegisterService: EventRegisterService
   ) {
     this.model = {
@@ -42,6 +61,10 @@ export class DialogEventRegisterComponent {
   }
 
   protected onSubmit() {
-    this._eventRegisterService.register(this.model).subscribe();
+    this.isSubmitting = true;
+    this._eventRegisterService
+      .register(this.model)
+      .pipe(finalize(() => (this.isSubmitting = false)))
+      .subscribe(() => (this.successSubmitted = true));
   }
 }

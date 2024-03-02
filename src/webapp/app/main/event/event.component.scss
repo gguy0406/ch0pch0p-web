@@ -4,21 +4,17 @@
   display: block;
 
   .universe-container {
-    min-width: 1586px;
+    min-width: 1440px;
     background:
-      url('/assets/event/spaceship.png') no-repeat top left calc(50% + 750px),
-      url('/assets/event/bg-banner.png') no-repeat top,
-      url('/assets/event/bg-stars.png') top center;
-
-    > * {
-      transform: scale(0.8);
-      transform-origin: top center;
-    }
+      url('/assets/event/spaceship.png') no-repeat top 64px left calc(50% + 560px) / auto 800px,
+      url('/assets/event/bg-banner.png') no-repeat top / 1440px,
+      url('/assets/event/bg-footer.png') no-repeat bottom / 1440px,
+      url('/assets/event/bg-stars.png') top;
 
     .constellation {
       margin: 0 auto;
-      width: 1586px;
-      padding: 0 52px 160px;
+      width: 1440px;
+      padding: 0 100px 160px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -58,6 +54,8 @@
         > div {
           position: absolute;
           inset: 0;
+          line-height: 110%;
+          font-size: 23px;
           transform: rotateY(180deg);
           backface-visibility: hidden;
           transition: transform 0.5s;
@@ -80,9 +78,9 @@
 
       .ticket-cut {
         position: absolute;
-        border-radius: 128px;
-        width: 128px;
-        height: 128px;
+        border-radius: 80px;
+        width: 80px;
+        height: 80px;
         background-color: #292929;
 
         &:nth-child(1) {
@@ -101,13 +99,6 @@
       .ticket-buy-btn {
         position: absolute;
         top: 100%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-
-      .organizer-logo {
-        position: absolute;
-        top: 0;
         left: 50%;
         transform: translate(-50%, -50%);
       }
