@@ -46,6 +46,7 @@ export class EventComponent implements OnInit {
     this.dialog.open(DialogEventRegisterComponent, {
       data: { ticket } satisfies DialogData,
       width: '900px',
+      backdropClass: ['bg-app', '!opacity-90'],
       panelClass: 'rounded-[50px]',
     });
   }

@@ -30,14 +30,14 @@
                 <img fill ngSrc="assets/event/sponsors/aura-network.png" alt="Aura Network logo" />
               </div>
               <div class="relative rounded-md border-white w-[50px] h-[50px]">
-                <img fill ngSrc="assets/event/sponsors/ohhNft.png" alt="OhhNFT logo" />
+                <img fill ngSrc="assets/event/sponsors/ohhnft.png" alt="OhhNFT logo" />
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="mt-[272px] section-heading section-heading--soar-left bg-caribbean-green">hi guys!</div>
+      <div class="mt-40 section-heading section-heading--soar-left bg-caribbean-green">hi guys!</div>
       <div class="section-label mt-2 bg-lime-reverse text-[100px]">Why join?</div>
       <div class="mt-15 w-full flex gap-x-10">
         <div class="flip-card basis-1/3 aspect-square">
@@ -108,7 +108,7 @@
         <ng-container
           *ngTemplateOutlet="
             speaker;
-            context: { img: 'assets/event/speakers/shanev.png', name: 'Shanev', title: 'Co-founder of Stargaze' }
+            context: { img: 'assets/event/speakers/shanev.png', name: 'Shane', title: 'Co-founder of Stargaze' }
           "
         />
         <ng-container
@@ -576,7 +576,7 @@
             </ng-template>
 
             <ng-template #content7>
-              <div>ch0pch0p Egg Hatch Countdown & Celebration</div>
+              <div>ch0pch0p Egg Hatch Countdown & Celebration (tentative)</div>
             </ng-template>
 
             <ng-template #content8>
@@ -584,13 +584,13 @@
             </ng-template>
 
             <ng-container *ngTemplateOutlet="agenda; context: { time: '09:00 (UTC)', content: content1 }" />
-            <ng-container *ngTemplateOutlet="agenda; context: { time: '15:00 - 15:10 (UTC)', content: content2 }" />
-            <ng-container *ngTemplateOutlet="agenda; context: { time: '15:10 - 15:40 (UTC)', content: content3 }" />
-            <ng-container *ngTemplateOutlet="agenda; context: { time: '15:40 - 15:50 (UTC)', content: content4 }" />
-            <ng-container *ngTemplateOutlet="agenda; context: { time: '15:50 - 16:50 (UTC)', content: content5 }" />
-            <ng-container *ngTemplateOutlet="agenda; context: { time: '16:50 - 17:50 (UTC)', content: content6 }" />
-            <ng-container *ngTemplateOutlet="agenda; context: { time: '17:50 - 18:00 (UTC)', content: content7 }" />
-            <ng-container *ngTemplateOutlet="agenda; context: { time: '18:00 - 18:30 (UTC)', content: content8 }" />
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '13:00 - 13:10 (UTC)', content: content2 }" />
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '13:10 - 13:40 (UTC)', content: content3 }" />
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '13:40 - 13:50 (UTC)', content: content4 }" />
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '13:50 - 14:50 (UTC)', content: content5 }" />
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '14:50 - 15:50 (UTC)', content: content6 }" />
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '15:50 - 16:00 (UTC)', content: content7 }" />
+            <ng-container *ngTemplateOutlet="agenda; context: { time: '16:00 - 16:30 (UTC)', content: content8 }" />
           }
         }
       </div>
@@ -658,7 +658,7 @@
               bg: '!bg-beauty',
               ticketName: 'ch0p\<br /\>-pers',
               ticketPrice: 'Free',
-              ticket: 'TICKET.CH0PPERS',
+              ticket: TICKET.CH0PPERS,
               content: ch0ppersTicketContent,
               buyTicketLabel: 'join now'
             }
@@ -677,7 +677,7 @@
               ticketName: 'stan\<br /\>-dard',
               ticketPrice: '10',
               currency: '$',
-              ticket: 'TICKET.STANDARD',
+              ticket: TICKET.STANDARD,
               content: standardTicketContent,
               buyTicketLabel: 'buy now'
             }
@@ -699,7 +699,7 @@
               ticketName: 'donor',
               ticketPrice: '15',
               currency: '$',
-              ticket: 'TICKET.DONOR',
+              ticket: TICKET.DONOR,
               content: donorTicketContent,
               buyTicketLabel: 'buy & donate'
             }

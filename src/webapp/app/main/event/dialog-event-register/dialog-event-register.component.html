@@ -1,4 +1,4 @@
-@if (!successSubmitted) {
+@if (!successSubmitted()) {
   <button
     mat-icon-button
     aria-label="Close dialog"
@@ -55,7 +55,7 @@
       <mat-form-field class="w-[397px]">
         <mat-label>ticket</mat-label>
         <mat-select required [(ngModel)]="model.ticket" name="ticket">
-          <mat-option [value]="TICKET.CH0PPERS">Ch0pper</mat-option>
+          <mat-option [value]="TICKET.CH0PPERS">Ch0ppers</mat-option>
           <mat-option [value]="TICKET.STANDARD">Standard</mat-option>
           <mat-option [value]="TICKET.DONOR">Donor</mat-option>
         </mat-select>
@@ -103,7 +103,7 @@
     <button
       mat-button
       type="submit"
-      [disabled]="isSubmitting"
+      [disabled]="isSubmitting()"
       class="mt-10 mx-auto !rounded-full w-56 !h-[74px] !bg-budd !font-bold !text-xl !text-black !block"
     >
       confirm
@@ -111,7 +111,7 @@
   </form>
 } @else {
   <div class="bg-clip-text bg-budd text-center font-bold text-5xl">register</div>
-  <div class="text-center font-bold text-xl">
+  <div class="mt-5 text-center font-bold text-xl text-white">
     <p>Thank you for joining with us.</p>
     <p>The confirmation and event information will be sent to your email in 1 or 2 days.</p>
     <p>Please check your inbox or spam.</p>
@@ -120,7 +120,7 @@
 
   <button
     mat-button
-    [disabled]="isSubmitting"
+    [disabled]="isSubmitting()"
     (click)="dialogRef.close()"
     class="mt-10 mx-auto !rounded-full w-56 !h-[74px] !bg-budd !font-bold !text-xl !text-black !block"
   >

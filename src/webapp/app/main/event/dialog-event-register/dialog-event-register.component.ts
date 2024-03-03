@@ -1,6 +1,6 @@
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, WritableSignal, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -42,8 +42,8 @@ export interface DialogData {
 export class DialogEventRegisterComponent {
   protected readonly TICKET = Ticket;
   protected model;
-  protected isSubmitting?: boolean;
-  protected successSubmitted?: boolean;
+  protected isSubmitting: WritableSignal<boolean> = signal(false);
+  protected successSubmitted: WritableSignal<boolean> = signal(false);
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private _data: DialogData,
@@ -61,10 +61,10 @@ export class DialogEventRegisterComponent {
   }
 
   protected onSubmit() {
-    this.isSubmitting = true;
+    this.isSubmitting.set(true);
     this._eventRegisterService
       .register(this.model)
-      .pipe(finalize(() => (this.isSubmitting = false)))
-      .subscribe(() => (this.successSubmitted = true));
+      .pipe(finalize(() => this.isSubmitting.set(false)))
+      .subscribe(() => this.successSubmitted.set(true));
   }
 }

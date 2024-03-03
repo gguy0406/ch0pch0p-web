@@ -13,10 +13,12 @@ router.post(
   '/register',
   [
     body('email').isEmail().isLength({ max: 255 }),
-    body('ticket').isIn(Object.values(Ticket)),
+    body('ticket')
+      .isIn(Object.values(Ticket))
+      .customSanitizer((value) => Ticket[value]),
     normalStringValidation(body('name').optional()),
     normalStringValidation(body('communityGang').optional()),
-    async (req: Request) => {
+    async (req: Request, res: Response, next: NextFunction) => {
       const { ticket } = matchedData(req);
 
       if (ticket === Ticket.CH0PPERS) {
@@ -27,7 +29,7 @@ router.post(
         await normalStringValidation(body('transactionHash')).run(req);
       }
 
-      // Check the validation errors, and update the user's settings.
+      next();
     },
     checkValidationResult,
   ],
