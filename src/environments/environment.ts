@@ -2,7 +2,7 @@ import { STMachine } from 'lib/types';
 
 export const CONTRACT_ADDRESS = {
   C0_SG721: 'stars10h9mr3z3xycatlp8pjqw478g74mvuacghq9rn3selc7u4m9zxthqfafz0e',
-  C1_SG721: '',
+  C1_SG721: 'stars1j947vk0takflmf4j6wjsy3gr58ua5n7g55af2v8zskmvfxqejzhqw66ys6',
   CERT_MINTER: '',
   CERT_SG721: '',
 } as const;

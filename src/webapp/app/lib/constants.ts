@@ -15,7 +15,7 @@ export const ROUTE = {
   EVENT: 'event',
 } as const;
 
-export const BUY_CH0PCH0P_URL = getMarketplaceUrl(CONTRACT_ADDRESS.C0_SG721);
+export const BUY_CH0PCH0P_URL = getMarketplaceUrl(CONTRACT_ADDRESS.C1_SG721);
 export const DISCORD_URL = 'https://discord.com/invite/tH3bnHEFGY';
 export const X_URL = 'https://twitter.com/ch0pch0pNFT';
 export const KEPLR_URL = 'https://www.keplr.app/download';
