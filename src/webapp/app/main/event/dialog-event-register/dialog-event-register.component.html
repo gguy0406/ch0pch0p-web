@@ -9,13 +9,15 @@
   </button>
 
   <div class="bg-clip-text bg-budd text-center font-bold text-5xl">register</div>
-  <div class="mt-5 text-center font-bold text-xl text-white">Please send Noble USDC to this Osmosis address:</div>
-  <div class="mt-2.5 mx-auto rounded-lg border-3px-white w-fit py-2.5 pr-1 pl-5 text-white flex items-center gap-x-2">
-    <span class="text-lg">osmo1m8067xdm7jugjr3n74c8fk4z0vy8qg8rzkx5j8</span>
-    <button mat-button cdkCopyToClipboard="osmo1m8067xdm7jugjr3n74c8fk4z0vy8qg8rzkx5j8">
-      <img ngSrc="assets/icon/copy.svg" width="32" height="32" alt="copy" />
-    </button>
-  </div>
+  @if (model.ticket !== TICKET.CH0PPERS) {
+    <div class="mt-5 text-center font-bold text-xl text-white">Please send Noble USDC to this Osmosis address:</div>
+    <div class="mt-2.5 mx-auto rounded-lg border-3px-white w-fit py-2.5 pr-1 pl-5 text-white flex items-center gap-x-2">
+      <span class="text-lg">osmo1m8067xdm7jugjr3n74c8fk4z0vy8qg8rzkx5j8</span>
+      <button mat-button cdkCopyToClipboard="osmo1m8067xdm7jugjr3n74c8fk4z0vy8qg8rzkx5j8">
+        <img ngSrc="assets/icon/copy.svg" width="32" height="32" alt="copy" />
+      </button>
+    </div>
+  }
 
   <form (ngSubmit)="registerForm.valid && onSubmit()" #registerForm="ngForm">
     <div class="mt-5 flex flex-wrap gap-x-5">
@@ -62,7 +64,7 @@
       </mat-form-field>
 
       <mat-form-field class="w-[397px]">
-        <mat-label>wallet ID</mat-label>
+        <mat-label>stars address</mat-label>
         <input
           matInput
           [required]="model.ticket === TICKET.CH0PPERS"
