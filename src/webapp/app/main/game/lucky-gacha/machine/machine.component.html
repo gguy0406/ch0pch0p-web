@@ -11,9 +11,6 @@
         </svg>
       </div>
     }
-    @case (ST_MACHINE.REKT_GANG) {
-      <img src="assets/game/ch0pch0p-x-rekt-bull.png" class="mt-15" alt="ch0pch0p X Rekt Bull" />
-    }
   }
   <div class="mt-15 flex gap-x-10">
     <ng-template #trait let-traitName="traitName">
@@ -30,10 +27,6 @@
 
     @switch (machine()) {
       @case (ST_MACHINE.CH0PCH0P) {
-        <ng-container *ngTemplateOutlet="trait; context: { traitName: 'trait-1' }"></ng-container>
-        <ng-container *ngTemplateOutlet="trait; context: { traitName: 'trait-2' }"></ng-container>
-      }
-      @case (ST_MACHINE.REKT_GANG) {
         <ng-container *ngTemplateOutlet="trait; context: { traitName: 'trait-1' }"></ng-container>
         <ng-container *ngTemplateOutlet="trait; context: { traitName: 'trait-2' }"></ng-container>
       }

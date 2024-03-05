@@ -66,6 +66,7 @@ module.exports = {
         toxic: linearGradientFactory(caribbeanGreen, rosePink),
       },
       borderRadius: {
+        2.5: '10px',
         5: '20px',
         7.5: '30px',
         10: '40px',
@@ -83,14 +84,8 @@ module.exports = {
       lineHeight: {
         normal: 'normal',
       },
-      margin: {
-        15: '60px',
-      },
-      padding: {
-        15: '60px',
-      },
-      gap: {
-        15: '60px',
+      spacing: {
+        15: '3.75rem',
       },
       textUnderlineOffset: {
         3: '3px',
@@ -106,9 +101,9 @@ module.exports = {
     plugin(function ({ addUtilities }) {
       addUtilities({
         '.bg-clip-text': {
-          'background-clip': 'text',
           '-webkit-background-clip': 'text',
           '-webkit-text-fill-color': 'transparent',
+          'background-clip': 'text',
         },
         '.hide-scrollbar': {
           '-ms-overflow-style': 'none' /* IE and Edge */,

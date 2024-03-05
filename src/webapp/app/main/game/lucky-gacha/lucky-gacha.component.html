@@ -29,15 +29,6 @@
     *ngTemplateOutlet="
       machine;
       context: {
-        machine: ST_MACHINE.REKT_GANG,
-        status: luckGachaService.machines()?.[ST_MACHINE.REKT_GANG]?.status
-      }
-    "
-  />
-  <ng-container
-    *ngTemplateOutlet="
-      machine;
-      context: {
         machine: ST_MACHINE.CH0PCH0P,
         status: luckGachaService.machines()?.[ST_MACHINE.CH0PCH0P]?.status
       }

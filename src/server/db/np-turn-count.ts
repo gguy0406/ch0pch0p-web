@@ -9,7 +9,7 @@ let collectionRef: CollectionReference;
 
 setImmediate(() => {
   db = getFirestore();
-  collectionRef = db.collection(COLLECTION.ST_TURN_COUNT);
+  collectionRef = db.collection(COLLECTION.NP_TURN_COUNT);
 });
 
 export async function get(address: string): Promise<number> {

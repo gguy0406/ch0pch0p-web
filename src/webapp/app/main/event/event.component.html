@@ -39,7 +39,7 @@
 
       <div class="mt-40 section-heading section-heading--soar-left bg-caribbean-green">hi guys!</div>
       <div class="section-label mt-2 bg-lime-reverse text-[100px]">Why join?</div>
-      <div class="mt-15 w-full flex gap-x-10">
+      <div class="mt-15 w-full flex gap-x-10 font-fredoka">
         <div class="flip-card basis-1/3 aspect-square">
           <div class="rounded-7.5 border-3px-white p-10 text-pretty">
             Snag awesome <span class="font-semibold text-[#ffb000]">prizes valued up to $2000</span> provided by our
@@ -433,7 +433,9 @@
         </div>
       </mat-expansion-panel>
 
-      <div class="mt-40 section-heading section-heading--soar-right bg-ultramarine-blue">exciting activities!</div>
+      <div #agendaSection class="mt-40 section-heading section-heading--soar-right bg-ultramarine-blue">
+        exciting activities!
+      </div>
       <div class="section-label mt-3 bg-freeze text-[100px]">Agenda</div>
       <div class="mt-15 flex gap-x-10">
         <button
@@ -738,6 +740,7 @@
             class="rounded-full"
           />
           <img
+            priority
             ngSrc="assets/event/organizers/stargaze-1.png"
             width="232"
             height="56"

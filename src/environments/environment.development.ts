@@ -1,10 +1,10 @@
 import { STMachine } from 'lib/types';
 
 export const CONTRACT_ADDRESS = {
-  C0_SG721: '',
-  C1_SG721: '',
-  CERT_MINTER: '',
-  CERT_SG721: '',
+  C0_SG721: 'stars1e88vzwpe42j2ev07lacy49uxsp7ndv00l9suuhdcm58c0cau4sasn09l3t',
+  C1_SG721: 'stars1z58uwr7v5x6hdmp366n6h7p58j3fw5vf8wu43f459s4lrwvj3ryshnt8hh',
+  CERT_MINTER: 'stars1mztsh0a8m6sjmw6dt9dmst3xj80f9uc246lgcveypeu3tn60yphqzdquxq',
+  CERT_SG721: 'stars1sal77qa26ph0g4ysja3f5mwv485qyed92kas9yx07krse89ar5ysxah8yl',
 } as const;
 
 export const MACHINE_CONFIG = {
@@ -13,19 +13,12 @@ export const MACHINE_CONFIG = {
     START_TIME: new Date(),
     CONTRACT_ADDRESSES_HOLDER_CHECK: [],
   },
-  [STMachine.REKT_GANG]: {
-    TOKEN_ID_START_FROM: 21,
-    START_TIME: new Date(),
-    CONTRACT_ADDRESSES_HOLDER_CHECK: [
-      'stars1ts5ymnra9wv27eqty8x88lhty4svea2j6jkw20t3mnnne6jwk5fqplsrdg',
-      'stars19qvuad9m95prf4efuycrc5h7ldlefaqq4z69wlqzpcyjnwh3eanqyychet',
-    ],
-  },
 } as const;
 
 export const API_BASE_URL = 'http://localhost:4000/api';
 export const IS_PRODUCTION = false;
 export const ST_MAXIMUM_TURN_PER_DAY = 20;
+export const NP_MAXIMUM_TURN_PER_DAY = 20;
 export const STARGAZE_CHAIN_ID = 'elgafar-1';
 export const STARGAZE_GRAPHQL_ENDPOINT = 'https://graphql.testnet.stargaze-apis.com/graphql';
 export const STARGAZE_RPC_ENDPOINT = 'https://rpc.elgafar-1.stargaze-apis.com';

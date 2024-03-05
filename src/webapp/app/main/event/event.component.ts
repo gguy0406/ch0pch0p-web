@@ -1,5 +1,5 @@
 import { NgOptimizedImage, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, WritableSignal, signal } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild, WritableSignal, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -11,6 +11,7 @@ import { Ticket } from '@lib/types';
 import { DialogData, DialogEventRegisterComponent } from './dialog-event-register/dialog-event-register.component';
 import { StickyNavComponent } from '@components/sticky-nav';
 import { FooterComponent } from '@components/footer';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: './event.component.html',
@@ -28,11 +29,13 @@ import { FooterComponent } from '@components/footer';
     StickyNavComponent,
   ],
 })
-export class EventComponent implements OnInit {
+export class EventComponent implements OnInit, AfterViewInit {
+  @ViewChild('agendaSection') protected agendaElement!: ElementRef<HTMLDivElement>;
+
   protected readonly TICKET = Ticket;
   protected agendaDay: WritableSignal<1 | 2 | 3> = signal(1);
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private _route: ActivatedRoute) {}
 
   ngOnInit(): void {
     if (new Date().getTime() > new Date(2024, 2, 10).getTime()) {
@@ -40,6 +43,15 @@ export class EventComponent implements OnInit {
     } else if (new Date().getTime() > new Date(2024, 2, 9).getTime()) {
       this.agendaDay.set(2);
     }
+  }
+
+  ngAfterViewInit(): void {
+    this._route.fragment.subscribe((fragment: string | null) => {
+      fragment?.toLowerCase() === 'agenda' && setTimeout(() => this.agendaElement.nativeElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      }));
+    })
   }
 
   protected buyTicket(ticket: Ticket) {

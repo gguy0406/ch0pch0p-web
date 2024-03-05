@@ -1,6 +1,5 @@
 export enum STMachine {
   CH0PCH0P = 'ch0pch0p',
-  REKT_GANG = 'rekt-gang',
 }
 
 export enum MachineStatus {
@@ -9,22 +8,18 @@ export enum MachineStatus {
   MINT_OUT,
 }
 
-export interface EventRegister {
-  email: string;
-  ticket: Ticket;
-  transactionHash: string;
-  name?: string;
-  communityGang?: string;
-  walletAddress?: string;
-}
-
 export enum Ticket {
   CH0PPERS,
   STANDARD,
   DONOR,
 }
 
-export enum Payment {
-  NOBLE,
-  OSMOSIS,
+interface _EventRegister {
+  email: string;
+  name?: string;
+  communityGang?: string;
 }
+
+export type EventRegister =
+  | (_EventRegister & { ticket: Ticket.CH0PPERS; walletAddress: string })
+  | { ticket: Omit<Ticket, 'CHOPPERS'>; transactionHash: string; walletAddress?: string };

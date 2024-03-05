@@ -40,26 +40,6 @@ const machineConfig: Record<STMachine, Pick<MachineSetting, 'stageDuration' | 'r
       4: 10,
     },
   },
-  [STMachine.REKT_GANG]: {
-    stageDuration: {
-      1: 86400000,
-      2: 86400000,
-      3: 86400000,
-      4: 86400000 * 28,
-    },
-    remainedTurn: {
-      1: 300,
-      2: 200,
-      3: 200,
-      4: 400,
-    },
-    prizeAllocation: {
-      1: 4,
-      2: 3,
-      3: 3,
-      4: 10,
-    },
-  },
 };
 
 const serviceAccount = JSON.parse(process.env['CHOP_SERVICE_ACCOUNT'] as string);
