@@ -46,7 +46,6 @@ export const routes: Routes = [
         component: RouterOutletContainerComponent,
         title: 'ch0p it!',
         ...useWalletRouteGuard,
-        canActivate: [() => false],
         children: [
           {
             path: '',

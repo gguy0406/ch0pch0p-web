@@ -1,7 +1,6 @@
-import { CosmWasmClient, MsgExecuteContractEncodeObject, SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
+import { CosmWasmClient, MsgExecuteContractEncodeObject } from '@cosmjs/cosmwasm-stargate';
 import { fromUtf8, toUtf8 } from '@cosmjs/encoding';
-import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing';
-import { GasPrice, StargateClient } from '@cosmjs/stargate';
+import { StargateClient } from '@cosmjs/stargate';
 import { Image, createCanvas, loadImage } from 'canvas';
 import { MsgSend } from 'cosmjs-types/cosmos/bank/v1beta1/tx';
 import { Tx } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
@@ -15,27 +14,19 @@ import { fileURLToPath } from 'node:url';
 import {
   CONTRACT_ADDRESS,
   MACHINE_CONFIG,
-  ST_MAXIMUM_TURN_PER_DAY,
+  MAXIMUM_GAME_TURN_PER_DAY,
   STARGAZE_RPC_ENDPOINT,
 } from 'environments/environment';
 
 import { consumeTurn } from '../db/consume-turn';
 import * as dbMachines from '../db/machines';
-import * as dbTurnCount from '../db/st-turn-count';
-import { GAME_FEE, WEB_RUNNER_ADDRESS } from '../lib/constants';
+import * as dbTurnCount from '../db/play-turn-count';
+import { ST_GAME_FEE, WEB_RUNNER_ADDRESS } from '../lib/constants';
 import { checkTokenHolder } from '../lib/helpers';
-import { MachineSetting, MachineStatus, STMachine } from '../lib/types';
+import { MachineStatus, STMachine } from '../lib/types';
 import { logger } from '../utils/logger';
-
-export async function getMachines() {
-  const machines = await dbMachines.getAll();
-
-  return machines.map((machine) => ({ id: machine.id, status: machine.status }));
-}
-
-export function getTurnCount(address: string) {
-  return dbTurnCount.get(address);
-}
+import { getSigningCosmWasmClient, runProbability } from './lucky-gacha.service';
+import { checkStarsAddress } from 'server/middlewares/check-stars-address';
 
 export async function play(machine: STMachine, payFeeTx: Uint8Array) {
   const decodedTx = decodeTx(payFeeTx);
@@ -44,12 +35,14 @@ export async function play(machine: STMachine, payFeeTx: Uint8Array) {
   if (
     msgSend.toAddress !== WEB_RUNNER_ADDRESS ||
     msgSend.amount[0].denom !== 'ustars' ||
-    Number(msgSend.amount[0].amount) < GAME_FEE * 10 ** 6
+    Number(msgSend.amount[0].amount) < ST_GAME_FEE * 10 ** 6
   ) {
     throw createHttpError(402);
   }
 
-  if (msgSend.fromAddress.length !== 44 || !msgSend.fromAddress.startsWith('stars')) {
+  try {
+    checkStarsAddress(msgSend.fromAddress);
+  } catch {
     const txResult = await broadcastTx(payFeeTx);
 
     if (txResult.code === 0) logger.warn(`${msgSend.fromAddress} donate ${msgSend.amount[0].amount}stars`);
@@ -63,7 +56,7 @@ export async function play(machine: STMachine, payFeeTx: Uint8Array) {
 
   const playerTurnCount = await dbTurnCount.get(msgSend.fromAddress);
 
-  if (playerTurnCount >= ST_MAXIMUM_TURN_PER_DAY) throw createHttpError(400, `${msgSend.fromAddress} out of turn`);
+  if (playerTurnCount >= MAXIMUM_GAME_TURN_PER_DAY) throw createHttpError(400, `${msgSend.fromAddress} out of turn`);
 
   const isEligible =
     (await checkTokenHolder(msgSend.fromAddress, [CONTRACT_ADDRESS.C0_SG721])) ||
@@ -83,19 +76,13 @@ export async function play(machine: STMachine, payFeeTx: Uint8Array) {
   }
 
   const client = await getSigningCosmWasmClient();
+  const tokenID = MACHINE_CONFIG[machine].TOKEN_ID_START_FROM + machineSetting.wonPrize;
   const mintMsg: MsgExecuteContractEncodeObject = {
     typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
     value: MsgExecuteContract.fromPartial({
       sender: WEB_RUNNER_ADDRESS,
       contract: CONTRACT_ADDRESS.CERT_MINTER,
-      msg: toUtf8(
-        JSON.stringify({
-          mint_for: {
-            token_id: MACHINE_CONFIG[machine].TOKEN_ID_START_FROM + machineSetting.wonPrize,
-            recipient: msgSend.fromAddress,
-          },
-        })
-      ),
+      msg: toUtf8(JSON.stringify({ mint_for: { recipient: msgSend.fromAddress, token_id: tokenID } })),
     }),
   };
   const txResult = await client.signAndBroadcast(WEB_RUNNER_ADDRESS, [mintMsg], 'auto', 'win lucky gacha');
@@ -105,7 +92,7 @@ export async function play(machine: STMachine, payFeeTx: Uint8Array) {
       500,
       `Cert mint failed.\n` +
         `Address: ${msgSend.fromAddress}.\n` +
-        `Remained prize: ${machineSetting.prizeAllocation[machineSetting.stage]}.\n` +
+        `Token ID: ${tokenID}.\n` +
         `Tx hash: ${txResult.transactionHash}`
     );
   }
@@ -198,22 +185,6 @@ async function broadcastTx(tx: Uint8Array) {
   } catch (err) {
     throw createHttpError(400, (err as UnknownError).toString());
   }
-}
-
-async function getSigningCosmWasmClient() {
-  return SigningCosmWasmClient.connectWithSigner(
-    STARGAZE_RPC_ENDPOINT,
-    await DirectSecp256k1HdWallet.fromMnemonic(process.env['WEB_RUNNER_SEED'] as string, { prefix: 'stars' }),
-    { gasPrice: GasPrice.fromString('1ustars') }
-  );
-}
-
-function runProbability(machineSetting: MachineSetting) {
-  const remainedTurn = machineSetting.remainedTurn[machineSetting.stage];
-  const prizeAllocation = machineSetting.prizeAllocation[machineSetting.stage];
-  const random = Math.random() * (remainedTurn + (remainedTurn - prizeAllocation) / 20);
-
-  return random < prizeAllocation;
 }
 
 async function getOwnerOf(tokenId: string) {

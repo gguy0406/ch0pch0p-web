@@ -16,3 +16,7 @@ export interface MachineSetting {
   remainedTurn: { [k in Stage]: number };
   prizeAllocation: { [k in Stage]: number };
 }
+
+export interface TurnCount {
+  count: number;
+}

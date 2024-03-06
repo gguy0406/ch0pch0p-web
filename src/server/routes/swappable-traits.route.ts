@@ -1,39 +1,15 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { body, matchedData, param } from 'express-validator';
 
-import { Machine } from '../lib/dto-types';
 import { STMachine } from '../lib/types';
 import { checkValidationResult } from '../middlewares/check-validation-result';
-import { getMachines, getTurnCount, play, updateTokenMetadata } from '../services/swappable-traits.service';
+import { play, updateTokenMetadata } from '../services/swappable-traits.service';
+import { SWAPPABLE_TRAITS_ROUTE } from 'lib/constants';
 
 export const router = Router();
 
-router.get('/machines', async (req, res, next) => {
-  try {
-    const machines: Machine[] = await getMachines();
-
-    res.status(200).json(machines);
-  } catch (err) {
-    next(err);
-  }
-});
-
-router.get(
-  '/turn-count/:address',
-  [param('address').trim().escape(), checkValidationResult],
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const turnCount = await getTurnCount(matchedData(req)['address']);
-
-      res.status(200).json(turnCount);
-    } catch (err) {
-      next(err);
-    }
-  }
-);
-
 router.put(
-  '/play/:machine',
+  `${SWAPPABLE_TRAITS_ROUTE.PLAY}/:machine`,
   [
     param('machine').isIn(Object.values(STMachine)),
     body('payFeeTx').isArray(),
@@ -52,7 +28,7 @@ router.put(
 );
 
 router.put(
-  '/level-up/:tokenId',
+  `${SWAPPABLE_TRAITS_ROUTE.LEVEL_UP}}/:tokenId`,
   [
     param('tokenId').toInt().isInt({ min: 1, max: 5000 }),
     body('transferTx').isArray(),

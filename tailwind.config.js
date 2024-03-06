@@ -66,10 +66,10 @@ module.exports = {
         toxic: linearGradientFactory(caribbeanGreen, rosePink),
       },
       borderRadius: {
-        2.5: '10px',
-        5: '20px',
-        7.5: '30px',
-        10: '40px',
+        '2lg': '0.625rem',
+        '2xxl': '1.25rem',
+        '3xxl': '1.875rem',
+        '5xl': '2.5rem',
       },
       colors: {
         amber: amber,

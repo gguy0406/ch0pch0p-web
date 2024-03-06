@@ -1,19 +1,21 @@
 import { FieldValue, Firestore, Timestamp, getFirestore } from 'firebase-admin/firestore';
 
+import { FIRESTORE_DATABASE } from 'environments/environment';
+
 import { COLLECTION } from '../lib/constants';
-import { MachineSetting, MachineStatus, STMachine } from '../lib/types';
+import { MachineSetting, MachineStatus, NPMachine, STMachine } from '../lib/types';
 
 let db: Firestore;
 
-setImmediate(() => (db = getFirestore()));
+setImmediate(() => (db = getFirestore(FIRESTORE_DATABASE)));
 
 export async function consumeTurn(
-  machine: { name: STMachine; data: MachineSetting },
+  machine: { name: STMachine | NPMachine; data: MachineSetting },
   playerAddress: string,
   winThePrize?: boolean
 ) {
-  const machineRef = db.collection(COLLECTION.MACHINES_STATE).doc(machine.name);
-  const turnCountRef = db.collection(COLLECTION.ST_TURN_COUNT).doc(playerAddress);
+  const machineRef = db.collection(COLLECTION.MACHINES).doc(machine.name);
+  const turnCountRef = db.collection(COLLECTION.PLAY_TURN_COUNT).doc(playerAddress);
   const batch = db.batch();
   const maxStage = Math.max(...Object.keys(machine.data.remainedTurn).map((key) => Number(key)));
   const machineUpdateData = {

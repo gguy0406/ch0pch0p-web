@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import { cert, initializeApp } from 'firebase-admin/app';
 import { Timestamp, getFirestore } from 'firebase-admin/firestore';
 
-import { MACHINE_CONFIG } from 'environments/environment.development';
+import { FIRESTORE_DATABASE, MACHINE_CONFIG } from 'environments/environment.production';
 import { MachineStatus, STMachine } from 'lib/types';
 import { COLLECTION } from 'server/lib/constants';
 import { MachineSetting } from 'server/lib/types';
@@ -57,8 +57,8 @@ serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/gm, '\n');
 initializeApp({ credential: cert(serviceAccount) });
 
 (async () => {
-  const db = getFirestore();
-  const docRef = db.collection(COLLECTION.MACHINES_STATE).doc(machine);
+  const db = getFirestore(FIRESTORE_DATABASE);
+  const docRef = db.collection(COLLECTION.MACHINES).doc(machine);
   const docSnap = await docRef.get();
 
   if (docSnap.exists) {
@@ -66,5 +66,5 @@ initializeApp({ credential: cert(serviceAccount) });
     return;
   }
 
-  await getFirestore().collection(COLLECTION.MACHINES_STATE).doc(machine).set(setting);
+  await getFirestore(FIRESTORE_DATABASE).collection(COLLECTION.MACHINES).doc(machine).set(setting);
 })();

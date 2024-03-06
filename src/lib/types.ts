@@ -2,6 +2,10 @@ export enum STMachine {
   CH0PCH0P = 'ch0pch0p',
 }
 
+export enum NPMachine {
+  CNC = 'cosmos-nft-conference',
+}
+
 export enum MachineStatus {
   COMING_SOON,
   AVAILABLE,

@@ -1,11 +1,13 @@
 import { CollectionReference, Firestore, Timestamp, getFirestore } from 'firebase-admin/firestore';
 
+import { FIRESTORE_DATABASE } from 'environments/environment';
+
 import { COLLECTION } from '../lib/constants';
 import { EventRegister } from '../lib/types';
 
 let db: Firestore;
 
-setImmediate(() => (db = getFirestore()));
+setImmediate(() => (db = getFirestore(FIRESTORE_DATABASE)));
 
 export function saveRegisterForm(eventRegister: EventRegister) {
   const today = new Date();

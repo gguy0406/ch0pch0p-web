@@ -1,3 +1,3 @@
-import { MachineStatus, STMachine } from './types';
+import { MachineStatus, NPMachine, STMachine } from './types';
 
-export type Machine = { id: STMachine; status: MachineStatus };
+export type Machine = { id: STMachine | NPMachine; status: MachineStatus };

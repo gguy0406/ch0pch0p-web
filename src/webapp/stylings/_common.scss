@@ -62,9 +62,9 @@
   font-family: variables.$headline-font;
   font-weight: 600;
   line-height: normal;
-  background-clip: text;
   -webkit-background-clip: text; /* stylelint-disable-line property-no-vendor-prefix */
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .border-3px-white {

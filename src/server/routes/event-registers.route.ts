@@ -7,12 +7,12 @@ import { register } from '../services/event-registers.service';
 
 export const router = Router();
 
-const normalStringValidation = (chain: ValidationChain) => chain.isString().isLength({ max: 255 });
+const normalStringValidation = (chain: ValidationChain) => chain.trim().escape().isString().isLength({ max: 255 });
 
 router.post(
-  '/register',
+  '/',
   [
-    body('email').isEmail().isLength({ max: 255 }),
+    body('email').trim().escape().isEmail().isLength({ max: 255 }),
     body('ticket')
       .isIn(Object.values(Ticket))
       .customSanitizer((value) => Ticket[value]),
