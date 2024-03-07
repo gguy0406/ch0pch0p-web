@@ -22,9 +22,9 @@ export class PageLayoutComponent {
   ) {
     this._router.events
       .pipe(
-        takeUntilDestroyed(),
         filter((event) => event instanceof NavigationEnd),
-        mergeMap(() => (this._activatedRoute.firstChild || this._activatedRoute).data)
+        mergeMap(() => (this._activatedRoute.firstChild || this._activatedRoute).data),
+        takeUntilDestroyed()
       )
       .subscribe((data) => this.usePageMargin.set(!!data['usePageMargin']));
   }

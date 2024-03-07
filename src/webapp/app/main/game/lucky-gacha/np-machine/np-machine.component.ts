@@ -1,8 +1,10 @@
-import { NgTemplateOutlet } from '@angular/common';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { NgOptimizedImage, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  HostBinding,
   Signal,
   WritableSignal,
   computed,
@@ -11,9 +13,12 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
-import { finalize } from 'rxjs/operators';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { RouterModule } from '@angular/router';
+import { of } from 'rxjs';
+import { filter, finalize, mergeMap } from 'rxjs/operators';
 
-import { EVENT_ATTENDANCE_ADDRESSES } from 'environments/environment';
+import { EVENT_ATTENDANCE_ADDRESSES, MAXIMUM_GAME_TURN_PER_DAY } from 'environments/environment';
 
 import { LuckyGachaService } from '@services/lucky-gacha.service';
 import { WalletService } from '@services/wallet.service';
@@ -25,21 +30,31 @@ import { NftPoolService } from './nft-pool.service';
   styleUrl: './np-machine.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatButtonModule, NgTemplateOutlet],
+  imports: [
+    ClipboardModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    RouterModule,
+    NgOptimizedImage,
+    NgTemplateOutlet,
+  ],
   providers: [NftPoolService],
 })
 export class NPMachineComponent {
-  protected prizeLeft: number | undefined;
+  @HostBinding('style.background') get background() {
+    return `url('/assets/game/cnc/${this.raffleResult() ? 'bg-result.png' : 'bg-cnc.png'}') center / cover`;
+  }
+
+  protected readonly MAXIMUM_GAME_TURN_PER_DAY = MAXIMUM_GAME_TURN_PER_DAY;
   protected turnCount: WritableSignal<number> = signal(0);
   protected isRaffling: WritableSignal<boolean> = signal(false);
-  protected raffleResult: WritableSignal<
-    { name: string; imgSrc: string; txHash: string } | { imgSrc: string } | undefined
-  > = signal(undefined);
+  protected raffleResult: WritableSignal<{ name: string; imgSrc: string; txHash: string } | undefined> =
+    signal(undefined);
   protected cannotPlay: Signal<boolean> = computed(
     () =>
-      !!this.walletService.key() &&
-      !EVENT_ATTENDANCE_ADDRESSES.includes(this.walletService.key()!.bech32Address) &&
-      !this.isRaffling()
+      (!!this.walletService.key() && !EVENT_ATTENDANCE_ADDRESSES.includes(this.walletService.key()!.bech32Address)) ||
+      this.turnCount() >= MAXIMUM_GAME_TURN_PER_DAY ||
+      this.isRaffling()
   );
 
   constructor(
@@ -64,16 +79,30 @@ export class NPMachineComponent {
     this._nftPoolService
       .play(this.walletService.key()!.bech32Address)
       .pipe(
-        takeUntilDestroyed(this._destroyRef),
-        finalize(() => this.isRaffling.set(false))
-      )
-      .subscribe((prize) => {
-        if (prize) {
-          // this.raffleResult.set({});
-          return;
-        }
+        filter((prize) => {
+          !prize && this.showUniverseMessage();
 
-        // this.raffleResult.set({});
+          return !!prize;
+        }),
+        mergeMap((prize) => this._nftPoolService.getTokenInfo(prize!.contract, prize!.tokenId, prize!.txHash)),
+        finalize(() => this.isRaffling.set(false)),
+        takeUntilDestroyed(this._destroyRef)
+      )
+      .subscribe({
+        next: (result) => {
+          this.raffleResult.set({
+            name: result.token.name,
+            imgSrc: result.token.media.visualAssets.lg.url,
+            txHash: result.txHash,
+          });
+        },
+        error: () => this.showUniverseMessage(),
       });
+  }
+
+  private showUniverseMessage() {
+    const messageNo = Math.ceil(Math.random() * 42) || 1;
+
+    this.raffleResult.set({ imgSrc: `assets/game/cnc/msg-${messageNo}.png`, name: '', txHash: '' });
   }
 }

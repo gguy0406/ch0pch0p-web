@@ -1,25 +1,68 @@
-<div class="flex flex-col items-center">
-  <div class="section-heading section-heading--soar-right bg-purple">lucky you</div>
-  <div class="section-label mt-2.5 w-min bg-budd text-nowrap text-[100px]">NFT Gacha</div>
-  <div class="mt-10 font-bold text-center text-3xl">
-    <p>Pixel Wizards</p>
-    <p>Hitobito</p>
-    <p>Bad Pets</p>
-    <p>Proto Towers</p>
-    <p>Shrimp Club</p>
-    <p>8-Bit Cities</p>
-    <p>ZomBs</p>
-    <p>ch0pch0p</p>
+@if (!raffleResult()) {
+  <div class="flex flex-col items-center">
+    <div class="section-heading section-heading--soar-right bg-rich-electric-pink">lucky you</div>
+    <div class="section-label mt-2.5 w-min bg-budd text-nowrap text-[100px]">NFT Gacha</div>
+    <div class="mt-10 font-bold text-center text-3xl">
+      <p>Pixel Wizards</p>
+      <p>Hitobito</p>
+      <p>Bad Pets</p>
+      <p>Proto Towers</p>
+      <p>Shrimp Club</p>
+      <p>8-Bit Cities</p>
+      <p>ZomBs</p>
+      <p>ch0pch0p</p>
+    </div>
   </div>
-</div>
-<div class="relative">
-  <img [src]="'assets/game/cnc/cnc-machine.png'" width="356" height="700" alt="gacha machine" />
-  <button
-    mat-button
-    [disabled]="cannotPlay()"
-    (click)="walletService.key() ? play() : walletService.connectWallet()"
-    class="!absolute top-[54.5%] left-[29%] right-[28.5%] !rounded-full !h-[148px] !text-3xl !font-bold !text-black"
-  >
-    {{ walletService.key() ? 'play' : 'connect wallet' }}
-  </button>
-</div>
+  <div class="relative">
+    <img [src]="'assets/game/cnc/cnc-machine.png'" width="356" height="700" alt="gacha machine" />
+    <button
+      mat-button
+      [disabled]="cannotPlay()"
+      (click)="walletService.key() ? play() : walletService.connectWallet()"
+      class="!absolute top-[54.5%] left-[29%] right-[28.5%] !rounded-full !h-[148px] !text-3xl !font-bold"
+      [class.!text-black]="!cannotPlay()"
+    >
+      @if (isRaffling()) {
+        <mat-spinner />
+      } @else {
+        {{ walletService.key() ? 'play' : 'connect wallet' }}
+      }
+    </button>
+  </div>
+} @else {
+  <div class="flex flex-col items-center">
+    @if (raffleResult()!.txHash) {
+      <div class="section-heading section-heading--soar-right bg-rich-electric-pink">wow...</div>
+      <div class="section-label mt-2.5 w-min bg-budd text-nowrap text-[100px]">Congratulation!!!</div>
+      <div class="mt-10 font-bold text-center text-xl">You win a {{ raffleResult()!.name }}</div>
+      <div class="mt-2 flex items-center gap-x-2">
+        <span>We sent it to your wallet. Tx Hash: {{ raffleResult()!.txHash }}</span>
+        <button mat-button [cdkCopyToClipboard]="raffleResult()!.txHash">
+          <img ngSrc="assets/icon/copy.svg" width="32" height="32" alt="copy" />
+        </button>
+      </div>
+      <div class="mt-10 rounded-2xxl border-3px-white w-[320px] aspect-square overflow-hidden">
+        <img fill [ngSrc]="raffleResult()!.imgSrc" alt="NFT image" />
+      </div>
+    } @else {
+      <div class="section-heading section-heading--soar-right bg-rich-electric-pink">hey yo...</div>
+      <div class="section-label mt-2.5 w-min bg-budd text-nowrap text-[100px]">Surprised!</div>
+      <div class="mt-10 font-bold text-center text-xl">You receive a message from your higher-self!</div>
+      <img [ngSrc]="raffleResult()!.imgSrc" width="320" height="400" alt="universe message" class="mt-10" />
+    }
+    <div class="mt-10 flex gap-x-15">
+      @if (turnCount() < MAXIMUM_GAME_TURN_PER_DAY) {
+        <button
+          mat-button
+          (click)="raffleResult.set(undefined)"
+          class="!rounded-full !bg-lime !py-11 !px-6 !font-bold !text-black !text-xl"
+        >
+          try my luck again
+        </button>
+      }
+      <a mat-button routerLink="/" class="!rounded-full !bg-orange !py-11 !px-6 !font-bold !text-black !text-xl">
+        back to homepage
+      </a>
+    </div>
+  </div>
+}

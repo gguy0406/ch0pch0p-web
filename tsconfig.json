@@ -2,13 +2,14 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
     "declaration": false,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "lib": ["ES2022", "dom"],
+    "lib": ["ES2022", "dom", "esnext.asynciterable"],
     "module": "ES2022",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,

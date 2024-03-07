@@ -11,6 +11,7 @@ import { ApiBaseUrlInterceptor } from './interceptors/api-base-url.interceptor';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { TemplatePageTitleStrategy } from './services/title-strategy.service';
 import { routes } from './app.routes';
+import { graphqlProvider } from './graphql.provider';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -41,5 +42,6 @@ export const appConfig: ApplicationConfig = {
     ),
     importProvidersFrom(provideAnalytics(() => getAnalytics())),
     ScreenTrackingService,
+    graphqlProvider,
   ],
 };
