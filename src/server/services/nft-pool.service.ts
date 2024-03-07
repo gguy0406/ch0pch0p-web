@@ -3,27 +3,28 @@ import { toUtf8 } from '@cosmjs/encoding';
 import { MsgExecuteContract } from 'cosmjs-types/cosmwasm/wasm/v1/tx';
 import createHttpError from 'http-errors';
 
-import { MAXIMUM_GAME_TURN_PER_DAY } from 'environments/environment';
+import { EVENT_ATTENDANCE_ADDRESSES, MAXIMUM_GAME_TURN_PER_DAY, NFT_POOL } from 'environments/environment';
 
 import { consumeTurn } from '../db/consume-turn';
 import * as dbMachines from '../db/machines';
 import * as dbTurnCount from '../db/play-turn-count';
-import { EVENT_ATTENDANCE_ADDRESSES, NFT_POOL, WEB_RUNNER_ADDRESS } from '../lib/constants';
+import { WEB_RUNNER_ADDRESS } from '../lib/constants';
 import { MachineStatus, NPMachine } from '../lib/types';
 import { getSigningCosmWasmClient, runProbability } from './lucky-gacha.service';
 
 export async function play(address: string) {
+  const isEligible = EVENT_ATTENDANCE_ADDRESSES.includes(address);
+
+  if (!isEligible) throw createHttpError(403, `${address} is not eligible`);
+
   const machineSetting = await dbMachines.get(NPMachine.CNC);
 
   if (machineSetting.status !== MachineStatus.AVAILABLE) throw createHttpError(400, 'Machine is not available');
 
   const playerTurnCount = await dbTurnCount.get(address);
 
-  if (playerTurnCount >= MAXIMUM_GAME_TURN_PER_DAY) throw createHttpError(400, `${address} out of turn`);
-
-  const isEligible = EVENT_ATTENDANCE_ADDRESSES.includes(address);
-
-  if (!isEligible) throw createHttpError(403, `${address} is not eligible`);
+  if (MAXIMUM_GAME_TURN_PER_DAY - playerTurnCount >= MAXIMUM_GAME_TURN_PER_DAY)
+    throw createHttpError(400, `${address} out of turn`);
 
   const winThePrize = runProbability(machineSetting);
 

@@ -22,5 +22,3 @@ export const SWAPPABLE_TRAITS_ROUTE = {
   PLAY: '/play',
   LEVEL_UP: '/level-up',
 } as const;
-
-export const EVENT_ATTENDANCE_ADDRESSES: readonly string[] = [] as const;

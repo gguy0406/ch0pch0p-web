@@ -1,11 +1,11 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, WritableSignal, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 
-import { MachineStatus, STMachine } from '@lib/types';
-import { LuckyGachaService } from '@services/lucky-gacha.service';
+import { MachineStatus, NPMachine, STMachine } from '@lib/types';
+import { LuckyGachaService, MachineMap } from '@services/lucky-gacha.service';
 
 @Component({
   templateUrl: './lucky-gacha.component.html',
@@ -16,7 +16,9 @@ import { LuckyGachaService } from '@services/lucky-gacha.service';
 })
 export class LuckyGachaComponent implements OnInit {
   protected readonly MACHINE_STATUS = MachineStatus;
+  protected readonly NP_MACHINE = NPMachine;
   protected readonly ST_MACHINE = STMachine;
+  protected machines: WritableSignal<MachineMap | undefined> = signal(undefined);
 
   constructor(
     protected luckGachaService: LuckyGachaService,
@@ -24,7 +26,9 @@ export class LuckyGachaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    !this.luckGachaService.machines() &&
-      this.luckGachaService.getMachinesStatus().pipe(takeUntilDestroyed(this._destroyRef)).subscribe();
+    this.luckGachaService
+      .getMachinesStatus()
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe((machines) => this.machines.set(machines));
   }
 }

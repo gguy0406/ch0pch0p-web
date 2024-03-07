@@ -5,5 +5,3 @@ export const COLLECTION = {
   MACHINES: 'machines',
   PLAY_TURN_COUNT: 'play-turn-count',
 } as const;
-
-export const NFT_POOL: readonly { readonly contract: string; readonly tokenId: string }[] = [] as const;

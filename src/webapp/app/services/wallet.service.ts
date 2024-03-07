@@ -11,6 +11,10 @@ export class WalletService {
   isActive: WritableSignal<boolean> = signal(false);
   key: WritableSignal<Key | undefined> = signal(undefined);
 
+  get offlineSigner() {
+    return this.keplr?.getOfflineSigner(STARGAZE_CHAIN_ID);
+  }
+
   protected keplr?: Keplr;
 
   constructor(private _snackBar: MatSnackBar) {}

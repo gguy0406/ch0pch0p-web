@@ -1,6 +1,6 @@
 <app-sticky-nav />
 
-<div class="page-margin pb-15 tablet:pb-40">
+<div class="overflow-x-auto" [class]="usePageMargin() ? 'page-margin pb-15 tablet:pb-40' : ''">
   <router-outlet />
 </div>
 

@@ -1,0 +1,24 @@
+<div class="flex flex-col items-center">
+  <div class="section-heading section-heading--soar-right bg-purple">lucky you</div>
+  <div class="section-label mt-2.5 w-min bg-budd text-nowrap text-[100px]">NFT Gacha</div>
+  <div class="mt-10 font-bold text-center text-3xl">
+    <p>Pixel Wizards</p>
+    <p>Hitobito</p>
+    <p>Bad Pets</p>
+    <p>Proto Towers</p>
+    <p>Shrimp Club</p>
+    <p>8-Bit Cities</p>
+    <p>ZomBs</p>
+    <p>ch0pch0p</p>
+  </div>
+</div>
+<div class="relative">
+  <img [src]="'assets/game/cnc/cnc-machine.png'" width="356" height="700" alt="gacha machine" />
+  <button
+    mat-button
+    (click)="walletService.key() ? play() : walletService.connectWallet()"
+    class="!absolute top-[54.5%] left-[29%] right-[28.5%] !rounded-full !h-[148px] !text-3xl !font-bold !text-black"
+  >
+    {{ walletService.key() ? 'play' : 'connect wallet' }}
+  </button>
+</div>

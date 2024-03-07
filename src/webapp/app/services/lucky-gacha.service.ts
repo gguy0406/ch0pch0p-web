@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, WritableSignal, signal } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { map, tap } from 'rxjs/operators';
 
+import { API_ROUTE, LUCKY_GACHA_ROUTE } from '@lib/constants';
 import { Machine } from '@lib/dto-types';
 import { NPMachine, STMachine } from '@lib/types';
-import { API_ROUTE, LUCKY_GACHA_ROUTE } from 'lib/constants';
 
 export { Machine } from '@lib/dto-types';
 
@@ -12,7 +12,7 @@ export type MachineMap = Record<STMachine | NPMachine, Machine>;
 
 @Injectable({ providedIn: 'root' })
 export class LuckyGachaService {
-  machines: WritableSignal<MachineMap | undefined> = signal(undefined);
+  machines?: MachineMap;
 
   private _baseUrl = API_ROUTE.LUCKY_GACHA;
 
@@ -20,15 +20,14 @@ export class LuckyGachaService {
 
   getMachinesStatus() {
     return this._httpClient.get<Machine[]>(`${this._baseUrl}${LUCKY_GACHA_ROUTE.MACHINES}`).pipe(
-      tap((machines) =>
-        this.machines.set(
-          machines.reduce((map, machine) => {
-            map![machine.id] = machine;
+      map((machines) =>
+        machines.reduce((map, machine) => {
+          map![machine.id] = machine;
 
-            return map;
-          }, {} as MachineMap)
-        )
-      )
+          return map;
+        }, {} as MachineMap)
+      ),
+      tap((machines) => (this.machines = machines))
     );
   }
 }

@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, WritableSignal, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter, mergeMap } from 'rxjs/operators';
 
 import { FooterComponent } from '../footer';
 import { StickyNavComponent } from '../sticky-nav';
@@ -11,4 +13,19 @@ import { StickyNavComponent } from '../sticky-nav';
   standalone: true,
   imports: [RouterOutlet, FooterComponent, StickyNavComponent],
 })
-export class PageLayoutComponent {}
+export class PageLayoutComponent {
+  protected usePageMargin: WritableSignal<boolean> = signal(false);
+
+  constructor(
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
+  ) {
+    this._router.events
+      .pipe(
+        takeUntilDestroyed(),
+        filter((event) => event instanceof NavigationEnd),
+        mergeMap(() => (this._activatedRoute.firstChild || this._activatedRoute).data)
+      )
+      .subscribe((data) => this.usePageMargin.set(!!data['usePageMargin']));
+  }
+}

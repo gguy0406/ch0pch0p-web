@@ -1,17 +1,17 @@
-<div class="mt-20 section-heading section-heading--soar-right bg-rich-electric-pink">Lucky you!</div>
-<div class="section-label mt-6 bg-budd text-6xl tablet:mt-8 tablet:text-[100px]">Ch0p My S0ul</div>
+<div class="mt-10 section-heading section-heading--soar-right bg-rich-electric-pink">Lucky you!</div>
+<div class="section-label mt-2.5 bg-budd text-[100px]">Ch0p My S0ul</div>
 <div class="mt-10 flex items-center">
   <img src="assets/app/info.png" alt="game info" />
   <span class="ml-3 text-2xl">How to play</span>
 </div>
-<div class="mt-20 h-[576px] flex justify-center items-end gap-x-44">
+<div class="mt-10 h-[576px] flex justify-center items-end gap-x-44">
   <ng-template #machine let-machine="machine" let-status="status">
     <div class="relative">
       <img
         [src]="'assets/game/' + machine + '-' + (status || MACHINE_STATUS.COMING_SOON) + '.png'"
         width="340"
         height="600"
-        [alt]="machine + 'machine'"
+        [alt]="machine + ' machine'"
       />
       @if (status === MACHINE_STATUS.AVAILABLE) {
         <a
@@ -29,8 +29,17 @@
     *ngTemplateOutlet="
       machine;
       context: {
+        machine: NP_MACHINE.CNC,
+        status: machines()?.[NP_MACHINE.CNC]?.status
+      }
+    "
+  />
+  <ng-container
+    *ngTemplateOutlet="
+      machine;
+      context: {
         machine: ST_MACHINE.CH0PCH0P,
-        status: luckGachaService.machines()?.[ST_MACHINE.CH0PCH0P]?.status
+        status: machines()?.[ST_MACHINE.CH0PCH0P]?.status
       }
     "
   />

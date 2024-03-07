@@ -12,9 +12,9 @@ export interface MachineSetting {
   totalTurn: number;
   stage: Stage;
   stageStartDate: Timestamp;
-  stageDuration: { [k in Stage]: number };
-  remainedTurn: { [k in Stage]: number };
-  prizeAllocation: { [k in Stage]: number };
+  stageDuration: { [k in Stage]?: number };
+  remainedTurn: { [k in Stage]?: number };
+  prizeAllocation: { [k in Stage]?: number };
 }
 
 export interface TurnCount {

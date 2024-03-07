@@ -39,7 +39,7 @@ export async function consumeTurn(
   };
 
   batch.update(machineRef, machineUpdateData);
-  batch.update(turnCountRef, { count: FieldValue.increment(1) });
+  batch.set(turnCountRef, { count: FieldValue.increment(1) });
 
   return batch.commit();
 }

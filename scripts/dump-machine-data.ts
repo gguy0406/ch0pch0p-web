@@ -2,12 +2,13 @@ import dotenv from 'dotenv';
 import { cert, initializeApp } from 'firebase-admin/app';
 import { Timestamp, getFirestore } from 'firebase-admin/firestore';
 
-import { FIRESTORE_DATABASE, MACHINE_CONFIG } from 'environments/environment.production';
-import { MachineStatus, STMachine } from 'lib/types';
+import { FIRESTORE_DATABASE, MACHINE_CONFIG } from 'environments/environment';
+import { MachineStatus, NPMachine, STMachine } from 'lib/types';
 import { COLLECTION } from 'server/lib/constants';
 import { MachineSetting } from 'server/lib/types';
 
-const machine = STMachine[process.argv[2] as keyof typeof STMachine];
+const machine =
+  STMachine[process.argv[2] as keyof typeof STMachine] || NPMachine[process.argv[2] as keyof typeof NPMachine];
 let errMsg: string;
 
 if (!process.argv[2]) errMsg = 'Must provide machine name';
@@ -19,7 +20,10 @@ if (errMsg!) {
 
 dotenv.config();
 
-const machineConfig: Record<STMachine, Pick<MachineSetting, 'stageDuration' | 'remainedTurn' | 'prizeAllocation'>> = {
+const machineConfig: Record<
+  STMachine | NPMachine,
+  Pick<MachineSetting, 'stageDuration' | 'remainedTurn' | 'prizeAllocation'>
+> = {
   [STMachine.CH0PCH0P]: {
     stageDuration: {
       1: 86400000,
@@ -38,6 +42,23 @@ const machineConfig: Record<STMachine, Pick<MachineSetting, 'stageDuration' | 'r
       2: 3,
       3: 3,
       4: 10,
+    },
+  },
+  [NPMachine.CNC]: {
+    stageDuration: {
+      1: 86400000,
+      2: 86400000,
+      3: 86400000,
+    },
+    remainedTurn: {
+      1: 200,
+      2: 200,
+      3: 200,
+    },
+    prizeAllocation: {
+      1: 12,
+      2: 12,
+      3: 16,
     },
   },
 };
