@@ -1,6 +1,6 @@
 import { CollectionReference, Firestore, getFirestore } from 'firebase-admin/firestore';
 
-import { FIRESTORE_DATABASE, MAXIMUM_GAME_TURN_PER_DAY } from 'environments/environment';
+import { FIRESTORE_DATABASE } from 'environments/environment';
 
 import { COLLECTION } from '../lib/constants';
 import { TurnCount } from '../lib/types';
@@ -16,5 +16,5 @@ setImmediate(() => {
 export async function get(address: string): Promise<number> {
   const docSnap = await collectionRef.doc(address).get();
 
-  return (docSnap.exists ? (docSnap.data() as TurnCount)?.count : null) ?? MAXIMUM_GAME_TURN_PER_DAY;
+  return (docSnap.exists ? (docSnap.data() as TurnCount)?.count : null) ?? 0;
 }

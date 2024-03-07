@@ -1,4 +1,4 @@
-import { NPMachine, STMachine } from '@lib/types';
+import { NPMachine, STMachine } from '../lib/types';
 
 export const API_BASE_URL = 'https://ch0pch0p.com/api';
 export const FIRESTORE_DATABASE = '(default)';

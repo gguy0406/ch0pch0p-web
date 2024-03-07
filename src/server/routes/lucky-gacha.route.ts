@@ -3,9 +3,9 @@ import { matchedData, param } from 'express-validator';
 
 import { LUCKY_GACHA_ROUTE } from '../lib/constants';
 import { Machine } from '../lib/dto-types';
+import { checkStarsAddress } from '../middlewares/check-stars-address';
 import { checkValidationResult } from '../middlewares/check-validation-result';
 import { getMachines, getTurnCount } from '../services/lucky-gacha.service';
-import { checkStarsAddress } from 'server/middlewares/check-stars-address';
 
 export const router = Router();
 

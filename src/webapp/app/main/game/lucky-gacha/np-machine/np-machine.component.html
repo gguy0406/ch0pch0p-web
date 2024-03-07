@@ -16,6 +16,7 @@
   <img [src]="'assets/game/cnc/cnc-machine.png'" width="356" height="700" alt="gacha machine" />
   <button
     mat-button
+    [disabled]="cannotPlay()"
     (click)="walletService.key() ? play() : walletService.connectWallet()"
     class="!absolute top-[54.5%] left-[29%] right-[28.5%] !rounded-full !h-[148px] !text-3xl !font-bold !text-black"
   >

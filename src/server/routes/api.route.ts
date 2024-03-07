@@ -4,12 +4,12 @@ import morgan from 'morgan';
 
 import { IS_PRODUCTION } from 'environments/environment';
 
+import { API_ROUTE } from '../lib/constants';
 import { logger } from '../utils/logger';
 import { router as eventRegisterRouter } from './event-registers.route';
 import { router as luckyGachaRouter } from './lucky-gacha.route';
 import { router as nftPoolRouter } from './nft-pool.route';
 import { router as swappableTraitsRouter } from './swappable-traits.route';
-import { API_ROUTE } from 'lib/constants';
 
 export const apiRouter = Router();
 

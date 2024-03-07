@@ -1,6 +1,5 @@
 export const WEB_RUNNER_ADDRESS = 'stars1vka2ttgakm65av7kqt9ecwh3eeswz9avca853q';
 export const ST_GAME_FEE = 10;
-export const NP_GAME_FEE = 0;
 
 export const API_ROUTE = {
   EVENT_REGISTERS: '/event-registers',

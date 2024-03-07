@@ -23,8 +23,7 @@ export async function play(address: string) {
 
   const playerTurnCount = await dbTurnCount.get(address);
 
-  if (MAXIMUM_GAME_TURN_PER_DAY - playerTurnCount >= MAXIMUM_GAME_TURN_PER_DAY)
-    throw createHttpError(400, `${address} out of turn`);
+  if (playerTurnCount >= MAXIMUM_GAME_TURN_PER_DAY) throw createHttpError(400, `${address} out of turn`);
 
   const winThePrize = runProbability(machineSetting);
 
@@ -56,5 +55,5 @@ export async function play(address: string) {
   }
 
   await consumeTurn({ name: NPMachine.CNC, data: machineSetting }, address, true);
-  return txResult.transactionHash;
+  return { contract: nft.contract, tokenId: nft.tokenId, txHash: txResult.transactionHash };
 }

@@ -24,9 +24,9 @@ import * as dbTurnCount from '../db/play-turn-count';
 import { ST_GAME_FEE, WEB_RUNNER_ADDRESS } from '../lib/constants';
 import { checkTokenHolder } from '../lib/helpers';
 import { MachineStatus, STMachine } from '../lib/types';
+import { checkStarsAddress } from '../middlewares/check-stars-address';
 import { logger } from '../utils/logger';
 import { getSigningCosmWasmClient, runProbability } from './lucky-gacha.service';
-import { checkStarsAddress } from 'server/middlewares/check-stars-address';
 
 export async function play(machine: STMachine, payFeeTx: Uint8Array) {
   const decodedTx = decodeTx(payFeeTx);

@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { API_ROUTE, NFT_POOL_ROUTE } from 'lib/constants';
+import { API_ROUTE, NFT_POOL_ROUTE } from '@lib/constants';
+import { GachaPrize } from '@lib/dto-types';
 
 @Injectable()
 export class NftPoolService {
@@ -10,6 +11,6 @@ export class NftPoolService {
   constructor(private readonly _httpClient: HttpClient) {}
 
   play(address: string) {
-    return this._httpClient.put<void>(`${this._baseUrl}${NFT_POOL_ROUTE.PLAY}/${address}`, {});
+    return this._httpClient.put<GachaPrize>(`${this._baseUrl}${NFT_POOL_ROUTE.PLAY}/${address}`, {});
   }
 }

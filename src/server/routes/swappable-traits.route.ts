@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { body, matchedData, param } from 'express-validator';
 
+import { SWAPPABLE_TRAITS_ROUTE } from '../lib/constants';
 import { STMachine } from '../lib/types';
 import { checkValidationResult } from '../middlewares/check-validation-result';
 import { play, updateTokenMetadata } from '../services/swappable-traits.service';
-import { SWAPPABLE_TRAITS_ROUTE } from 'lib/constants';
 
 export const router = Router();
 

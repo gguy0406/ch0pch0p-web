@@ -30,4 +30,8 @@ export class LuckyGachaService {
       tap((machines) => (this.machines = machines))
     );
   }
+
+  getTurnCount(address: string) {
+    return this._httpClient.get<number>(`${this._baseUrl}${LUCKY_GACHA_ROUTE.TURN_COUNT}/${address}`);
+  }
 }

@@ -1,4 +1,4 @@
-import { NPMachine, STMachine } from '@lib/types';
+import { NPMachine, STMachine } from '../lib/types';
 
 export const API_BASE_URL = 'http://localhost:4000/api';
 export const FIRESTORE_DATABASE = 'test';
