@@ -10,6 +10,7 @@ import * as dbMachines from '../db/machines';
 import * as dbTurnCount from '../db/play-turn-count';
 import { WEB_RUNNER_ADDRESS } from '../lib/constants';
 import { MachineStatus, NPMachine } from '../lib/types';
+import { sendMessageToDiscord } from '../utils/msg-discord';
 import { getSigningCosmWasmClient, runProbability } from './lucky-gacha.service';
 
 export async function play(address: string) {
@@ -45,15 +46,23 @@ export async function play(address: string) {
   const txResult = await client.signAndBroadcast(WEB_RUNNER_ADDRESS, [transferMsg], 'auto', 'win lucky gacha');
 
   if (txResult.code !== 0) {
-    throw createHttpError(
-      500,
-      `Transfer NFT failed.\n` +
-        `Address: ${address}.\n` +
-        `Prize: ${nft.contract} - ${nft.tokenId}.\n` +
-        `Tx hash: ${txResult.transactionHash}`
-    );
+    const errMsg =
+      `Transfer NFT failed\n` +
+      `Address: ${address}\n` +
+      `Prize: ${nft.contract} - ${nft.tokenId}\n` +
+      `Tx hash: ${txResult.transactionHash}`;
+    sendMessageToDiscord(errMsg);
+    throw createHttpError(500, errMsg);
   }
 
   await consumeTurn({ name: NPMachine.CNC, data: machineSetting }, address, true);
+
+  sendMessageToDiscord(
+    `Prize won No. ${machineSetting.wonPrize + 1}\n` +
+      `Address: ${address}\n` +
+      `Prize: ${nft.contract} - ${nft.tokenId}\n` +
+      `Tx hash: ${txResult.transactionHash}`
+  );
+
   return { contract: nft.contract, tokenId: nft.tokenId, txHash: txResult.transactionHash };
 }

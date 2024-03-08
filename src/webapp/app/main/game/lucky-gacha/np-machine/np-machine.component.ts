@@ -15,7 +15,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
-import { of } from 'rxjs';
 import { filter, finalize, mergeMap } from 'rxjs/operators';
 
 import { EVENT_ATTENDANCE_ADDRESSES, MAXIMUM_GAME_TURN_PER_DAY } from 'environments/environment';
@@ -48,8 +47,9 @@ export class NPMachineComponent {
   protected readonly MAXIMUM_GAME_TURN_PER_DAY = MAXIMUM_GAME_TURN_PER_DAY;
   protected turnCount: WritableSignal<number> = signal(0);
   protected isRaffling: WritableSignal<boolean> = signal(false);
-  protected raffleResult: WritableSignal<{ name: string; imgSrc: string; txHash: string } | undefined> =
-    signal(undefined);
+  protected raffleResult: WritableSignal<
+    { name: string; imgType: 'image' | 'animated_image'; imgSrc: string; txHash: string } | undefined
+  > = signal(undefined);
   protected cannotPlay: Signal<boolean> = computed(
     () =>
       (!!this.walletService.key() && !EVENT_ATTENDANCE_ADDRESSES.includes(this.walletService.key()!.bech32Address)) ||
@@ -85,13 +85,17 @@ export class NPMachineComponent {
           return !!prize;
         }),
         mergeMap((prize) => this._nftPoolService.getTokenInfo(prize!.contract, prize!.tokenId, prize!.txHash)),
-        finalize(() => this.isRaffling.set(false)),
+        finalize(() => {
+          this.isRaffling.set(false);
+          this.turnCount.update((value) => ++value);
+        }),
         takeUntilDestroyed(this._destroyRef)
       )
       .subscribe({
         next: (result) => {
           this.raffleResult.set({
             name: result.token.name,
+            imgType: result.token.media.visualAssets.lg.type,
             imgSrc: result.token.media.visualAssets.lg.url,
             txHash: result.txHash,
           });
@@ -103,6 +107,6 @@ export class NPMachineComponent {
   private showUniverseMessage() {
     const messageNo = Math.ceil(Math.random() * 42) || 1;
 
-    this.raffleResult.set({ imgSrc: `assets/game/cnc/msg-${messageNo}.png`, name: '', txHash: '' });
+    this.raffleResult.set({ imgSrc: `assets/game/cnc/msg-${messageNo}.png`, imgType: 'image', name: '', txHash: '' });
   }
 }

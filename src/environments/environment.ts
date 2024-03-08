@@ -3,7 +3,7 @@ import { NPMachine, STMachine } from '../lib/types';
 export const API_BASE_URL = 'http://localhost:4000/api';
 export const FIRESTORE_DATABASE = 'test';
 export const IS_PRODUCTION = false;
-export const MAXIMUM_GAME_TURN_PER_DAY = 60;
+export const MAXIMUM_GAME_TURN_PER_DAY = 10;
 export const STARGAZE_CHAIN_ID = 'elgafar-1';
 export const STARGAZE_GRAPHQL_ENDPOINT = 'https://graphql.testnet.stargaze-apis.com/graphql';
 export const STARGAZE_RPC_ENDPOINT = 'https://rpc.elgafar-1.stargaze-apis.com';

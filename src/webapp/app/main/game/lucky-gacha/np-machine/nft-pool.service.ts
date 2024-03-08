@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { API_ROUTE, NFT_POOL_ROUTE } from '@lib/constants';
 import { GachaPrize } from '@lib/dto-types';
@@ -22,7 +22,9 @@ export class NftPoolService {
 
   getTokenInfo(contract: string, tokenId: string, txHash: string) {
     return this._apollo
-      .watchQuery<{ token: { name: string; media: { visualAssets: { lg: { url: string } } } } }>({
+      .watchQuery<{
+        token: { name: string; media: { visualAssets: { lg: { type: 'image' | 'animated_image'; url: string } } } };
+      }>({
         query: gql`
           query GetTokenInfo($collectionAddr: String!, $tokenId: String!) {
             token(collectionAddr: $collectionAddr, tokenId: $tokenId) {
@@ -30,6 +32,7 @@ export class NftPoolService {
                 visualAssets {
                   lg {
                     url
+                    type
                   }
                 }
               }
@@ -44,7 +47,8 @@ export class NftPoolService {
           if (!result.data?.token) throwError(() => new Error('Incorrect response'));
 
           return { txHash, token: result.data.token };
-        })
+        }),
+        take(1)
       );
   }
 }
