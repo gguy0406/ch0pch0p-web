@@ -95,9 +95,7 @@
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/webapp/**/*.html"]
-          }
+          "options": { "lintFilePatterns": ["src/**/*.ts", "src/webapp/**/*.html"] }
         },
         "deploy": {
           "builder": "@angular/fire:deploy",
