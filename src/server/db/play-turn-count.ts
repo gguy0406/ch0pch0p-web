@@ -8,12 +8,16 @@ import { TurnCount } from '../lib/types';
 let db: Firestore;
 let collectionRef: CollectionReference;
 
-setImmediate(() => {
+setImmediate(() => initCollectionRef());
+
+function initCollectionRef() {
   db = getFirestore(FIRESTORE_DATABASE);
   collectionRef = db.collection(COLLECTION.PLAY_TURN_COUNT);
-});
+}
 
 export async function get(address: string): Promise<number> {
+  if (!collectionRef) initCollectionRef();
+
   const docSnap = await collectionRef.doc(address).get();
 
   return (docSnap.exists ? (docSnap.data() as TurnCount)?.count : null) ?? 0;

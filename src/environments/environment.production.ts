@@ -18,6 +18,7 @@ export const CONTRACT_ADDRESS = {
 export const EVENT_ATTENDANCE_ADDRESSES: readonly string[] = [
   'stars1054m3v0mdekpw4f6xpsqahyvuv59upvlut6vy8',
   'stars10kjuq40jmvn9rtcvnymmjs2rs3lc5c8utqwlkv',
+  'stars10xqatnnrrqs45nldtxj4zdvn9rp5eaw0qttkck',
   'stars12c672m2m0wg4x6d9pmfhrd9cyxzg4ul3fyre7m',
   'stars12kct4cfuwh7vevec7c4y9slmee949qrjp5ds2x',
   'stars12snjq0654lde843tcmksguphc4h88y2nu48g5f',
@@ -49,6 +50,7 @@ export const EVENT_ATTENDANCE_ADDRESSES: readonly string[] = [
   'stars1dttwdapdrrdghqtcptpu25h4lkah0l3vnf7yrk',
   'stars1e9jgtm8de6ljyrazhmsupr9m85rdj8lm8apvhq',
   'stars1e9p8t2p8mwqwmqaagqa3vfpk2vthxjk3q99ch9',
+  'stars1elneyfk0k46g3zt26gxmakk003zd7vlt365a3n',
   'stars1epw58tmxkcu7l0m4facs5pydsylpx3e6gq6q7f',
   'stars1f498arhha37yt72trg2d235n38ukhjhswwrq4m',
   'stars1fga5wkj0da28jl39x76p7whv7l766jzllsz8mk',
@@ -101,6 +103,7 @@ export const EVENT_ATTENDANCE_ADDRESSES: readonly string[] = [
   'stars1wtcp7m7589vdmsse30rsrlt357dwy0qygc79uf',
   'stars1xk9dsqx5wz44c58e2m5qes2xdgvsc5xg63pdh3',
   'stars1xt2zcdhdf02jx5csak4t25lygfn4rwg7r2z2rz',
+  'stars1xwmah02dcpgwx0g9ff6ql7sx4h7f4z8pzuzn5j',
   'stars1y7zfelflwnm9aaldd9xp5x4p8azn8vddj7eraz',
   'stars1y96fge9vjphl3zj39c5s4xq9avh233lq3re8wn',
   'stars1yjh55mu7j58s8z9p604ltjefg36nls29dugxud',

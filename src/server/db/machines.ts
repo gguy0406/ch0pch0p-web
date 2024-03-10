@@ -8,12 +8,16 @@ import { MachineSetting, NPMachine, STMachine } from '../lib/types';
 let db: Firestore;
 let machineStateCollectionRef: CollectionReference;
 
-setImmediate(() => {
+setImmediate(() => initCollectionRef());
+
+function initCollectionRef() {
   db = getFirestore(FIRESTORE_DATABASE);
   machineStateCollectionRef = db.collection(COLLECTION.MACHINES);
-});
+}
 
 export async function getAll() {
+  if (!machineStateCollectionRef) initCollectionRef();
+
   const snapshot = await machineStateCollectionRef.get();
 
   if (snapshot.empty) throw new Error('Cannot retrieve machine state');
@@ -22,6 +26,8 @@ export async function getAll() {
 }
 
 export async function get(machine: STMachine | NPMachine): Promise<MachineSetting> {
+  if (!machineStateCollectionRef) initCollectionRef();
+
   const docRef = machineStateCollectionRef.doc(machine);
   const docSnap = await docRef.get();
 

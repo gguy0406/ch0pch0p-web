@@ -7,9 +7,15 @@ import { EventRegister } from '../lib/types';
 
 let db: Firestore;
 
-setImmediate(() => (db = getFirestore(FIRESTORE_DATABASE)));
+setImmediate(() => initDbConnection());
+
+function initDbConnection() {
+  db = getFirestore(FIRESTORE_DATABASE);
+}
 
 export function saveRegisterForm(eventRegister: EventRegister) {
+  if (!db) initDbConnection();
+
   const today = new Date();
   const eventRegistersCollectionRef: CollectionReference = db.collection(
     `${COLLECTION.EVENT_REGISTERS}-${today.getDate().toString().padStart(2, '0')}-${(today.getMonth() + 1).toString().padStart(2, '0')}`

@@ -12,7 +12,7 @@ export function machineStatusGuard(machine?: NPMachine | STMachine): CanActivate
     return new Observable((subscriber) => {
       luckyGachaService.getMachinesStatus().subscribe((machines) => {
         subscriber.next(
-          machines[machine || (route.paramMap.get('machine') as STMachine | NPMachine)].status ===
+          machines[machine || (route.paramMap.get('machine') as STMachine | NPMachine)]?.status ===
             MachineStatus.AVAILABLE || createUrlTreeFromSnapshot(route, ['..'])
         );
         subscriber.complete();

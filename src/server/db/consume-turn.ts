@@ -7,13 +7,19 @@ import { MachineSetting, MachineStatus, NPMachine, STMachine } from '../lib/type
 
 let db: Firestore;
 
-setImmediate(() => (db = getFirestore(FIRESTORE_DATABASE)));
+setImmediate(() => initDbConnection());
+
+function initDbConnection() {
+  db = getFirestore(FIRESTORE_DATABASE);
+}
 
 export async function consumeTurn(
   machine: { name: STMachine | NPMachine; data: MachineSetting },
   playerAddress: string,
   winThePrize?: boolean
 ) {
+  if (!db) initDbConnection();
+
   const machineRef = db.collection(COLLECTION.MACHINES).doc(machine.name);
   const turnCountRef = db.collection(COLLECTION.PLAY_TURN_COUNT).doc(playerAddress);
   const batch = db.batch();
