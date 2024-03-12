@@ -1,4 +1,7 @@
 {
+  "projects": {
+    "default": "ch0pch0p-web"
+  },
   "targets": {
     "ch0pch0p-web": {
       "hosting": {
@@ -7,8 +10,5 @@
         ]
       }
     }
-  },
-  "projects": {
-    "default": "ch0pch0p-web"
   }
 }

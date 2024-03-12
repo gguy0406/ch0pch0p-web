@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "ch0pch0p-web",
-      "source": ".",
+      "source": "hosting",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "frameworksBackend": { "region": "asia-east1" }
     }

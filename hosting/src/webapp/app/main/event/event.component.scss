@@ -24,10 +24,6 @@
 
         li {
           list-style: outside;
-
-          &:not(:first-child) {
-            margin-top: 4px;
-          }
         }
       }
 
@@ -36,11 +32,11 @@
 
         li {
           list-style: decimal;
-
-          &:not(:first-child) {
-            margin-top: 4px;
-          }
         }
+      }
+
+      li:not(:first-child) {
+        margin-top: 4px;
       }
 
       .flip-card {

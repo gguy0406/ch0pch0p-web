@@ -71,6 +71,7 @@
   border: 3px solid white;
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
 .\!border-3px-white {
   border: 3px solid white !important;
 }
