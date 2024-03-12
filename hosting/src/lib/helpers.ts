@@ -1,18 +1,8 @@
-import { createClient } from 'graphql-http';
+export type QueryCheckTokenHolderResult = { tokens: { pageInfo: { total: number } } };
 
-import { STARGAZE_GRAPHQL_ENDPOINT } from '../environments/environment';
-
-type QueryResult = { data: { tokens: { pageInfo: { total: number } } } };
-
-export async function checkTokenHolder(ownerAddress: string, collectionAddresses: readonly string[]) {
-  const graphqlClient = createClient({ url: STARGAZE_GRAPHQL_ENDPOINT });
-
-  const result = await new Promise<QueryResult>((resolve, reject) => {
-    let result: QueryResult;
-
-    graphqlClient.subscribe(
-      {
-        query: `query TokenOwner(
+export function getGraphqlQueryCheckTokenHolder(ownerAddress: string, collectionAddresses: readonly string[]) {
+  return {
+    query: `query TokenOwner(
           $tokensOwnerAddrOrName: String
           $tokensFilterByCollectionAddrs: [String!]
         ) {
@@ -20,18 +10,9 @@ export async function checkTokenHolder(ownerAddress: string, collectionAddresses
             pageInfo { total }
           }
         }`,
-        variables: {
-          tokensOwnerAddrOrName: ownerAddress,
-          tokensFilterByCollectionAddrs: collectionAddresses,
-        },
-      },
-      {
-        next: (data) => (result = data as QueryResult),
-        error: reject,
-        complete: () => resolve(result),
-      }
-    );
-  });
-
-  return !!result.data.tokens.pageInfo.total;
+    variables: {
+      tokensOwnerAddrOrName: ownerAddress,
+      tokensFilterByCollectionAddrs: collectionAddresses,
+    },
+  };
 }

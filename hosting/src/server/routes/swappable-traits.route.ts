@@ -5,6 +5,7 @@ import { SWAPPABLE_TRAITS_ROUTE } from '../lib/constants';
 import { STMachine } from '../lib/types';
 import { checkValidationResult } from '../middlewares/check-validation-result';
 import { play, updateTokenMetadata } from '../services/swappable-traits.service';
+import { GachaPrize } from 'lib/dto-types';
 
 export const router = Router();
 
@@ -18,7 +19,7 @@ router.put(
   ],
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = await play(matchedData(req)['machine'], new Uint8Array(matchedData(req)['payFeeTx']));
+      const result: GachaPrize = await play(matchedData(req)['machine'], new Uint8Array(matchedData(req)['payFeeTx']));
 
       res.status(200).json(result);
     } catch (err) {

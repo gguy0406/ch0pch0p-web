@@ -1,7 +1,9 @@
 :host {
-  padding-top: 108px;
+  margin-inline: auto;
+  width: 1440px;
+  padding: 90px 0 124px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  column-gap: 92px;
+  justify-content: center;
+  column-gap: 144px;
 }

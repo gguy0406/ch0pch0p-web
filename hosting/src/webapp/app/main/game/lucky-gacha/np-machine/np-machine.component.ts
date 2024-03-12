@@ -45,7 +45,7 @@ export class NPMachineComponent {
   }
 
   protected readonly MAXIMUM_GAME_TURN_PER_DAY = MAXIMUM_GAME_TURN_PER_DAY;
-  protected turnCount: WritableSignal<number> = signal(0);
+  protected turnCount: WritableSignal<number> = signal(MAXIMUM_GAME_TURN_PER_DAY);
   protected isRaffling: WritableSignal<boolean> = signal(false);
   protected raffleResult: WritableSignal<
     { name: string; imgType: 'image' | 'animated_image'; imgSrc: string; txHash: string } | undefined
@@ -68,8 +68,11 @@ export class NPMachineComponent {
 
       if (!address) return;
 
+      this.turnCount.set(MAXIMUM_GAME_TURN_PER_DAY);
+
       this._luckyGachaService
         .getTurnCount(this.walletService.key()!.bech32Address)
+        .pipe(takeUntilDestroyed())
         .subscribe((turnCount) => this.turnCount.set(turnCount));
     });
   }

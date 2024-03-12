@@ -22,10 +22,11 @@ import { consumeTurn } from '../db/consume-turn';
 import * as dbMachines from '../db/machines';
 import * as dbTurnCount from '../db/play-turn-count';
 import { ST_GAME_FEE, WEB_RUNNER_ADDRESS } from '../lib/constants';
-import { checkTokenHolder } from '../lib/helpers';
+import { QueryCheckTokenHolderResult, getGraphqlQueryCheckTokenHolder, graphqlQuery } from '../lib/helpers';
 import { MachineStatus, STMachine } from '../lib/types';
 import { checkStarsAddress } from '../middlewares/check-stars-address';
 import { logger } from '../utils/logger';
+import { sendMessageToDiscord } from '../utils/msg-discord';
 import { getSigningCosmWasmClient, runProbability } from './lucky-gacha.service';
 
 export async function play(machine: STMachine, payFeeTx: Uint8Array) {
@@ -59,7 +60,7 @@ export async function play(machine: STMachine, payFeeTx: Uint8Array) {
   if (playerTurnCount >= MAXIMUM_GAME_TURN_PER_DAY) throw createHttpError(400, `${msgSend.fromAddress} out of turn`);
 
   const isEligible =
-    (await checkTokenHolder(msgSend.fromAddress, [CONTRACT_ADDRESS.C0_SG721])) ||
+    (await checkTokenHolder(msgSend.fromAddress, [CONTRACT_ADDRESS.C0_SG721, CONTRACT_ADDRESS.C1_SG721])) ||
     (await checkTokenHolder(msgSend.fromAddress, MACHINE_CONFIG[machine].CONTRACT_ADDRESSES_HOLDER_CHECK));
 
   if (!isEligible) throw createHttpError(403, `${msgSend.fromAddress} is not eligible`);
@@ -76,29 +77,37 @@ export async function play(machine: STMachine, payFeeTx: Uint8Array) {
   }
 
   const client = await getSigningCosmWasmClient();
-  const tokenID = MACHINE_CONFIG[machine].TOKEN_ID_START_FROM + machineSetting.wonPrize;
+  const tokenId = String(MACHINE_CONFIG[machine].TOKEN_ID_START_FROM + machineSetting.wonPrize);
   const mintMsg: MsgExecuteContractEncodeObject = {
     typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
     value: MsgExecuteContract.fromPartial({
       sender: WEB_RUNNER_ADDRESS,
       contract: CONTRACT_ADDRESS.CERT_MINTER,
-      msg: toUtf8(JSON.stringify({ mint_for: { recipient: msgSend.fromAddress, token_id: tokenID } })),
+      msg: toUtf8(JSON.stringify({ mint_for: { recipient: msgSend.fromAddress, token_id: tokenId } })),
     }),
   };
   const txResult = await client.signAndBroadcast(WEB_RUNNER_ADDRESS, [mintMsg], 'auto', 'win lucky gacha');
 
   if (txResult.code !== 0) {
-    throw createHttpError(
-      500,
+    const errMsg =
       `Cert mint failed.\n` +
-        `Address: ${msgSend.fromAddress}.\n` +
-        `Token ID: ${tokenID}.\n` +
-        `Tx hash: ${txResult.transactionHash}`
-    );
+      `Address: ${msgSend.fromAddress}.\n` +
+      `Token ID: ${tokenId}.\n` +
+      `Tx hash: ${txResult.transactionHash}`;
+    sendMessageToDiscord(errMsg);
+    throw createHttpError(500, errMsg);
   }
 
   await consumeTurn({ name: machine, data: machineSetting }, msgSend.fromAddress, true);
-  return txResult.transactionHash;
+
+  sendMessageToDiscord(
+    `Prize won No. ${machineSetting.wonPrize + 1}\n` +
+      `Address: ${msgSend.fromAddress}.\n` +
+      `Token ID: ${tokenId}.\n` +
+      `Tx hash: ${txResult.transactionHash}`
+  );
+
+  return { contract: CONTRACT_ADDRESS.CERT_MINTER, tokenId: tokenId, txHash: txResult.transactionHash };
 }
 
 export async function updateTokenMetadata(tokenId: string, transferTx: Uint8Array) {
@@ -167,6 +176,13 @@ function decodeMsgSend(encodedMsg: Uint8Array) {
   } catch (err) {
     throw createHttpError(400, (err as UnknownError).toString());
   }
+}
+
+export async function checkTokenHolder(ownerAddress: string, collectionAddresses: readonly string[]) {
+  const queryParam = getGraphqlQueryCheckTokenHolder(ownerAddress, collectionAddresses);
+  const queryResult = await graphqlQuery<QueryCheckTokenHolderResult>(queryParam.query, queryParam.variables);
+
+  return !!queryResult.tokens.pageInfo.total;
 }
 
 function decodeMsgExecuteContract(encodedMsg: Uint8Array) {
