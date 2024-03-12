@@ -637,8 +637,9 @@
             <div class="mt-5 px-8 font-fredoka text-lg"><ng-container *ngTemplateOutlet="content" /></div>
             <button
               mat-button
+              disabled
               (click)="buyTicket(ticket)"
-              class="ticket-buy-btn !rounded-full w-56 !py-9 !font-bold !text-xl !text-black"
+              class="ticket-buy-btn !rounded-full w-56 !py-9 !font-bold !text-xl"
               [class]="bg"
             >
               {{ buyTicketLabel }}
