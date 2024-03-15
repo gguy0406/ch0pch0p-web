@@ -7,19 +7,20 @@ import {
   Signal,
   WritableSignal,
   computed,
-  effect,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
+import { MAXIMUM_GAME_TURN_PER_DAY } from 'environments/environment';
+
 import { STMachine } from '@lib/types';
 import { LuckyGachaService, Machine } from '@services/lucky-gacha.service';
-import { SwappableTraitsService } from '../../swappable-traits.service';
-import { MAXIMUM_GAME_TURN_PER_DAY } from 'environments/environment';
 import { WalletService } from '@services/wallet.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+import { SwappableTraitsService } from '../../swappable-traits.service';
 
 @Component({
   templateUrl: './st-machine.component.html',
@@ -56,9 +57,9 @@ export class STMachineComponent {
     private _luckyGachaService: LuckyGachaService,
     private _swappableTraitsService: SwappableTraitsService
   ) {
-    this.machine = signal(route.snapshot.data['machine']);
+    this.machine = signal(this._luckyGachaService.machines![route.snapshot.paramMap.get('machine') as STMachine]);
 
-    effect(() => {
+    this.walletService.keyChange$.pipe(takeUntilDestroyed()).subscribe(() => {
       const address = this.walletService.key()?.bech32Address;
 
       if (!address) return;
@@ -81,32 +82,32 @@ export class STMachineComponent {
   protected play() {
     this.isRaffling.set(true);
 
-    this._swappableTraitsService
-      .play(this.walletService.key()!.bech32Address)
-      .pipe(
-        filter((prize) => {
-          !prize && this.showUniverseMessage();
+    // this._swappableTraitsService
+    //   .play(this.walletService.key()!.bech32Address)
+    //   .pipe(
+    //     filter((prize) => {
+    //       !prize && this.showUniverseMessage();
 
-          return !!prize;
-        }),
-        mergeMap((prize) => this._nftPoolService.getTokenInfo(prize!.contract, prize!.tokenId, prize!.txHash)),
-        finalize(() => {
-          this.isRaffling.set(false);
-          this.turnCount.update((value) => ++value);
-        }),
-        takeUntilDestroyed(this._destroyRef)
-      )
-      .subscribe({
-        next: (result) => {
-          this.raffleResult.set({
-            name: result.token.name,
-            imgType: result.token.media.visualAssets.lg.type,
-            imgSrc: result.token.media.visualAssets.lg.url,
-            txHash: result.txHash,
-          });
-        },
-        error: () => this.showUniverseMessage(),
-      });
+    //       return !!prize;
+    //     }),
+    //     mergeMap((prize) => this._nftPoolService.getTokenInfo(prize!.contract, prize!.tokenId, prize!.txHash)),
+    //     finalize(() => {
+    //       this.isRaffling.set(false);
+    //       this.turnCount.update((value) => ++value);
+    //     }),
+    //     takeUntilDestroyed(this._destroyRef)
+    //   )
+    //   .subscribe({
+    //     next: (result) => {
+    //       this.raffleResult.set({
+    //         name: result.token.name,
+    //         imgType: result.token.media.visualAssets.lg.type,
+    //         imgSrc: result.token.media.visualAssets.lg.url,
+    //         txHash: result.txHash,
+    //       });
+    //     },
+    //     error: () => this.showUniverseMessage(),
+    //   });
   }
 
   private showUniverseMessage() {

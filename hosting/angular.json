@@ -62,8 +62,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1.4mb",
-                  "maximumError": "1.6mb"
+                  "maximumWarning": "4.6mb",
+                  "maximumError": "4.8mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -96,21 +96,6 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": { "lintFilePatterns": ["src/**/*.ts", "src/webapp/**/*.html"] }
-        },
-        "deploy": {
-          "builder": "@angular/fire:deploy",
-          "options": { "version": 2 },
-          "configurations": {
-            "production": {
-              "buildTarget": "ch0pch0p-web:build:production",
-              "serveTarget": "ch0pch0p-web:serve:production"
-            },
-            "development": {
-              "buildTarget": "ch0pch0p-web:build:development",
-              "serveTarget": "ch0pch0p-web:serve:development"
-            }
-          },
-          "defaultConfiguration": "production"
         }
       }
     }

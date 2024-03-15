@@ -101,7 +101,7 @@ export async function play(machine: STMachine, payFeeTx: Uint8Array) {
   await consumeTurn({ name: machine, data: machineSetting }, msgSend.fromAddress, true);
 
   sendMessageToDiscord(
-    `Prize won No. ${machineSetting.wonPrize + 1}\n` +
+    `Cert minted No. ${machineSetting.wonPrize + 1}\n` +
       `Address: ${msgSend.fromAddress}.\n` +
       `Token ID: ${tokenId}.\n` +
       `Tx hash: ${txResult.transactionHash}`
