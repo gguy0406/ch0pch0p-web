@@ -30,7 +30,7 @@
             "outputPath": "dist/ch0pch0p-web",
             "index": "src/webapp/index.html",
             "browser": "src/webapp/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": ["zone.js", "src/webapp/polyfills.ts"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/webapp/favicon.ico", "src/webapp/assets"],
@@ -41,14 +41,7 @@
             "ssr": { "entry": "src/server/server.ts" },
             "stylePreprocessorOptions": { "includePaths": ["", "src/webapp"] },
             "allowedCommonJsDependencies": ["*"],
-            "externalDependencies": [
-              "@cosmjs/cosmwasm-stargate",
-              "@cosmjs/encoding",
-              "@cosmjs/proto-signing",
-              "@cosmjs/stargate",
-              "canvas",
-              "firebase-admin"
-            ]
+            "externalDependencies": ["canvas", "firebase-admin"]
           },
           "configurations": {
             "production": {

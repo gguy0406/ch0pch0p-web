@@ -15,7 +15,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
-import { filter, finalize, mergeMap } from 'rxjs/operators';
+import { filter, finalize, mergeMap, tap } from 'rxjs/operators';
 
 import { EVENT_ATTENDANCE_ADDRESSES, MAXIMUM_GAME_TURN_PER_DAY } from 'environments/environment';
 
@@ -82,16 +82,14 @@ export class NPMachineComponent {
     this._nftPoolService
       .play(this.walletService.key()!.bech32Address)
       .pipe(
+        tap(() => this.turnCount.update((value) => ++value)),
         filter((prize) => {
           !prize && this.showUniverseMessage();
 
           return !!prize;
         }),
         mergeMap((prize) => this._nftPoolService.getTokenInfo(prize!.contract, prize!.tokenId, prize!.txHash)),
-        finalize(() => {
-          this.isRaffling.set(false);
-          this.turnCount.update((value) => ++value);
-        }),
+        finalize(() => this.isRaffling.set(false)),
         takeUntilDestroyed(this._destroyRef)
       )
       .subscribe({

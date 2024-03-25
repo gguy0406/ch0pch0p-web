@@ -13,6 +13,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { finalize, tap } from 'rxjs/operators';
 
 import { MAXIMUM_GAME_TURN_PER_DAY } from 'environments/environment';
 
@@ -39,13 +40,13 @@ import { SwappableTraitsService } from '../../swappable-traits.service';
 })
 export class STMachineComponent {
   protected readonly MAXIMUM_GAME_TURN_PER_DAY = MAXIMUM_GAME_TURN_PER_DAY;
+  protected readonly ST_MACHINE = STMachine;
   protected machine: Signal<Machine>;
-  protected isEligible: WritableSignal<boolean> = signal(false);
+  protected isEligible: WritableSignal<boolean> = signal(true);
   protected turnCount: WritableSignal<number> = signal(MAXIMUM_GAME_TURN_PER_DAY);
   protected isRaffling: WritableSignal<boolean> = signal(false);
-  protected raffleResult: WritableSignal<
-    { name: string; imgType: 'image' | 'animated_image'; imgSrc: string; txHash: string } | undefined
-  > = signal(undefined);
+  protected raffleResult: WritableSignal<{ name: string; imgSrc: string; txHash: string } | undefined> =
+    signal(undefined);
   protected cannotPlay: Signal<boolean> = computed(
     () => !this.isEligible() || this.turnCount() >= MAXIMUM_GAME_TURN_PER_DAY || this.isRaffling()
   );
@@ -65,54 +66,50 @@ export class STMachineComponent {
       if (!address) return;
 
       this.turnCount.set(MAXIMUM_GAME_TURN_PER_DAY);
-      this.isEligible.set(false);
+      // this.isEligible.set(false);
 
       this._luckyGachaService
         .getTurnCount(this.walletService.key()!.bech32Address)
-        .pipe(takeUntilDestroyed())
+        .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe((turnCount) => this.turnCount.set(turnCount));
 
-      this._swappableTraitsService
-        .checkEligible(this.machine().id as STMachine, this.walletService.key()!.bech32Address)
-        .pipe(takeUntilDestroyed())
-        .subscribe((isEligible) => this.isEligible.set(isEligible));
+      // this._swappableTraitsService
+      //   .checkEligible(this.machine().id as STMachine, this.walletService.key()!.bech32Address)
+      //   .pipe(takeUntilDestroyed(this._destroyRef))
+      //   .subscribe((isEligible) => {
+      //     this.isEligible.set(isEligible);
+      //     console.log(isEligible);
+      //   });
     });
   }
 
   protected play() {
     this.isRaffling.set(true);
 
-    // this._swappableTraitsService
-    //   .play(this.walletService.key()!.bech32Address)
-    //   .pipe(
-    //     filter((prize) => {
-    //       !prize && this.showUniverseMessage();
+    this._swappableTraitsService
+      .play(this.machine().id as STMachine)
+      .pipe(
+        tap(() => this.turnCount.update((value) => ++value)),
+        finalize(() => this.isRaffling.set(false)),
+        takeUntilDestroyed(this._destroyRef)
+      )
+      .subscribe((prize) => {
+        if (!prize) {
+          this.showUniverseMessage();
+          return;
+        }
 
-    //       return !!prize;
-    //     }),
-    //     mergeMap((prize) => this._nftPoolService.getTokenInfo(prize!.contract, prize!.tokenId, prize!.txHash)),
-    //     finalize(() => {
-    //       this.isRaffling.set(false);
-    //       this.turnCount.update((value) => ++value);
-    //     }),
-    //     takeUntilDestroyed(this._destroyRef)
-    //   )
-    //   .subscribe({
-    //     next: (result) => {
-    //       this.raffleResult.set({
-    //         name: result.token.name,
-    //         imgType: result.token.media.visualAssets.lg.type,
-    //         imgSrc: result.token.media.visualAssets.lg.url,
-    //         txHash: result.txHash,
-    //       });
-    //     },
-    //     error: () => this.showUniverseMessage(),
-    //   });
+        this.raffleResult.set({
+          name: 'trait-1',
+          imgSrc: 'assets/game/' + this.machine().id + 'trait-1.png',
+          txHash: prize.txHash,
+        });
+      });
   }
 
   private showUniverseMessage() {
     const messageNo = Math.ceil(Math.random() * 42) || 1;
 
-    this.raffleResult.set({ imgSrc: `assets/game/cnc/msg-${messageNo}.png`, imgType: 'image', name: '', txHash: '' });
+    this.raffleResult.set({ imgSrc: `assets/game/cnc/msg-${messageNo}.png`, name: '', txHash: '' });
   }
 }

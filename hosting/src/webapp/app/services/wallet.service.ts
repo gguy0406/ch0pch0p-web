@@ -53,6 +53,7 @@ export class WalletService {
         await this.keplr.enable(STARGAZE_CHAIN_ID);
 
         this.key.set(await this.keplr.getKey(STARGAZE_CHAIN_ID));
+        this.keyChange$.next();
 
         window.addEventListener('keplr_keystorechange', async () => {
           this.key.set(await this.keplr!.getKey(STARGAZE_CHAIN_ID));

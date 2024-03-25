@@ -3,7 +3,9 @@ import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
 import { Apollo, APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 
-const uri = 'https://graphql.mainnet.stargaze-apis.com/graphql';
+import { STARGAZE_GRAPHQL_ENDPOINT } from 'environments/environment';
+
+const uri = STARGAZE_GRAPHQL_ENDPOINT;
 
 export function apolloOptionsFactory(): ApolloClientOptions<unknown> {
   const httpLink = inject(HttpLink);

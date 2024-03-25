@@ -1,15 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { coins } from '@cosmjs/stargate';
 import { Apollo, gql } from 'apollo-angular';
-import { Observable, of, throwError } from 'rxjs';
+import { MsgSend } from 'cosmjs-types/cosmos/bank/v1beta1/tx';
+import { TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
+import { from, Observable, of, throwError } from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
 
 import { CONTRACT_ADDRESS, MACHINE_CONFIG } from 'environments/environment';
 
-import { API_ROUTE, SWAPPABLE_TRAITS_ROUTE } from '@lib/constants';
+import { API_ROUTE, ST_GAME_FEE, SWAPPABLE_TRAITS_ROUTE, WEB_RUNNER_ADDRESS } from '@lib/constants';
 import { GachaPrize } from '@lib/dto-types';
 import { QueryCheckTokenHolderResult, getGraphqlQueryCheckTokenHolder } from '@lib/helpers';
 import { STMachine } from '@lib/types';
+import { WalletService } from '@services/wallet.service';
 
 @Injectable()
 export class SwappableTraitsService {
@@ -17,7 +21,8 @@ export class SwappableTraitsService {
 
   constructor(
     private readonly _apollo: Apollo,
-    private readonly _httpClient: HttpClient
+    private readonly _httpClient: HttpClient,
+    private readonly _walletService: WalletService
   ) {}
 
   checkEligible(machine: STMachine, address: string) {
@@ -48,8 +53,31 @@ export class SwappableTraitsService {
     });
   }
 
-  play(machine: STMachine, payFeeTx: Uint8Array) {
-    return this._httpClient.put<GachaPrize>(`${this._baseUrl}${SWAPPABLE_TRAITS_ROUTE.PLAY}/${machine}`, { payFeeTx });
+  play(machine: STMachine) {
+    return this._walletService.getSigningClient().pipe(
+      mergeMap((client) => {
+        const userAddr = this._walletService.key()!.bech32Address;
+        const msgSend = MsgSend.fromPartial({
+          fromAddress: userAddr,
+          toAddress: WEB_RUNNER_ADDRESS,
+          amount: coins(ST_GAME_FEE * 10 ** 6, 'ustars'),
+        });
+
+        return from(
+          client.sign(
+            userAddr,
+            [{ typeUrl: '/cosmos.bank.v1beta1.MsgSend', value: msgSend }],
+            { amount: coins(0, 'ustars'), gas: '80000' },
+            'play ch0pch0p lucky gacha'
+          )
+        );
+      }),
+      mergeMap((signedTx) =>
+        this._httpClient.put<GachaPrize>(`${this._baseUrl}${SWAPPABLE_TRAITS_ROUTE.PLAY}/${machine}`, {
+          payFeeTx: Array.from(Uint8Array.from(TxRaw.encode(signedTx).finish())),
+        })
+      )
+    );
   }
 
   levelUp(tokenId: string, transferTx: Uint8Array) {
