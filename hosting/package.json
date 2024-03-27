@@ -42,7 +42,7 @@
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
     "firebase-admin": "^12.0.0",
-    "graphql": "^16",
+    "graphql": "16.6.0",
     "graphql-http": "^1.22.0",
     "helmet": "^7.1.0",
     "http-errors": "^2.0.0",
