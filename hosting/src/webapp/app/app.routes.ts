@@ -8,7 +8,7 @@ import { ROUTE } from './lib/constants';
 import { NPMachine } from './lib/types';
 import { C0Component } from './main/c0/c0.component';
 import { GameComponent } from './main/game/game.component';
-// import { LevelUpComponent } from './main/game/level-up/level-up.component';
+import { LevelUpComponent } from './main/game/level-up/level-up.component';
 import { NPMachineComponent } from './main/game/lucky-gacha/np-machine/np-machine.component';
 import { STMachineComponent } from './main/game/lucky-gacha/st-machine/st-machine.component';
 import { LuckyGachaComponent } from './main/game/lucky-gacha/lucky-gacha.component';
@@ -75,11 +75,11 @@ export const routes: Routes = [
               },
             ],
           },
-          // {
-          //   path: ROUTE.LEVEL_UP,
-          //   component: LevelUpComponent,
-          //   title: 'Level Up',
-          // },
+          {
+            path: ROUTE.LEVEL_UP,
+            component: LevelUpComponent,
+            title: 'Level Up',
+          },
         ],
       },
     ],

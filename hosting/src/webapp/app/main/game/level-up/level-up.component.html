@@ -1,1 +1,47 @@
-<p>level-up works!</p>
+<div class="mt-10 section-heading section-heading--soar-right bg-rich-electric-pink">Lucky you!</div>
+<div class="section-label mt-2.5 bg-budd text-[100px]">
+  Level Up<br />
+  Your ch0pch0p
+</div>
+<div class="mt-15 flex items-end gap-x-2">
+  <div class="w-[458px] flex flex-col items-center">
+    <div class="px-15 font-bold text-2xl text-center">
+      Choose a ch0pch0p<br />
+      you wish to level up
+    </div>
+    <div class="mt-10 relative rounded-5xl border-3px-white w-full aspect-square">
+      <button
+        mat-icon-button
+        aria-label="Choose NFT"
+        (click)="chooseNFT()"
+        class="!absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 !bg-budd-reverse !text-black"
+      >
+        <mat-icon class="font-bold">add</mat-icon>
+      </button>
+    </div>
+  </div>
+  <mat-icon class="self-center !w-[60px] !h-[60px] shrink-0 text-6xl">add</mat-icon>
+  <div class="w-[458px] flex flex-col items-center">
+    <div class="px-15 font-bold text-2xl text-center">
+      Choose a self<br />
+      you want to express
+    </div>
+    <div class="mt-10 relative rounded-5xl border-3px-white w-full aspect-square">
+      <button
+        mat-icon-button
+        aria-label="Choose trait"
+        (click)="chooseTrait()"
+        class="!absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 !bg-budd-reverse !text-black"
+      >
+        <mat-icon class="font-bold">add</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+<button
+  mat-button
+  (click)="updateNFT()"
+  class="mt-20 mb-56 !rounded-full !bg-budd-reverse !py-11 !px-16 !font-bold !text-black !text-xl"
+>
+  express
+</button>
