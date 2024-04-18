@@ -59,11 +59,11 @@ export async function play(machine: STMachine, payFeeTx: Uint8Array) {
 
   if (playerTurnCount >= MAXIMUM_GAME_TURN_PER_DAY) throw createHttpError(400, `${msgSend.fromAddress} out of turn`);
 
-  // const isEligible =
-  //   (await checkTokenHolder(msgSend.fromAddress, [CONTRACT_ADDRESS.C0_SG721, CONTRACT_ADDRESS.C1_SG721])) ||
-  //   (await checkTokenHolder(msgSend.fromAddress, MACHINE_CONFIG[machine].CONTRACT_ADDRESSES_HOLDER_CHECK));
+  const isEligible =
+    (await checkTokenHolder(msgSend.fromAddress, [CONTRACT_ADDRESS.C0_SG721, CONTRACT_ADDRESS.C1_SG721])) ||
+    (await checkTokenHolder(msgSend.fromAddress, MACHINE_CONFIG[machine].CONTRACT_ADDRESSES_HOLDER_CHECK));
 
-  // if (!isEligible) throw createHttpError(403, `${msgSend.fromAddress} is not eligible`);
+  if (!isEligible) throw createHttpError(403, `${msgSend.fromAddress} is not eligible`);
 
   const payFeeTxResult = await broadcastTx(payFeeTx);
 
@@ -130,36 +130,69 @@ export async function updateTokenMetadata(tokenId: string, transferTx: Uint8Arra
 
   if (tokenOwner !== decodedMsgExecuteContract.sender) throw createHttpError(403);
 
-  const c1TokenMetadata = await getTokenMetadata(CONTRACT_ADDRESS.C1_SG721, tokenId);
-  const certTokenMetadata = await getTokenMetadata(CONTRACT_ADDRESS.CERT_SG721, tokenId);
+  // const c1TokenMetadata = await getTokenMetadata(CONTRACT_ADDRESS.C1_SG721, tokenId);
+  // const certTokenMetadata = await getTokenMetadata(CONTRACT_ADDRESS.CERT_SG721, tokenId);
 
-  if (c1TokenMetadata.rawAttributes[certTokenMetadata.attributes[0].trait_type] === 'Empty') {
-    throw createHttpError(400, `Cannot update token ${tokenId}`);
-  }
+  // if (!c1TokenMetadata.swappable) throw createHttpError(400, `Cannot update token ${tokenId}`);
 
-  const transferTxResult = await broadcastTx(transferTx);
+  const c1TokenMetadata = {
+    name: '1',
+    swappable: false,
+    image: 'ipfs://bafybeibu4pmtrknoxcn6colb7yko2zufznxmcasjelure2ctht4roa4w5q/1.jpeg',
+    rawAttributes: {
+      Face: 'Egg',
+      Hair: 'Egg',
+      Head: 'Egg',
+      Hand: 'Egg',
+      Self: 'Egg',
+      Clothes: 'Egg',
+      Body: 'Egg',
+      Background: 'Egg',
+      Skin: 'Egg',
+    },
+    attributes: [
+      { value: 'Egg', trait_type: 'Face', display_type: 'string' },
+      { value: 'Egg', trait_type: 'Hair', display_type: 'string' },
+      { value: 'Egg', trait_type: 'Head', display_type: 'string' },
+      { value: 'Egg', trait_type: 'Hand', display_type: 'string' },
+      { value: 'Egg', trait_type: 'Self', display_type: 'string' },
+      { value: 'Egg', trait_type: 'Clothes', display_type: 'string' },
+      { value: 'Egg', trait_type: 'Body', display_type: 'string' },
+      { value: 'Egg', trait_type: 'Background', display_type: 'string' },
+      { value: 'Egg', trait_type: 'Skin', display_type: 'string' },
+    ],
+  };
+  const certTokenMetadata = {
+    name: 'Swappable Trait #1',
+    rawAttributes: { Self: 'Alien' },
+    attributes: [{ value: 'Alien', trait_type: 'Self', display_type: 'string' }],
+    image: 'ipfs://bafybeigkznfi6bzqvzgfjqeoiovjcptsfcgtcfc4dbiui7sgyu7wcuvjiq/1.svg',
+  };
 
-  if (transferTxResult.code !== 0) throw createHttpError(400);
+  // const transferTxResult = await broadcastTx(transferTx);
+
+  // if (transferTxResult.code !== 0) throw createHttpError(400);
 
   const image = await generateNewImage(c1TokenMetadata.rawAttributes, certTokenMetadata.rawAttributes);
   const cid = await uploadImageToStorage(image, `${tokenId}.jpeg`);
-  const client = await getSigningCosmWasmClient();
-  const updateMsg: MsgExecuteContractEncodeObject = {
-    typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
-    value: MsgExecuteContract.fromPartial({
-      sender: WEB_RUNNER_ADDRESS,
-      contract: CONTRACT_ADDRESS.CERT_MINTER,
-      msg: toUtf8(JSON.stringify({ update_token_metadata: { token_id: tokenId, token_uri: cid } })),
-    }),
-  };
-  const txResult = await client.signAndBroadcast(WEB_RUNNER_ADDRESS, [updateMsg], 'auto', 'level up');
+  console.log(cid);
+  // const client = await getSigningCosmWasmClient();
+  // const updateMsg: MsgExecuteContractEncodeObject = {
+  //   typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+  //   value: MsgExecuteContract.fromPartial({
+  //     sender: WEB_RUNNER_ADDRESS,
+  //     contract: CONTRACT_ADDRESS.CERT_MINTER,
+  //     msg: toUtf8(JSON.stringify({ update_token_metadata: { token_id: tokenId, token_uri: cid } })),
+  //   }),
+  // };
+  // const txResult = await client.signAndBroadcast(WEB_RUNNER_ADDRESS, [updateMsg], 'auto', 'level up');
 
-  if (txResult.code !== 0) {
-    throw createHttpError(
-      500,
-      `Update metadata failed.\nToken Id: ${tokenId}.\nCID: ${cid}.\nTx hash: ${txResult.transactionHash}`
-    );
-  }
+  // if (txResult.code !== 0) {
+  //   throw createHttpError(
+  //     500,
+  //     `Update metadata failed.\nToken Id: ${tokenId}.\nCID: ${cid}.\nTx hash: ${txResult.transactionHash}`
+  //   );
+  // }
 }
 
 function decodeTx(tx: Uint8Array) {
@@ -218,6 +251,7 @@ async function getTokenMetadata(
   sg721Address: string,
   tokenId: string
 ): Promise<{
+  swappable: boolean;
   name: string;
   image: string;
   rawAttributes: Record<string, string>;
@@ -230,12 +264,7 @@ async function getTokenMetadata(
   const tokenMetadataResponse = await fetch(tokenUri.replace('ipfs://', 'https://nftstorage.link/ipfs/'));
 
   if (!tokenMetadataResponse.ok) {
-    throw createHttpError(
-      500,
-      `Failed to fetch token ${tokenId} metadata`,
-      `Sg721 address: ${sg721Address}`,
-      tokenMetadataResponse.statusText
-    );
+    throw createHttpError(500, `Failed to fetch token ${tokenId} metadata, link ${tokenUri}`);
   }
 
   const tokenMetadata = await tokenMetadataResponse.json();
@@ -251,7 +280,12 @@ async function getTokenUri(sg721Address: string, tokenId: string) {
   const cosmWasmClient = await CosmWasmClient.connect(STARGAZE_RPC_ENDPOINT);
 
   try {
-    return (await cosmWasmClient.queryContractSmart(sg721Address, { nft_info: { token_id: tokenId } })).token_uri;
+    let tokenUri = (await cosmWasmClient.queryContractSmart(sg721Address, { nft_info: { token_id: tokenId } }))
+      .token_uri;
+
+    if (!(tokenUri as string)?.endsWith('.json')) tokenUri += '.json';
+
+    return tokenUri;
   } catch (err) {
     throw createHttpError(400, (err as UnknownError).toString());
   }

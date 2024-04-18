@@ -46,7 +46,7 @@ export class DialogEventRegisterComponent {
   protected successSubmitted: WritableSignal<boolean> = signal(false);
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private _data: DialogData,
+    @Inject(MAT_DIALOG_DATA) _data: DialogData,
     protected dialogRef: MatDialogRef<void>,
     private _eventRegisterService: EventRegisterService
   ) {

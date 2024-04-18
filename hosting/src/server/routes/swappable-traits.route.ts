@@ -29,9 +29,9 @@ router.put(
 );
 
 router.put(
-  `${SWAPPABLE_TRAITS_ROUTE.LEVEL_UP}}/:tokenId`,
+  `${SWAPPABLE_TRAITS_ROUTE.LEVEL_UP}/:tokenId`,
   [
-    param('tokenId').toInt().isInt({ min: 1, max: 5000 }),
+    param('tokenId').toInt().isInt({ min: 1, max: 5525 }),
     body('transferTx').isArray(),
     body('transferTx.*').isInt({ min: 0, max: 255 }),
     checkValidationResult,

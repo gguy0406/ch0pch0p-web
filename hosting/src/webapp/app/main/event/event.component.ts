@@ -1,5 +1,14 @@
 import { NgOptimizedImage, NgTemplateOutlet } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild, WritableSignal, signal } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  WritableSignal,
+  signal,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -35,7 +44,10 @@ export class EventComponent implements OnInit, AfterViewInit {
   protected readonly TICKET = Ticket;
   protected agendaDay: WritableSignal<1 | 2 | 3> = signal(1);
 
-  constructor(private dialog: MatDialog, private _route: ActivatedRoute) {}
+  constructor(
+    private _dialog: MatDialog,
+    private _route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     if (new Date().getTime() > new Date(2024, 2, 10).getTime()) {
@@ -47,15 +59,18 @@ export class EventComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this._route.fragment.subscribe((fragment: string | null) => {
-      fragment?.toLowerCase() === 'agenda' && setTimeout(() => this.agendaElement.nativeElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      }));
-    })
+      fragment?.toLowerCase() === 'agenda' &&
+        setTimeout(() =>
+          this.agendaElement.nativeElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          })
+        );
+    });
   }
 
   protected buyTicket(ticket: Ticket) {
-    this.dialog.open(DialogEventRegisterComponent, {
+    this._dialog.open(DialogEventRegisterComponent, {
       data: { ticket } satisfies DialogData,
       width: '900px',
       backdropClass: ['bg-app', '!opacity-90'],

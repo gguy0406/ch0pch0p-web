@@ -66,20 +66,20 @@ export class STMachineComponent {
       if (!address) return;
 
       this.turnCount.set(MAXIMUM_GAME_TURN_PER_DAY);
-      // this.isEligible.set(false);
+      this.isEligible.set(false);
 
       this._luckyGachaService
         .getTurnCount(this.walletService.key()!.bech32Address)
         .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe((turnCount) => this.turnCount.set(turnCount));
 
-      // this._swappableTraitsService
-      //   .checkEligible(this.machine().id as STMachine, this.walletService.key()!.bech32Address)
-      //   .pipe(takeUntilDestroyed(this._destroyRef))
-      //   .subscribe((isEligible) => {
-      //     this.isEligible.set(isEligible);
-      //     console.log(isEligible);
-      //   });
+      this._swappableTraitsService
+        .checkEligible(this.machine().id as STMachine, this.walletService.key()!.bech32Address)
+        .pipe(takeUntilDestroyed(this._destroyRef))
+        .subscribe((isEligible) => {
+          this.isEligible.set(isEligible);
+          console.log(isEligible);
+        });
     });
   }
 
@@ -100,8 +100,8 @@ export class STMachineComponent {
         }
 
         this.raffleResult.set({
-          name: 'trait-1',
-          imgSrc: 'assets/game/' + this.machine().id + 'trait-1.png',
+          name: Number(prize.tokenId) < 11 ? 'GM' : 'STARSpider',
+          imgSrc: 'assets/game/' + this.machine().id + `${Number(prize.tokenId) < 11 ? 'GM' : 'STARSpider'}.png`,
           txHash: prize.txHash,
         });
       });

@@ -10,14 +10,27 @@
       you wish to level up
     </div>
     <div class="mt-10 relative rounded-5xl border-3px-white w-full aspect-square">
-      <button
-        mat-icon-button
-        aria-label="Choose NFT"
-        (click)="chooseNFT()"
-        class="!absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 !bg-budd-reverse !text-black"
-      >
-        <mat-icon class="font-bold">add</mat-icon>
-      </button>
+      <img
+        [src]="chosenNFT() ? chosenNFT()!.image : 'assets/game/level-up-placeholder.png'"
+        width="100%"
+        height="100%"
+        alt="nft placeholder"
+        class="rounded-5xl"
+      />
+      @if (!chosenNFT()) {
+        <button
+          mat-icon-button
+          aria-label="Choose NFT"
+          (click)="chooseNFT()"
+          class="!absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 !bg-budd-reverse !text-black"
+        >
+          <mat-icon class="font-bold">add</mat-icon>
+        </button>
+      } @else {
+        <button mat-button (click)="chooseNFT()" class="!absolute left-1/2 -bottom-12 -translate-x-1/2">
+          choose another NFT
+        </button>
+      }
     </div>
   </div>
   <mat-icon class="self-center !w-[60px] !h-[60px] shrink-0 text-6xl">add</mat-icon>
@@ -27,21 +40,30 @@
       you want to express
     </div>
     <div class="mt-10 relative rounded-5xl border-3px-white w-full aspect-square">
-      <button
-        mat-icon-button
-        aria-label="Choose trait"
-        (click)="chooseTrait()"
-        class="!absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 !bg-budd-reverse !text-black"
-      >
-        <mat-icon class="font-bold">add</mat-icon>
-      </button>
+      @if (chosenTrait()) {
+        <img [src]="chosenTrait()!.image" width="100%" height="100%" alt="trait placeholder" class="rounded-5xl" />
+        <button mat-button (click)="chooseNFT()" class="!absolute left-1/2 -bottom-12 -translate-x-1/2">
+          choose another NFT
+        </button>
+      } @else {
+        <button
+          mat-icon-button
+          aria-label="Choose trait"
+          (click)="chooseTrait()"
+          class="!absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 !bg-budd-reverse !text-black"
+        >
+          <mat-icon class="font-bold">add</mat-icon>
+        </button>
+      }
     </div>
   </div>
 </div>
 <button
   mat-button
+  [disabled]="!chosenNFT() || !chosenTrait()"
   (click)="updateNFT()"
-  class="mt-20 mb-56 !rounded-full !bg-budd-reverse !py-11 !px-16 !font-bold !text-black !text-xl"
+  class="mt-20 mb-56 !rounded-full !bg-budd-reverse !py-11 !px-16 !font-bold !text-xl"
+  [class.!text-black]="chosenNFT() && chosenTrait()"
 >
   express
 </button>

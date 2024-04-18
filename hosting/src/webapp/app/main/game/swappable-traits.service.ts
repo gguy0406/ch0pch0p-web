@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MsgExecuteContractEncodeObject } from '@cosmjs/cosmwasm-stargate';
+import { toUtf8 } from '@cosmjs/encoding';
 import { coins } from '@cosmjs/stargate';
 import { Apollo, gql } from 'apollo-angular';
 import { MsgSend } from 'cosmjs-types/cosmos/bank/v1beta1/tx';
 import { TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
+import { MsgExecuteContract } from 'cosmjs-types/cosmwasm/wasm/v1/tx';
 import { from, Observable, of, throwError } from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
 
@@ -80,8 +83,29 @@ export class SwappableTraitsService {
     );
   }
 
-  levelUp(tokenId: string, transferTx: Uint8Array) {
-    return this._httpClient.put<void>(`${this._baseUrl}${SWAPPABLE_TRAITS_ROUTE.LEVEL_UP}/${tokenId}`, { transferTx });
+  levelUp(tokenId: string, traitId: string) {
+    return this._walletService.getSigningClient().pipe(
+      mergeMap((client) => {
+        const userAddr = this._walletService.key()!.bech32Address;
+        const mintMsg: MsgExecuteContractEncodeObject = {
+          typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+          value: MsgExecuteContract.fromPartial({
+            sender: userAddr,
+            contract: CONTRACT_ADDRESS.CERT_MINTER,
+            msg: toUtf8(JSON.stringify({ transfer_nft: { recipient: WEB_RUNNER_ADDRESS, token_id: Number(traitId) } })),
+          }),
+        };
+
+        return from(
+          client.sign(userAddr, [mintMsg], { amount: coins(0, 'ustars'), gas: '80000' }, 'level up ch0pch0p')
+        );
+      }),
+      mergeMap((signedTx) =>
+        this._httpClient.put<void>(`${this._baseUrl}${SWAPPABLE_TRAITS_ROUTE.LEVEL_UP}/${tokenId}`, {
+          transferTx: Array.from(Uint8Array.from(TxRaw.encode(signedTx).finish())),
+        })
+      )
+    );
   }
 
   private _checkEligibleOb(queryBuilder: ReturnType<typeof getGraphqlQueryCheckTokenHolder>) {

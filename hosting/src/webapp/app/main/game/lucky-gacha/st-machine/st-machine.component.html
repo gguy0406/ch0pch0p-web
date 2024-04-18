@@ -21,6 +21,7 @@
             width="306"
             height="306"
             alt="trait to win"
+            class="rounded-3xl"
           />
           <span class="mt-5 text-2xl">{{ traitName }}</span>
         </div>
@@ -28,8 +29,8 @@
 
       @switch (machine().id) {
         @case (ST_MACHINE.CH0PCH0P) {
-          <ng-container *ngTemplateOutlet="trait; context: { traitName: 'trait-1' }"></ng-container>
-          <ng-container *ngTemplateOutlet="trait; context: { traitName: 'trait-2' }"></ng-container>
+          <ng-container *ngTemplateOutlet="trait; context: { traitName: 'GM' }"></ng-container>
+          <ng-container *ngTemplateOutlet="trait; context: { traitName: 'STARSpider' }"></ng-container>
         }
       }
     </div>

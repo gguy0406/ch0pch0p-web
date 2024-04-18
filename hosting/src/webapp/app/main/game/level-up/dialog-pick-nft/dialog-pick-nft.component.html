@@ -1,0 +1,19 @@
+<h2 class="text-center font-monotalic text-white uppercase">Pick a ch0pch0p to level up</h2>
+@if (isQueryingData()) {
+  <mat-spinner class="mt-6 mx-auto" />
+} @else if (metadata().length) {
+  <div class="mt-6 max-w-4xl flex gap-10 flex-wrap">
+    @for (metadata of metadata(); track 'name') {
+      <div role="presentation" (click)="pickNFT(metadata)" class="image-container cursor-pointer">
+        <img [src]="metadata.image" [alt]="metadata.name" class="rounded-2xxl" />
+      </div>
+    }
+  </div>
+} @else {
+  <div class="mt-6 text-white text-lg">
+    No NFTs found in your wallet. Find your first treasure in
+    <a [href]="buyNFTUrl()" target="_blank" rel="Stargaze Marketplace" class="underline underline-offset-3"
+      >our collection.</a
+    >
+  </div>
+}
