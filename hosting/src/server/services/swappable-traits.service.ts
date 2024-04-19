@@ -130,69 +130,48 @@ export async function updateTokenMetadata(tokenId: string, transferTx: Uint8Arra
 
   if (tokenOwner !== decodedMsgExecuteContract.sender) throw createHttpError(403);
 
-  // const c1TokenMetadata = await getTokenMetadata(CONTRACT_ADDRESS.C1_SG721, tokenId);
-  // const certTokenMetadata = await getTokenMetadata(CONTRACT_ADDRESS.CERT_SG721, tokenId);
+  const c1TokenMetadata = await getTokenMetadata(CONTRACT_ADDRESS.C1_SG721, tokenId);
+  const certTokenMetadata = await getTokenMetadata(CONTRACT_ADDRESS.CERT_SG721, tokenId);
 
-  // if (!c1TokenMetadata.swappable) throw createHttpError(400, `Cannot update token ${tokenId}`);
+  if (!c1TokenMetadata.swappable) throw createHttpError(400, `Cannot update token ${tokenId}`);
 
-  const c1TokenMetadata = {
-    name: '1',
-    swappable: false,
-    image: 'ipfs://bafybeibu4pmtrknoxcn6colb7yko2zufznxmcasjelure2ctht4roa4w5q/1.jpeg',
-    rawAttributes: {
-      Face: 'Egg',
-      Hair: 'Egg',
-      Head: 'Egg',
-      Hand: 'Egg',
-      Self: 'Egg',
-      Clothes: 'Egg',
-      Body: 'Egg',
-      Background: 'Egg',
-      Skin: 'Egg',
-    },
-    attributes: [
-      { value: 'Egg', trait_type: 'Face', display_type: 'string' },
-      { value: 'Egg', trait_type: 'Hair', display_type: 'string' },
-      { value: 'Egg', trait_type: 'Head', display_type: 'string' },
-      { value: 'Egg', trait_type: 'Hand', display_type: 'string' },
-      { value: 'Egg', trait_type: 'Self', display_type: 'string' },
-      { value: 'Egg', trait_type: 'Clothes', display_type: 'string' },
-      { value: 'Egg', trait_type: 'Body', display_type: 'string' },
-      { value: 'Egg', trait_type: 'Background', display_type: 'string' },
-      { value: 'Egg', trait_type: 'Skin', display_type: 'string' },
-    ],
-  };
-  const certTokenMetadata = {
-    name: 'Swappable Trait #1',
-    rawAttributes: { Self: 'Alien' },
-    attributes: [{ value: 'Alien', trait_type: 'Self', display_type: 'string' }],
-    image: 'ipfs://bafybeigkznfi6bzqvzgfjqeoiovjcptsfcgtcfc4dbiui7sgyu7wcuvjiq/1.svg',
-  };
+  const transferTxResult = await broadcastTx(transferTx);
 
-  // const transferTxResult = await broadcastTx(transferTx);
-
-  // if (transferTxResult.code !== 0) throw createHttpError(400);
+  if (transferTxResult.code !== 0) throw createHttpError(400);
 
   const image = await generateNewImage(c1TokenMetadata.rawAttributes, certTokenMetadata.rawAttributes);
-  const cid = await uploadImageToStorage(image, `${tokenId}.jpeg`);
-  console.log(cid);
-  // const client = await getSigningCosmWasmClient();
-  // const updateMsg: MsgExecuteContractEncodeObject = {
-  //   typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
-  //   value: MsgExecuteContract.fromPartial({
-  //     sender: WEB_RUNNER_ADDRESS,
-  //     contract: CONTRACT_ADDRESS.CERT_MINTER,
-  //     msg: toUtf8(JSON.stringify({ update_token_metadata: { token_id: tokenId, token_uri: cid } })),
-  //   }),
-  // };
-  // const txResult = await client.signAndBroadcast(WEB_RUNNER_ADDRESS, [updateMsg], 'auto', 'level up');
+  const imageCid = await uploadToStorage(image, `${tokenId}.jpeg`);
 
-  // if (txResult.code !== 0) {
-  //   throw createHttpError(
-  //     500,
-  //     `Update metadata failed.\nToken Id: ${tokenId}.\nCID: ${cid}.\nTx hash: ${txResult.transactionHash}`
-  //   );
-  // }
+  c1TokenMetadata.image = `ipfs://${imageCid}/${tokenId}.jpeg`;
+  Object.assign(c1TokenMetadata.rawAttributes, certTokenMetadata.rawAttributes);
+  certTokenMetadata.attributes.forEach((attribute) => {
+    const c1AttributeIndex = c1TokenMetadata.attributes.findIndex(
+      (c1Attribute) => c1Attribute.trait_type === attribute.trait_type
+    );
+
+    c1TokenMetadata.attributes[c1AttributeIndex] = attribute;
+  });
+
+  const metadataCid = await uploadToStorage(Buffer.from(JSON.stringify(c1TokenMetadata, null, 2)), `${tokenId}.json`);
+  const client = await getSigningCosmWasmClient();
+  const updateMsg: MsgExecuteContractEncodeObject = {
+    typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+    value: MsgExecuteContract.fromPartial({
+      sender: WEB_RUNNER_ADDRESS,
+      contract: CONTRACT_ADDRESS.CERT_MINTER,
+      msg: toUtf8(JSON.stringify({ update_token_metadata: { token_id: tokenId, token_uri: metadataCid } })),
+    }),
+  };
+  const txResult = await client.signAndBroadcast(WEB_RUNNER_ADDRESS, [updateMsg], 'auto', 'level up');
+
+  if (txResult.code !== 0) {
+    throw createHttpError(
+      500,
+      `Update metadata failed.\nToken Id: ${tokenId}.\nCID: ${metadataCid}.\nTx hash: ${txResult.transactionHash}`
+    );
+  }
+
+  return { txHash: txResult.transactionHash, image: `https://nftstorage.link/ipfs/${imageCid}/${tokenId}.jpeg` };
 }
 
 function decodeTx(tx: Uint8Array) {
@@ -314,41 +293,40 @@ async function generateNewImage(tokenMetadata: Record<string, string>, traitMeta
   const layerRegex = /\.\d+$/;
   const layers: Record<string, Image> = {};
 
-  traits.forEach(async (trait, index) => {
-    const element = Object.keys(traitMetadata).includes(trait) ? traitMetadata[trait] : tokenMetadata[trait];
-    const regex = new RegExp(`/^${element}(.d+)?.(png|svg)$/`);
+  for (const [index, trait] of traits.entries()) {
+    const element = Object.keys(traitMetadata).includes(trait) ? traitMetadata[trait] : tokenMetadata[trait] || trait;
+    const regex = new RegExp(`^${element}(\\.\\d+)?\\.(png|svg)$`);
     const traitPath = path.join(traitsPath, trait);
+    const matchedFileName = (await readdir(traitPath)).filter((fileName) => regex.test(fileName));
 
-    (await readdir(traitPath))
-      .filter((fileName) => regex.test(fileName))
-      .forEach(async (fileName) => {
-        const filePath = pathJoin(traitPath, fileName);
-        const layerName = path.basename(fileName, path.extname(fileName));
-        const layerZIndex = Number(layerName.match(layerRegex)?.[0].substring(1)) || index * 100;
+    for (const fileName of matchedFileName) {
+      const filePath = pathJoin(traitPath, fileName);
+      const layerName = path.basename(fileName, path.extname(fileName));
+      const layerZIndex = Number(layerName.match(layerRegex)?.[0].substring(1)) || index * 100;
 
-        if (
-          path.extname(filePath) === '.svg' &&
-          syncColorSetting.syncColorTraits.includes(trait) &&
-          syncColorSetting.colorSets[tokenMetadata['Skin'] as Skin]
-        ) {
-          let imgFile = await readFile(filePath, { encoding: 'utf-8' });
-          const img = new Image();
+      if (
+        path.extname(filePath) === '.svg' &&
+        syncColorSetting.syncColorTraits.includes(trait) &&
+        syncColorSetting.colorSets[tokenMetadata['Skin'] as Skin]
+      ) {
+        let imgFile = await readFile(filePath, { encoding: 'utf-8' });
+        const img = new Image();
 
-          Object.keys(syncColorSetting.defaultSet).forEach((type) => {
-            imgFile = imgFile.replace(
-              syncColorSetting.defaultSet[type as ColorType],
-              syncColorSetting.colorSets[tokenMetadata['Skin'] as Skin][type as ColorType]
-            );
-          });
+        Object.keys(syncColorSetting.defaultSet).forEach((type) => {
+          imgFile = imgFile.replace(
+            syncColorSetting.defaultSet[type as ColorType],
+            syncColorSetting.colorSets[tokenMetadata['Skin'] as Skin][type as ColorType]
+          );
+        });
 
-          img.src = 'data:image/svg+xml;charset=utf-8,' + imgFile;
-          layers[layerZIndex] = img;
-          return;
-        }
+        img.src = 'data:image/svg+xml;charset=utf-8,' + imgFile;
+        layers[layerZIndex] = img;
+        continue;
+      }
 
-        layers[layerZIndex] = await loadImage(filePath);
-      });
-  });
+      layers[layerZIndex] = await loadImage(filePath);
+    }
+  }
 
   const canvas = createCanvas(2000, 2000);
   const ctx = canvas.getContext('2d');
@@ -360,9 +338,9 @@ async function generateNewImage(tokenMetadata: Record<string, string>, traitMeta
   return canvas.toBuffer('image/jpeg', { quality: 1 });
 }
 
-function uploadImageToStorage(image: Buffer, fileName: string) {
+function uploadToStorage(buffer: Buffer, fileName: string) {
   const client = new NFTStorage({ token: process.env['STORAGE_API_KEY'] as string });
-  const blob = new Blob([image]);
+  const blob = new Blob([buffer]);
   const file = new File([blob], fileName);
 
   return client.storeDirectory([file]);
