@@ -11,8 +11,8 @@ export const STARGAZE_RPC_ENDPOINT = 'https://rpc.stargaze-apis.com';
 export const CONTRACT_ADDRESS = {
   C0_SG721: 'stars10h9mr3z3xycatlp8pjqw478g74mvuacghq9rn3selc7u4m9zxthqfafz0e',
   C1_SG721: 'stars1j947vk0takflmf4j6wjsy3gr58ua5n7g55af2v8zskmvfxqejzhqw66ys6',
-  CERT_MINTER: '',
-  CERT_SG721: '',
+  CERT_MINTER: 'stars1s07mjt2z57v29t5r0dtp4ua2tnx804syxw932pmlsryeecxjcsdqu8g6kn',
+  CERT_SG721: 'stars1su4h30h3mr2wt499t63z9z37jthad9sc8g4gz5v99lu8v4kpzxaqw9n9wy',
 } as const;
 
 export const EVENT_ATTENDANCE_ADDRESSES: readonly string[] = [

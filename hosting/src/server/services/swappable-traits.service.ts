@@ -13,6 +13,7 @@ import { fileURLToPath } from 'node:url';
 
 import {
   CONTRACT_ADDRESS,
+  IS_PRODUCTION,
   MACHINE_CONFIG,
   MAXIMUM_GAME_TURN_PER_DAY,
   STARGAZE_RPC_ENDPOINT,
@@ -289,7 +290,7 @@ async function generateNewImage(tokenMetadata: Record<string, string>, traitMeta
   type Skin = keyof (typeof syncColorSetting)['colorSets'];
 
   const currentDir = dirname(fileURLToPath(import.meta.url));
-  const traitsPath = resolve(currentDir, '..', 'assets');
+  const traitsPath = IS_PRODUCTION ? resolve(currentDir, 'assets') : resolve(currentDir, '..', 'assets');
   const layerRegex = /\.\d+$/;
   const layers: Record<string, Image> = {};
 
