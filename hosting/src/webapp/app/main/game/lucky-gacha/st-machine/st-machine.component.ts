@@ -76,10 +76,7 @@ export class STMachineComponent {
       this._swappableTraitsService
         .checkEligible(this.machine().id as STMachine, this.walletService.key()!.bech32Address)
         .pipe(takeUntilDestroyed(this._destroyRef))
-        .subscribe((isEligible) => {
-          this.isEligible.set(isEligible);
-          console.log(isEligible);
-        });
+        .subscribe((isEligible) => this.isEligible.set(isEligible));
     });
   }
 
