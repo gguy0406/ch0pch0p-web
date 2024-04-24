@@ -22,7 +22,7 @@ import {
 import { consumeTurn } from '../db/consume-turn';
 import * as dbMachines from '../db/machines';
 import * as dbTurnCount from '../db/play-turn-count';
-import { ST_GAME_FEE, WEB_RUNNER_ADDRESS } from '../lib/constants';
+import { C1_SWAPPABLE_NFT, ST_GAME_FEE, WEB_RUNNER_ADDRESS } from '../lib/constants';
 import { QueryCheckTokenHolderResult, getGraphqlQueryCheckTokenHolder, graphqlQuery } from '../lib/helpers';
 import { MachineStatus, STMachine } from '../lib/types';
 import { checkStarsAddress } from '../middlewares/check-stars-address';
@@ -112,6 +112,10 @@ export async function play(machine: STMachine, payFeeTx: Uint8Array) {
 }
 
 export async function updateTokenMetadata(tokenId: string, transferTx: Uint8Array) {
+  if (!C1_SWAPPABLE_NFT[tokenId as keyof typeof C1_SWAPPABLE_NFT]) {
+    throw createHttpError(400, `Cannot update token ${tokenId}`);
+  }
+
   const decodedTx = decodeTx(transferTx);
 
   if (decodedTx.body!.messages[0].typeUrl !== '/cosmwasm.wasm.v1.MsgExecuteContract') throw createHttpError(400);
@@ -133,9 +137,6 @@ export async function updateTokenMetadata(tokenId: string, transferTx: Uint8Arra
 
   const c1TokenMetadata = await getTokenMetadata(CONTRACT_ADDRESS.C1_SG721, tokenId);
   const certTokenMetadata = await getTokenMetadata(CONTRACT_ADDRESS.CERT_SG721, tokenId);
-
-  if (!c1TokenMetadata.swappable) throw createHttpError(400, `Cannot update token ${tokenId}`);
-
   const transferTxResult = await broadcastTx(transferTx);
 
   if (transferTxResult.code !== 0) throw createHttpError(400);
