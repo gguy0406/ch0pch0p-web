@@ -101,9 +101,12 @@ export class SwappableTraitsService {
         );
       }),
       mergeMap((signedTx) =>
-        this._httpClient.put<void>(`${this._baseUrl}${SWAPPABLE_TRAITS_ROUTE.LEVEL_UP}/${tokenId}`, {
-          transferTx: Array.from(Uint8Array.from(TxRaw.encode(signedTx).finish())),
-        })
+        this._httpClient.put<{ txHash: string; image: string }>(
+          `${this._baseUrl}${SWAPPABLE_TRAITS_ROUTE.LEVEL_UP}/${tokenId}`,
+          {
+            transferTx: Array.from(Uint8Array.from(TxRaw.encode(signedTx).finish())),
+          }
+        )
       )
     );
   }
