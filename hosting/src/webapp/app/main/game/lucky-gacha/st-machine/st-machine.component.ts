@@ -98,7 +98,7 @@ export class STMachineComponent {
 
         this.raffleResult.set({
           name: Number(prize.tokenId) < 11 ? 'GM' : 'STARSpider',
-          imgSrc: 'assets/game/' + this.machine().id + `${Number(prize.tokenId) < 11 ? 'GM' : 'STARSpider'}.png`,
+          imgSrc: `assets/game/${this.machine().id}-${Number(prize.tokenId) < 11 ? 'GM' : 'STARSpider'}.png`,
           txHash: prize.txHash,
         });
       });

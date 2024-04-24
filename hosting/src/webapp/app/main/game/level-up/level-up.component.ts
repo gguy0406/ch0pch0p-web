@@ -38,7 +38,10 @@ export class LevelUpComponent {
 
     this._dialog
       .open(DialogPickNftComponent, {
-        data: { collectionAddress: CONTRACT_ADDRESS.C1_SG721 } satisfies DialogData,
+        data: {
+          collectionAddress: CONTRACT_ADDRESS.C1_SG721,
+          header: 'Pick a ch0pch0p to level up',
+        } satisfies DialogData,
         width: '900px',
         backdropClass: ['bg-app', '!opacity-90'],
         panelClass: 'rounded-[50px]',
@@ -56,7 +59,10 @@ export class LevelUpComponent {
 
     this._dialog
       .open(DialogPickNftComponent, {
-        data: { collectionAddress: CONTRACT_ADDRESS.CERT_SG721 } satisfies DialogData,
+        data: {
+          collectionAddress: CONTRACT_ADDRESS.CERT_SG721,
+          header: 'Pick a self trait you want to swap',
+        } satisfies DialogData,
         width: '900px',
         backdropClass: ['bg-app', '!opacity-90'],
         panelClass: 'rounded-[50px]',

@@ -13,6 +13,10 @@
         </div>
       }
     }
+    <div class="mt-10 text-center">
+      Play & win an exclusive swappable self trait, which can be used to level up your ch0pch0p.<br />Let's turn your
+      regular NFT into a rare one.
+    </div>
     <div class="mt-15 flex gap-x-10">
       <ng-template #trait let-traitName="traitName">
         <div class="rounded-5xl border-3px-white p-4 flex flex-col items-center">
@@ -39,7 +43,7 @@
     <img [src]="'assets/game/ch0pch0p-machine.png'" width="356" height="700" alt="gacha machine" />
     <button
       mat-button
-      [disabled]="cannotPlay()"
+      [disabled]="walletService.key() && cannotPlay()"
       (click)="walletService.key() ? play() : walletService.connectWallet()"
       class="!absolute top-[54.5%] left-[29%] right-[28.5%] !rounded-full !h-[148px] !text-3xl !font-bold"
       [class.!text-black]="!cannotPlay()"
@@ -81,11 +85,15 @@
           (click)="raffleResult.set(undefined)"
           class="!rounded-full !bg-lime !py-11 !px-6 !font-bold !text-black !text-xl"
         >
-          try my luck again
+          play another round
         </button>
       }
-      <a mat-button routerLink="/" class="!rounded-full !bg-orange !py-11 !px-6 !font-bold !text-black !text-xl">
-        back to homepage
+      <a
+        mat-button
+        routerLink="../../level-up"
+        class="!rounded-full !bg-orange !py-11 !px-6 !font-bold !text-black !text-xl"
+      >
+        level up your NFT
       </a>
     </div>
   </div>

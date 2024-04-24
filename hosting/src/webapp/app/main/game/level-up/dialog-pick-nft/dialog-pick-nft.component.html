@@ -1,4 +1,4 @@
-<h2 class="text-center font-monotalic text-white uppercase">Pick a ch0pch0p to level up</h2>
+<h2 class="text-center font-monotalic text-white uppercase">{{ header() }}</h2>
 @if (isQueryingData()) {
   <mat-spinner class="mt-6 mx-auto" />
 } @else if (metadata().length) {

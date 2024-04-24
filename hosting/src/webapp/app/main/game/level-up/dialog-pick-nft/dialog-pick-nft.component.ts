@@ -12,6 +12,7 @@ import { IMetadata, NftQueryService } from './nft-query.service';
 
 export interface DialogData {
   collectionAddress: string;
+  header: string;
 }
 
 @Component({
@@ -26,6 +27,7 @@ export interface DialogData {
 export class DialogPickNftComponent {
   protected isQueryingData: WritableSignal<boolean> = signal(false);
   protected buyNFTUrl: WritableSignal<string> = signal(BUY_CH0PCH0P_URL);
+  protected header: WritableSignal<string> = signal('Pick a NFT to level up');
   protected metadata: WritableSignal<IMetadata[]> = signal([]);
 
   constructor(
@@ -36,6 +38,7 @@ export class DialogPickNftComponent {
   ) {
     this.isQueryingData.set(true);
     this.buyNFTUrl.set(getMarketplaceUrl(_data.collectionAddress));
+    this.header.set(_data.header);
 
     _nftQueryService
       .getNFTImages(_data.collectionAddress, _walletService.key()!.bech32Address)

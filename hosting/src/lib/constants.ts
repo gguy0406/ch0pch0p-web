@@ -1,3 +1,5 @@
+export { C1_SWAPPABLE_NFT } from './c1-swappable-nft';
+
 export const WEB_RUNNER_ADDRESS = 'stars1vka2ttgakm65av7kqt9ecwh3eeswz9avca853q';
 export const ST_GAME_FEE = 10;
 
