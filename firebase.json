@@ -1,11 +1,11 @@
 {
   "hosting": [
     {
-      "target": "ch0pch0p-web",
+      "target": "ch0pch0p",
       "source": "hosting",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "frameworksBackend": { "region": "asia-east1" },
-      "predeploy": "cp -r hosting/src/server/assets .firebase/ch0pch0p-web/functions/dist/ch0pch0p-web/server"
+      "predeploy": "cp -r hosting/src/server/assets .firebase/ch0pch0p/functions/dist/ch0pch0p-web/server"
     }
   ]
 }

@@ -1,12 +1,12 @@
 {
   "projects": {
-    "default": "ch0pch0p-web"
+    "default": "ch0pch0p"
   },
   "targets": {
-    "ch0pch0p-web": {
+    "ch0pch0p": {
       "hosting": {
-        "ch0pch0p-web": [
-          "ch0pch0p-web"
+        "ch0pch0p": [
+          "ch0pch0p"
         ]
       }
     }
