@@ -43,6 +43,7 @@ export class STMachineComponent {
   protected readonly ST_MACHINE = STMachine;
   protected machine: Signal<Machine>;
   protected isEligible: WritableSignal<boolean> = signal(true);
+  protected checkingEligible: WritableSignal<boolean> = signal(false);
   protected turnCount: WritableSignal<number> = signal(MAXIMUM_GAME_TURN_PER_DAY);
   protected isRaffling: WritableSignal<boolean> = signal(false);
   protected raffleResult: WritableSignal<{ name: string; imgSrc: string; txHash: string } | undefined> =
@@ -67,6 +68,7 @@ export class STMachineComponent {
 
       this.turnCount.set(MAXIMUM_GAME_TURN_PER_DAY);
       this.isEligible.set(false);
+      this.checkingEligible.set(true);
 
       this._luckyGachaService
         .getTurnCount(this.walletService.key()!.bech32Address)
@@ -75,7 +77,10 @@ export class STMachineComponent {
 
       this._swappableTraitsService
         .checkEligible(this.machine().id as STMachine, this.walletService.key()!.bech32Address)
-        .pipe(takeUntilDestroyed(this._destroyRef))
+        .pipe(
+          finalize(() => this.checkingEligible.set(false)),
+          takeUntilDestroyed(this._destroyRef)
+        )
         .subscribe((isEligible) => this.isEligible.set(isEligible));
     });
   }

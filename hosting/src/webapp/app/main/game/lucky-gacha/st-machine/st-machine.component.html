@@ -48,7 +48,7 @@
       class="!absolute top-[54.5%] left-[29%] right-[28.5%] !rounded-full !h-[148px] !text-3xl !font-bold"
       [class.!text-black]="!cannotPlay()"
     >
-      @if (isRaffling()) {
+      @if (checkingEligible() || isRaffling()) {
         <mat-spinner />
       } @else {
         {{ walletService.key() ? 'play' : 'connect wallet' }}
