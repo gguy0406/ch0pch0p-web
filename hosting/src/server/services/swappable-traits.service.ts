@@ -124,7 +124,7 @@ export async function updateTokenMetadata(tokenId: string, transferTx: Uint8Arra
   const transferMsg = JSON.parse(fromUtf8(decodedMsgExecuteContract.msg));
 
   if (
-    decodedMsgExecuteContract.contract !== CONTRACT_ADDRESS.CERT_MINTER ||
+    decodedMsgExecuteContract.contract !== CONTRACT_ADDRESS.CERT_SG721 ||
     !transferMsg?.transfer_nft?.token_id ||
     transferMsg.transfer_nft.recipient !== WEB_RUNNER_ADDRESS
   ) {
@@ -136,23 +136,30 @@ export async function updateTokenMetadata(tokenId: string, transferTx: Uint8Arra
   if (tokenOwner !== decodedMsgExecuteContract.sender) throw createHttpError(403);
 
   const c1TokenMetadata = await getTokenMetadata(CONTRACT_ADDRESS.C1_SG721, tokenId);
-  const certTokenMetadata = await getTokenMetadata(CONTRACT_ADDRESS.CERT_SG721, tokenId);
+  const certTokenMetadata = await getTokenMetadata(CONTRACT_ADDRESS.CERT_SG721, transferMsg.transfer_nft.token_id);
   const transferTxResult = await broadcastTx(transferTx);
 
   if (transferTxResult.code !== 0) throw createHttpError(400);
 
-  const image = await generateNewImage(c1TokenMetadata.rawAttributes, certTokenMetadata.rawAttributes);
-  const imageCid = await uploadToStorage(image, `${tokenId}.jpeg`);
+  const certTokenMetadataRawAttributes: Record<string, string> = {};
 
-  c1TokenMetadata.image = `ipfs://${imageCid}/${tokenId}.jpeg`;
-  Object.assign(c1TokenMetadata.rawAttributes, certTokenMetadata.rawAttributes);
   certTokenMetadata.attributes.forEach((attribute) => {
+    certTokenMetadataRawAttributes[attribute.trait_type] = attribute.value;
+
     const c1AttributeIndex = c1TokenMetadata.attributes.findIndex(
       (c1Attribute) => c1Attribute.trait_type === attribute.trait_type
     );
 
+    if (!~c1AttributeIndex) return;
+
     c1TokenMetadata.attributes[c1AttributeIndex] = attribute;
+    c1TokenMetadata.rawAttributes[attribute.trait_type] = attribute.value;
   });
+
+  const image = await generateNewImage(c1TokenMetadata.rawAttributes, certTokenMetadataRawAttributes);
+  const imageCid = await uploadToStorage(image, `${tokenId}.jpeg`);
+
+  c1TokenMetadata.image = `ipfs://${imageCid}/${tokenId}.jpeg`;
 
   const metadataCid = await uploadToStorage(Buffer.from(JSON.stringify(c1TokenMetadata, null, 2)), `${tokenId}.json`);
   const client = await getSigningCosmWasmClient();

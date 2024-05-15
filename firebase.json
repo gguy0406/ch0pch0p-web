@@ -5,7 +5,7 @@
       "source": "hosting",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "frameworksBackend": { "region": "asia-east1" },
-      "predeploy": "cp -r hosting/src/server/assets .firebase/ch0pch0p/functions/dist/ch0pch0p-web/server"
+      "predeploy": "cp -r hosting/src/server/assets .firebase/ch0pch0p/functions/dist/ch0pch0p-web/server && cp hosting/scripts/server.js .firebase/ch0pch0p/functions"
     }
   ]
 }

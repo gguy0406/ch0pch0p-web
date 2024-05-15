@@ -3,8 +3,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { map } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import { C1_SWAPPABLE_NFT } from '@lib/constants';
 import { WalletService } from '@services/wallet.service';
@@ -20,10 +21,11 @@ import { IToken, NftQueryService } from './nft-query.service';
   styleUrl: './level-up.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule, MatProgressSpinnerModule],
   providers: [NftQueryService, SwappableTraitsService],
 })
 export class LevelUpComponent {
+  protected isLevelingUp: WritableSignal<boolean> = signal(false);
   protected chosenNFT: WritableSignal<IToken | undefined> = signal(undefined);
   protected chosenTrait: WritableSignal<IToken | undefined> = signal(undefined);
 
@@ -88,9 +90,14 @@ export class LevelUpComponent {
   }
 
   protected updateNFT() {
+    this.isLevelingUp.set(true);
+
     this._swappableTraitService
       .levelUp(this.chosenNFT()!.id, this.chosenTrait()!.id)
-      .pipe(takeUntilDestroyed(this._destroyRef))
+      .pipe(
+        finalize(() => this.isLevelingUp.set(false)),
+        takeUntilDestroyed(this._destroyRef)
+      )
       .subscribe((result) => {
         this.chosenNFT.set(undefined);
         this.chosenTrait.set(undefined);

@@ -60,10 +60,14 @@
 </div>
 <button
   mat-button
-  [disabled]="!chosenNFT() || !chosenTrait()"
+  [disabled]="!chosenNFT() || !chosenTrait() || isLevelingUp()"
   (click)="updateNFT()"
   class="mt-20 mb-56 !rounded-full !bg-budd-reverse !py-11 !px-16 !font-bold !text-xl"
   [class.!text-black]="chosenNFT() && chosenTrait()"
 >
-  express
+  @if (isLevelingUp()) {
+    <mat-spinner [diameter]="40" />
+  } @else {
+    express
+  }
 </button>

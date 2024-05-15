@@ -87,17 +87,17 @@ export class SwappableTraitsService {
     return this._walletService.getSigningClient().pipe(
       mergeMap((client) => {
         const userAddr = this._walletService.key()!.bech32Address;
-        const mintMsg: MsgExecuteContractEncodeObject = {
+        const transferMsg: MsgExecuteContractEncodeObject = {
           typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
           value: MsgExecuteContract.fromPartial({
             sender: userAddr,
-            contract: CONTRACT_ADDRESS.CERT_MINTER,
-            msg: toUtf8(JSON.stringify({ transfer_nft: { recipient: WEB_RUNNER_ADDRESS, token_id: Number(traitId) } })),
+            contract: CONTRACT_ADDRESS.CERT_SG721,
+            msg: toUtf8(JSON.stringify({ transfer_nft: { recipient: WEB_RUNNER_ADDRESS, token_id: traitId } })),
           }),
         };
 
         return from(
-          client.sign(userAddr, [mintMsg], { amount: coins(0, 'ustars'), gas: '80000' }, 'level up ch0pch0p')
+          client.sign(userAddr, [transferMsg], { amount: coins(0, 'ustars'), gas: '150000' }, 'level up ch0pch0p')
         );
       }),
       mergeMap((signedTx) =>
