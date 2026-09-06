@@ -6,11 +6,15 @@ import { apiRouter } from './routes/api.route';
 import { logger } from './utils/logger';
 
 export function expressInitializer(app: Express) {
-  const serviceAccount = JSON.parse(process.env['CHOP_SERVICE_ACCOUNT'] as string);
+  const serviceAccountJson = process.env['CHOP_SERVICE_ACCOUNT'];
 
-  serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/gm, '\n');
-
-  initializeApp({ credential: cert(serviceAccount) });
+  if (serviceAccountJson) {
+    const serviceAccount = JSON.parse(serviceAccountJson);
+    serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/gm, '\n');
+    initializeApp({ credential: cert(serviceAccount) });
+  } else {
+    initializeApp();
+  }
 
   app.use(helmet({ contentSecurityPolicy: false }));
   app.use('/api', apiRouter);

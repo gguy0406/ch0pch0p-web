@@ -1,7 +1,7 @@
 import { CosmWasmClient, MsgExecuteContractEncodeObject } from '@cosmjs/cosmwasm-stargate';
 import { fromUtf8, toUtf8 } from '@cosmjs/encoding';
 import { StargateClient } from '@cosmjs/stargate';
-import { Image, createCanvas, loadImage } from 'canvas';
+import type { Image } from 'canvas';
 import { MsgSend } from 'cosmjs-types/cosmos/bank/v1beta1/tx';
 import { Tx } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
 import { MsgExecuteContract } from 'cosmjs-types/cosmwasm/wasm/v1/tx';
@@ -103,9 +103,9 @@ export async function play(machine: STMachine, payFeeTx: Uint8Array) {
 
   sendMessageToDiscord(
     `Cert minted No. ${machineSetting.wonPrize + 1}\n` +
-      `Address: ${msgSend.fromAddress}.\n` +
-      `Token ID: ${tokenId}.\n` +
-      `Tx hash: ${txResult.transactionHash}`
+    `Address: ${msgSend.fromAddress}.\n` +
+    `Token ID: ${tokenId}.\n` +
+    `Tx hash: ${txResult.transactionHash}`
   );
 
   return { contract: CONTRACT_ADDRESS.CERT_MINTER, tokenId: tokenId, txHash: txResult.transactionHash };
@@ -280,6 +280,7 @@ async function getTokenUri(sg721Address: string, tokenId: string) {
 }
 
 async function generateNewImage(tokenMetadata: Record<string, string>, traitMetadata: Record<string, string>) {
+  const { Image, createCanvas, loadImage } = await import('canvas');
   const traits = ['Background', 'Body', 'Clothes', 'Self', 'Hand', 'Head', 'Hair', 'Face', 'Ear', 'Nose'];
   const syncColorSetting = {
     syncColorTraits: ['Body', 'Hand', 'Head', 'Ear', 'Nose'],
@@ -344,7 +345,7 @@ async function generateNewImage(tokenMetadata: Record<string, string>, traitMeta
     ctx.drawImage(layer, 0, 0);
   }
 
-  return canvas.toBuffer('image/jpeg', { quality: 1 });
+  return canvas.toBuffer('image/jpeg', 100);
 }
 
 function uploadToStorage(buffer: Buffer, fileName: string) {

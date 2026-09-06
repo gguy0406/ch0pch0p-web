@@ -12,13 +12,27 @@
           "skipTests": true,
           "style": "scss"
         },
-        "@schematics/angular:class": { "skipTests": true },
-        "@schematics/angular:directive": { "skipTests": true },
-        "@schematics/angular:guard": { "skipTests": true },
-        "@schematics/angular:interceptor": { "skipTests": true },
-        "@schematics/angular:pipe": { "skipTests": true },
-        "@schematics/angular:resolver": { "skipTests": true },
-        "@schematics/angular:service": { "skipTests": true }
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:resolver": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
       },
       "root": "",
       "sourceRoot": "src/webapp",
@@ -30,18 +44,37 @@
             "outputPath": "dist/ch0pch0p-web",
             "index": "src/webapp/index.html",
             "browser": "src/webapp/main.ts",
-            "polyfills": ["zone.js", "src/webapp/polyfills.ts"],
+            "polyfills": [
+              "zone.js",
+              "src/webapp/polyfills.ts"
+            ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/webapp/favicon.ico", "src/webapp/assets"],
-            "styles": ["src/webapp/styles.scss"],
+            "assets": [
+              "src/webapp/favicon.ico",
+              "src/webapp/assets"
+            ],
+            "styles": [
+              "src/webapp/styles.scss"
+            ],
             "scripts": [],
             "server": "src/webapp/main.server.ts",
-            "prerender": true,
-            "ssr": { "entry": "src/server/server.ts" },
-            "stylePreprocessorOptions": { "includePaths": ["", "src/webapp"] },
-            "allowedCommonJsDependencies": ["*"],
-            "externalDependencies": ["canvas", "firebase-admin"]
+            "ssr": {
+              "entry": "src/server/server.ts"
+            },
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "",
+                "src/webapp"
+              ]
+            },
+            "allowedCommonJsDependencies": [
+              "*"
+            ],
+            "externalDependencies": [
+              "canvas",
+              "firebase-admin"
+            ]
           },
           "configurations": {
             "production": {
@@ -76,25 +109,40 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production": { "buildTarget": "ch0pch0p-web:build:production" },
-            "development": { "buildTarget": "ch0pch0p-web:build:development" }
+            "production": {
+              "buildTarget": "ch0pch0p-web:build:production"
+            },
+            "development": {
+              "buildTarget": "ch0pch0p-web:build:development"
+            }
           },
           "defaultConfiguration": "development",
-          "options": { "open": true }
+          "options": {
+            "open": true
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": { "buildTarget": "ch0pch0p-web:build" }
+          "options": {
+            "buildTarget": "ch0pch0p-web:build"
+          }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
-          "options": { "lintFilePatterns": ["src/**/*.ts", "src/webapp/**/*.html"] }
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/webapp/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
     "analytics": "3b08a9c2-9a76-46f5-ba4c-63e8cf7c234b",
-    "schematicCollections": ["@angular-eslint/schematics"]
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
